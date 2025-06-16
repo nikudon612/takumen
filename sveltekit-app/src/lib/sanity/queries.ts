@@ -15,3 +15,59 @@ export interface Post {
 	mainImage?: ImageAsset;
 	body: PortableTextBlock[];
 }
+
+export const navigationQuery = groq`*[_type == "navigation" && _id == "navigation"][0]{
+  logo {
+    asset->{
+      url
+    }
+  },
+  links[]{
+    label,
+    href
+  }
+}`;
+
+export interface Navigation {
+  logo?: {
+    asset: {
+      url: string;
+    };
+  };
+  links: {
+    label: string;
+    href: string;
+  }[];
+}
+
+export const footerQuery = groq`*[_type == "footer" && _id == "footer"][0]{
+  locationLabel,
+  address
+}`;
+
+export interface Footer {
+  locationLabel?: string;
+  address?: string;
+}
+
+export const homeQuery = groq`*[_type == "home" && _id == "home"][0]{
+  introText,
+  slideshowImages[]{
+    asset->{
+      url
+    },
+    alt,
+    caption
+  }
+}`;
+
+export interface Home {
+  introText?: string;
+  slideshowImages: {
+    asset: {
+      url: string;
+    };
+    alt?: string;
+    caption?: string;
+  }[];
+}

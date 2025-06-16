@@ -2,6 +2,14 @@
 	import { isPreviewing, VisualEditing } from '@sanity/visual-editing/svelte';
 	import { page } from '$app/stores';
 	import LiveMode from '../components/LiveMode.svelte';
+
+	export let data;
+
+	const { navigation, footer } = data;
+
+	console.log('Layout data:', data);
+	console.log('Navigation:', navigation);
+	console.log('Footer:', footer);
 </script>
 
 {#if $isPreviewing}
@@ -11,17 +19,34 @@
 	</a>
 {/if}
 
+<svelte:head>
+	<title>Takumen LIC</title>
+</svelte:head>
+
 <div class="container">
 	<header class="header">
-		<!-- <a class="header__title" href="/">SvelteKit + Sanity</a> -->
+		{#if navigation}
+			{#each navigation.links as link}
+				<a class="header_link" href={link.href} target={link.target}>
+					{link.label}
+				</a>
+			{/each}
+		{:else}
+			<p>loading...</p>
+		{/if}
 	</header>
 	<main>
 		<slot />
 	</main>
 	<footer class="footer">
-		<p class="footer__text">
-			
-		</p>
+		{#if footer}
+			<div class="footer_content">
+				<p class="footer_label">{footer.locationLabel}</p>
+				<p>{footer.address}</p>
+			</div>
+		{:else}
+			<p>loading...</p>
+		{/if}
 	</footer>
 </div>
 
@@ -68,6 +93,14 @@
 		padding: 0 var(--space-3);
 	}
 
+	.footer_content {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-1);
+		width: 100%;
+	}
+
 	.footer .footer__text {
 		font-size: var(--font-size-1);
 		line-height: var(--line-height-1);
@@ -78,7 +111,7 @@
 
 	@media (min-width: 575px) {
 		.container {
-			max-width: var(--max-width-1);
+			/* max-width: var(--max-width-1); */
 			padding: 0 var(--space-4);
 		}
 
