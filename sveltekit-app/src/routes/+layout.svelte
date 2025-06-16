@@ -73,9 +73,9 @@
 		position: absolute;
 		top: 0;
 		display: flex;
-		border-bottom: 1px solid #ced2d9;
 		z-index: 10;
-		background: var(--white);
+		/* background: var(--white); */
+		width: 100%;
 	}
 
 	.header_content {
@@ -108,9 +108,13 @@
 	}
 
 	.footer {
+		position: absolute;
+		bottom: 0;
+		z-index: 10;
 		display: flex;
 		justify-content: flex-end;
 		background-color: #ffe14d;
+		width: 100%;
 	}
 
 	.footer_content {
@@ -150,10 +154,10 @@
 		}
 
 		.header {
-			position: unset;
+			/* position: unset;
 			border-bottom: none;
 
-			background: unset;
+			background: unset; */
 		}
 
 		.header .header__title {
