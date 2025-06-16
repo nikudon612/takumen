@@ -29,15 +29,15 @@ export const navigationQuery = groq`*[_type == "navigation" && _id == "navigatio
 }`;
 
 export interface Navigation {
-  logo?: {
-    asset: {
-      url: string;
-    };
-  };
-  links: {
-    label: string;
-    href: string;
-  }[];
+	logo?: {
+		asset: {
+			url: string;
+		};
+	};
+	links: {
+		label: string;
+		href: string;
+	}[];
 }
 
 export const footerQuery = groq`*[_type == "footer" && _id == "footer"][0]{
@@ -46,28 +46,20 @@ export const footerQuery = groq`*[_type == "footer" && _id == "footer"][0]{
 }`;
 
 export interface Footer {
-  locationLabel?: string;
-  address?: string;
+	locationLabel?: string;
+	address?: string;
 }
 
-export const homeQuery = groq`*[_type == "home" && _id == "home"][0]{
-  introText,
-  slideshowImages[]{
-    asset->{
-      url
-    },
-    alt,
-    caption
-  }
-}`;
+// Temporarily use this
+export const homeQuery = groq`*[_type == "home"][0]{ introText, slideshowImages[]{ asset->{url}, alt, caption } }`;
 
 export interface Home {
-  introText?: string;
-  slideshowImages: {
-    asset: {
-      url: string;
-    };
-    alt?: string;
-    caption?: string;
-  }[];
+	introText?: string;
+	slideshowImages: {
+		asset: {
+			url: string;
+		};
+		alt?: string;
+		caption?: string;
+	}[];
 }

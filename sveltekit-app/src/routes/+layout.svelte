@@ -26,11 +26,16 @@
 <div class="container">
 	<header class="header">
 		{#if navigation}
-			{#each navigation.links as link}
-				<a class="header_link" href={link.href} target={link.target}>
-					{link.label}
-				</a>
-			{/each}
+			<div class="header_content">
+				<img src={navigation.logo.asset.url} alt="Takumen Logo" class="header_logo" />
+				<div class="header_links">
+					{#each navigation.links as link}
+						<a class="header_link" href={link.href} target={link.target}>
+							{link.label}
+						</a>
+					{/each}
+				</div>
+			</div>
 		{:else}
 			<p>loading...</p>
 		{/if}
@@ -42,7 +47,7 @@
 		{#if footer}
 			<div class="footer_content">
 				<p class="footer_label">{footer.locationLabel}</p>
-				<p>{footer.address}</p>
+				<p class="footer_address">{footer.address}</p>
 			</div>
 		{:else}
 			<p>loading...</p>
@@ -65,16 +70,20 @@
 	}
 
 	.header {
+		position: absolute;
+		top: 0;
 		display: flex;
-		padding: 0 var(--space-1);
 		border-bottom: 1px solid #ced2d9;
-
 		z-index: 10;
 		background: var(--white);
-		position: fixed;
-		left: 0;
-		right: 0;
-		top: 0;
+	}
+
+	.header_content {
+		display: flex;
+		flex-direction: row;
+		align-items: start;
+		justify-content: space-between;
+		width: 100%;
 	}
 
 	.header .header__title {
@@ -87,16 +96,28 @@
 		color: var(--black);
 	}
 
+	.header_links {
+		display: flex;
+		flex-direction: row;
+		gap: 2rem;
+	}
+
+	.header_link {
+		text-decoration: none;
+		color: var(--black);
+	}
+
 	.footer {
 		display: flex;
 		justify-content: flex-end;
-		padding: 0 var(--space-3);
+		background-color: #ffe14d;
 	}
 
 	.footer_content {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
+		justify-content: center;
 		gap: var(--space-1);
 		width: 100%;
 	}
@@ -109,10 +130,19 @@
 		gap: 2px;
 	}
 
+	.footer_label {
+		margin: 0;
+		font-weight: 800;
+	}
+
+	.footer_address {
+		margin: 0;
+	}
+
 	@media (min-width: 575px) {
 		.container {
 			/* max-width: var(--max-width-1); */
-			padding: 0 var(--space-4);
+			/* padding: 0 var(--space-4); */
 		}
 
 		main {
@@ -122,18 +152,15 @@
 		.header {
 			position: unset;
 			border-bottom: none;
-			margin: var(--space-3) 0;
-			padding: var(--space-2) 0;
+
 			background: unset;
 		}
 
 		.header .header__title {
-			margin: var(--space-3) 0 var(--space-2);
-			font-size: var(--font-size-5);
 		}
 
 		.footer {
-			margin: var(--space-3) 0;
+			/* margin: var(--space-3) 0; */
 		}
 	}
 
