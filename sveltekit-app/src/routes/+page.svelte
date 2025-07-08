@@ -2,32 +2,41 @@
 	export let data;
 	const { home } = data;
 
-	let currentIndex = 0;
+	let leftIndex = 0;
+	let rightIndex = 1;
+	let toggle = true;
 
 	const total = home?.slideshowImages?.length ?? 0;
 
-	// Rotate every 3 seconds
 	const interval = setInterval(() => {
-		if (total > 0) {
-			currentIndex = (currentIndex + 1) % total;
+		if (total > 1) {
+			if (toggle) {
+				leftIndex = (leftIndex + 2) % total;
+			} else {
+				rightIndex = (rightIndex + 2) % total;
+			}
+			toggle = !toggle;
 		}
-	}, 5000);
+	}, 3000);
 
-	// Cleanup
 	import { onDestroy } from 'svelte';
 	onDestroy(() => clearInterval(interval));
 </script>
 
 {#if home}
 	<div class="slideshow">
-		{#each home.slideshowImages as img, i}
-			<div
-				class="slideshow_image"
-				style="opacity: {i === currentIndex ? 1 : 0}; z-index: {i === currentIndex ? 1 : 0};"
-			>
-				<img src={img.asset.url} alt={img.alt || 'Takumen LIC'} />
-			</div>
-		{/each}
+		<div class="slideshow_half">
+			<img
+				src={home.slideshowImages[leftIndex]?.asset.url}
+				alt={home.slideshowImages[leftIndex]?.alt || 'Takumen LIC'}
+			/>
+		</div>
+		<div class="slideshow_half">
+			<img
+				src={home.slideshowImages[rightIndex]?.asset.url}
+				alt={home.slideshowImages[rightIndex]?.alt || 'Takumen LIC'}
+			/>
+		</div>
 	</div>
 {:else}
 	<p>Loading...</p>
@@ -35,24 +44,21 @@
 
 <style>
 	.slideshow {
-		position: relative;
+		display: flex;
 		width: 100vw;
 		height: 100vh;
 		overflow: hidden;
 	}
 
-	.slideshow_image {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
+	.slideshow_half {
+		width: 50%;
 		height: 100%;
-		transition: opacity 1s ease;
 	}
 
-	.slideshow_image img {
+	.slideshow_half img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		display: block;
 	}
 </style>

@@ -30,7 +30,11 @@
 				<img src={navigation.logo.asset.url} alt="Takumen Logo" class="header_logo" />
 				<div class="header_links">
 					{#each navigation.links as link}
-						<a class="header_link" href={link.href} target={link.target}>
+						<a
+							class="header_link {link.href === $page.url.pathname ? 'active' : ''}"
+							href={link.href}
+							target={link.target}
+						>
 							{link.label}
 						</a>
 					{/each}
@@ -125,6 +129,12 @@
 		text-decoration: none;
 		/* mix-blend-mode: difference; */
 		color: black;
+	}
+
+	.header_link:hover,
+	.header_link.active {
+		color: #ffe14d; /* bright yellow to match the footer bg */
+		/* font-weight: bold; */
 	}
 
 	.footer {
