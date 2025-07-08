@@ -98,6 +98,7 @@
 		z-index: 10;
 		width: 100%;
 		background: transparent;
+		height: 18vh;
 	}
 
 	.header_content {
