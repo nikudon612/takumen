@@ -15,3 +15,65 @@ export interface Post {
 	mainImage?: ImageAsset;
 	body: PortableTextBlock[];
 }
+
+export const navigationQuery = groq`*[_type == "navigation" && _id == "navigation"][0]{
+  logo {
+    asset->{
+      url
+    }
+  },
+  links[]{
+    label,
+    href
+  }
+}`;
+
+export interface Navigation {
+	logo?: {
+		asset: {
+			url: string;
+		};
+	};
+	links: {
+		label: string;
+		href: string;
+	}[];
+}
+
+export const footerQuery = groq`*[_type == "footer" && _id == "footer"][0]{
+  locationLabel,
+  address
+}`;
+
+export interface Footer {
+	locationLabel?: string;
+	address?: string;
+}
+
+// Temporarily use this
+export const homeQuery = groq`*[_type == "home"][0]{ introText, slideshowImages[]{ asset->{url}, alt, caption } }`;
+
+export interface Home {
+	introText?: string;
+	slideshowImages: {
+		asset: {
+			url: string;
+		};
+		alt?: string;
+		caption?: string;
+	}[];
+}
+
+export const menuQuery = groq`*[_type == "menuPage"][0]{
+  images[]{
+    name,
+    uploadedAt,
+    asset->{
+      url,
+      metadata {
+        dimensions,
+        lqip
+      }
+    }
+  }
+}`;

@@ -2,7 +2,6 @@ import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {presentationTool} from 'sanity/presentation'
-
 import {schemaTypes} from './schemas'
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID!
@@ -14,7 +13,33 @@ export default defineConfig({
   projectId,
   dataset,
   plugins: [
-    structureTool(),
+    structureTool({
+      structure: (S) =>
+        S.list()
+          .title('Content')
+          .items([
+            // Singleton pages
+            S.listItem()
+              .title('Navigation')
+              .child(S.editor().id('navigation').schemaType('navigation').documentId('navigation')),
+            S.listItem()
+              .title('Homepage')
+              .child(S.editor().id('home').schemaType('home').documentId('home')),
+            S.listItem()
+              .title('Menu Page')
+              .child(S.editor().id('menuPage').schemaType('menuPage').documentId('menuPage')),
+            S.listItem()
+              .title('Footer')
+              .child(S.editor().id('footer').schemaType('footer').documentId('footer')),
+            // Everything else (collections)
+            ...S.documentTypeListItems().filter(
+              (item) =>
+                !['navigation', 'home', 'menuPage', 'footer'].includes(
+                  item.getId(),
+                ),
+            ),
+          ]),
+    }),
     presentationTool({
       previewUrl: {
         origin: process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:5173',
