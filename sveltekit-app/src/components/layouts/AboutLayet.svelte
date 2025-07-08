@@ -34,17 +34,16 @@
 		<slot />
 	</div>
 
-	<footer class="footer">
+	<!-- <footer class="footer">
 		{#if footer}
 			<div class="footer_content">
 				<p class="footer_label">{footer.locationLabel}</p>
 				<p class="footer_address">{footer.address}</p>
 			</div>
 			<div class="hours_content">
-				<!-- hours can be re-enabled here -->
 			</div>
 		{/if}
-	</footer>
+	</footer> -->
 </div>
 
 <style>
@@ -53,7 +52,8 @@
 		flex-direction: column;
 		width: 100vw;
 		height: 100vh;
-		overflow: hidden;
+		overflow-x: hidden;
+		/* overflow-y: visible; */
 	}
 
 	.header {
@@ -75,6 +75,7 @@
 	.header_links {
 		display: flex;
 		gap: 2rem;
+		padding-top: 2rem;
 	}
 
 	.header_link {
@@ -83,7 +84,7 @@
 	}
 	.header_link:hover,
 	.header_link.active {
-		color: #87B28B;
+		color: #87b28b;
 	}
 
 	.header_logo {
@@ -95,10 +96,12 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
+		height: 80vh;
+		overflow: hidden;
 	}
 
 	.footer {
-		height: 14vh;
+		height: 12vh;
 		background-color: #ffe14d;
 		display: flex;
 		justify-content: center;

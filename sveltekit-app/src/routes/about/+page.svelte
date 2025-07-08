@@ -2,13 +2,14 @@
 	import aboutImage from '../../lib/assets/takumen-lic.png';
 </script>
 
-<div class="about">
-	<div class="about_image">
-		<img src={aboutImage} alt="Takumen Outdoor Sign in Evening" class="about_img" />
+<section class="about_section">
+	<div class="left-image">
+		<img src={aboutImage} alt="Takumen Outdoor Sign in Evening" />
 	</div>
-	<div class="about_text">
-		<h1>ABOUT</h1>
-		<div class="about_text_content">
+
+	<div class="right-text">
+		<div class="text-scroll">
+			<h1>ABOUT</h1>
 			<p>
 				Takumen is an Izakaya-style restaurant located in Long Island City. Conceived by a group of
 				Japanese friends who forged their bonds in New York, their venture began as a Ramen project,
@@ -34,6 +35,7 @@
 			</p>
 
 			<p>“We Japanese have a habit of finishing our Izakaya dinner with a noodle dish.”</p>
+
 			<p>
 				While Izakaya culture is the soul of Takumen, it does wear more than one hat. In the front
 				sits a serious coffee bar with a skilled barista who uses Parlor Coffee beans. It is also a
@@ -56,51 +58,57 @@
 			<p><em>Text by Yumiko Sakuma</em></p>
 		</div>
 	</div>
-</div>
+</section>
 
 <style>
-	.about {
+	.about_section {
 		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-		height: 100vh;
-		background-color: #87b28b; /* Light gray background */
+		width: 100%;
+		height: 80vh;
+		background-color: #87b28b;
 	}
-	.about_image {
+
+	.left-image {
 		width: 45vw;
-		height: 100%;
-		display: flex;
+		position: sticky;
+		top: 0;
+		height: 100vh;
+		flex-shrink: 0;
 	}
-	.about_img {
+
+	.left-image img {
 		width: 100%;
 		height: 100%;
-		object-fit: cover; /* Ensures the image covers the container */
+		object-fit: cover;
 	}
 
-	.about_text {
+	.right-text {
 		width: 55vw;
-		height: 100%;
+		padding: 2rem;
 		display: flex;
 		flex-direction: column;
-		align-items: start;
-		justify-content: center;
-		margin: 2rem;
-		color: #333; /* Dark text color */
-		overflow-y: auto;
+		color: #333;
 	}
 
-	.about_text h1 {
+	.right-text h1 {
 		font-size: 3rem;
+		margin-bottom: 1rem;
 	}
 
-	.about_text_content {
-		max-height: 80vh; /* Limit the height of the text content */
-		overflow-y: auto; /* Enable scrolling for long text */
+	.text-scroll {
+		max-height: calc(100vh - 4rem); /* subtract padding if needed */
+		overflow-y: auto;
 		scroll-behavior: smooth;
+		scrollbar-width: none;
 	}
-	.about_text_content p {
-		font-size: 2rem;
+
+	.text-scroll::-webkit-scrollbar {
+		display: none;
+	}
+
+	.text-scroll p {
+		font-size: 1.75rem;
 		line-height: 1.6;
+		margin-bottom: 1.5rem;
 	}
 </style>

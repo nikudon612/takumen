@@ -55,21 +55,7 @@
 				<p class="footer_label">{footer.locationLabel}</p>
 				<p class="footer_address">{footer.address}</p>
 			</div>
-			<div class="hours_content">
-				<!-- <p class="footer_label">Hours</p>
-				<div class="hours_info">
-					<div>
-						<p class="footer_address">Sunday to Thursday</p>
-						<p class="footer_address">Lunch 11:30am - 3:30pm</p>
-						<p class="footer_address">Dinner 5:30pm - 9:30pm</p>
-					</div>
-					<div>
-						<p class="footer_address">Friday & Saturday</p>
-						<p class="footer_address">Lunch 11:30am - 3:30pm</p>
-						<p class="footer_address">Dinner 5:30pm - 10:00pm</p>
-					</div>
-				</div> -->
-			</div>
+			<div class="hours_content"></div>
 		{:else}
 			<p>loading...</p>
 		{/if}
@@ -130,18 +116,19 @@
 		display: flex;
 		flex-direction: row;
 		gap: 2rem;
-		/* padding-top: 1rem; */
+		padding-top: 2rem;
 	}
 
 	.header_link {
 		text-decoration: none;
 		/* mix-blend-mode: difference; */
 		color: black;
+		/* font-size: 1.125rem; */
 	}
 
 	.header_link:hover,
 	.header_link.active {
-		color: #87B28B; /* bright yellow to match the footer bg */
+		color: #87b28b; /* bright yellow to match the footer bg */
 		/* font-weight: bold; */
 	}
 
@@ -158,7 +145,7 @@
 		justify-content: center;
 		background-color: #ffe14d;
 		width: 100%;
-		height: 14vh;
+		height: 12vh;
 	}
 
 	.footer_content {
