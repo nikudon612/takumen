@@ -63,6 +63,7 @@
 <style>
 	.container {
 		margin: 0 auto;
+		background: transparent;
 	}
 
 	main {
@@ -74,16 +75,18 @@
 		top: 0;
 		display: flex;
 		z-index: 10;
-		/* background: var(--white); */
 		width: 100%;
+		background: transparent;
 	}
 
 	.header_content {
 		display: flex;
 		flex-direction: row;
-		align-items: start;
+		align-items: center;
 		justify-content: space-between;
 		width: 100%;
+		padding: var(--space-3) var(--space-4);
+		background-color: white;
 	}
 
 	.header .header__title {
@@ -100,11 +103,13 @@
 		display: flex;
 		flex-direction: row;
 		gap: 2rem;
+		padding-top: 1rem;
 	}
 
 	.header_link {
 		text-decoration: none;
-		color: var(--black);
+		/* mix-blend-mode: difference; */
+		color: black;
 	}
 
 	.footer {
@@ -115,6 +120,7 @@
 		justify-content: flex-end;
 		background-color: #ffe14d;
 		width: 100%;
+		height: 12vh;
 	}
 
 	.footer_content {
@@ -124,6 +130,7 @@
 		justify-content: center;
 		gap: var(--space-1);
 		width: 100%;
+		padding: var(--space-3) var(--space-4);
 	}
 
 	.footer .footer__text {
