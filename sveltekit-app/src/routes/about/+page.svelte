@@ -1,6 +1,5 @@
 <script lang="ts">
 	import aboutImage from '../../lib/assets/takumen-lic.png';
-	import { onMount } from 'svelte';
 </script>
 
 <div class="about">
