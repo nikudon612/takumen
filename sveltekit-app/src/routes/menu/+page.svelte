@@ -93,6 +93,7 @@
 		transition: color 0.2s ease;
 		font-size: 1.375rem;
 		font-weight: lighter;
+		font-family: avenir-next-lt-pro-condensed, sans-serif;
 	}
 
 	.toggle.active {
@@ -103,6 +104,12 @@
 		overflow-y: auto;
 		width: 100%;
 		max-height: 70vh; /* Adjust as needed */
+		scrollbar-width: none; /* Firefox */
+		-ms-overflow-style: none; /* Internet Explorer 10+ */
+	}
+
+	.menu-image-wrapper::-webkit-scrollbar {
+		display: none; /* Chrome, Safari, Opera */
 	}
 	.menu-image-wrapper img {
 		width: 100%;
