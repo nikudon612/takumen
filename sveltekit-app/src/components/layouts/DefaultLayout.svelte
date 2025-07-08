@@ -141,7 +141,7 @@
 
 	.header_link:hover,
 	.header_link.active {
-		color: #ffe14d; /* bright yellow to match the footer bg */
+		color: #87B28B; /* bright yellow to match the footer bg */
 		/* font-weight: bold; */
 	}
 

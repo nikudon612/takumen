@@ -83,7 +83,7 @@
 	}
 	.header_link:hover,
 	.header_link.active {
-		color: #ffe14d;
+		color: #87B28B;
 	}
 
 	.header_logo {
