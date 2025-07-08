@@ -5,21 +5,6 @@
 	export let data;
 
 	const { navigation, footer } = data;
-
-	let aboutTextEl: HTMLDivElement;
-	let showFooter = false;
-
-	function handleScroll() {
-		if (!aboutTextEl) return;
-		const { scrollTop, scrollHeight, clientHeight } = aboutTextEl;
-		showFooter = scrollTop + clientHeight >= scrollHeight - 10; // allow 10px leeway
-	}
-
-	onMount(() => {
-		if (aboutTextEl) {
-			aboutTextEl.addEventListener('scroll', handleScroll);
-		}
-	});
 </script>
 
 <div class="about_layout">
@@ -46,22 +31,20 @@
 
 	<div class="about_content_wrapper">
 		<!-- This slot is expected to contain the image and scrollable text -->
-		<slot {aboutTextEl} />
+		<slot />
 	</div>
 
-	{#if showFooter}
-		<footer class="footer">
-			{#if footer}
-				<div class="footer_content">
-					<p class="footer_label">{footer.locationLabel}</p>
-					<p class="footer_address">{footer.address}</p>
-				</div>
-				<div class="hours_content">
-					<!-- hours can be re-enabled here -->
-				</div>
-			{/if}
-		</footer>
-	{/if}
+	<footer class="footer">
+		{#if footer}
+			<div class="footer_content">
+				<p class="footer_label">{footer.locationLabel}</p>
+				<p class="footer_address">{footer.address}</p>
+			</div>
+			<div class="hours_content">
+				<!-- hours can be re-enabled here -->
+			</div>
+		{/if}
+	</footer>
 </div>
 
 <style>
@@ -83,6 +66,7 @@
 
 	.header_content {
 		display: flex;
+		align-items: center;
 		justify-content: space-between;
 		width: 100%;
 		padding: var(--space-3) var(--space-4);
@@ -110,7 +94,7 @@
 	.about_content_wrapper {
 		flex: 1;
 		display: flex;
-		overflow: hidden;
+		flex-direction: column;
 	}
 
 	.footer {
