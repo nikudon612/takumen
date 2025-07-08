@@ -1,21 +1,36 @@
 <script lang="ts">
-	import Dinner from '../../lib/assets/Dinner.png';
-	import Lunch from '../../lib/assets/Lunch.png';
-	import Drink from '../../lib/assets/Drink.png';
-
-	let activeMenu: 'dinner' | 'lunch' | 'drinks' = 'dinner';
+	let activeMenu: 'dinner' | 'lunch' | 'drink' = 'dinner';
 
 	const backgroundColors = {
 		dinner: '#789FAF',
 		lunch: '#F26C5A',
-		drinks: '#87B28B'
+		drink: '#87B28B'
 	};
 
-	const yellow = '#FFE356';
+	export let data;
+	const { menu } = data;
+	console.log('Menu data:', menu);
 
-	let menuImage = Dinner;
+	let menuImage = '';
 
-	$: menuImage = activeMenu === 'lunch' ? Lunch : activeMenu === 'drinks' ? Drink : Dinner;
+	// Normalize and map image names to lowercase keys
+	let menuImageMap: Record<'dinner' | 'lunch' | 'drink', string> = {
+		dinner: '',
+		lunch: '',
+		drinks: ''
+	};
+
+	if (menu?.images?.length) {
+		for (const img of menu.images) {
+			const key = img.name?.toLowerCase();
+			if (key && ['dinner', 'lunch', 'drink'].includes(key)) {
+				menuImageMap[key] = img.asset?.url || '';
+			}
+		}
+	}
+
+	// Reactive assignment of current image
+	$: menuImage = menuImageMap[activeMenu];
 </script>
 
 <svelte:head>
@@ -37,15 +52,19 @@
 			Lunch
 		</span>
 		<span
-			class="toggle {activeMenu === 'drinks' ? 'active' : ''}"
-			on:click={() => (activeMenu = 'drinks')}
+			class="toggle {activeMenu === 'drink' ? 'active' : ''}"
+			on:click={() => (activeMenu = 'drink')}
 		>
-			Drinks
+			Drink
 		</span>
 	</nav>
 
 	<div class="menu-image-wrapper">
-		<img src={menuImage} alt="{activeMenu} menu" />
+		{#if menuImage}
+			<img src={menuImage} alt="{activeMenu} menu" />
+		{:else}
+			<p>Loading image...</p>
+		{/if}
 	</div>
 </section>
 
@@ -72,6 +91,8 @@
 	.toggle {
 		color: white;
 		transition: color 0.2s ease;
+		font-size: 1.375rem;
+		font-weight: lighter;
 	}
 
 	.toggle.active {
@@ -80,10 +101,7 @@
 
 	.menu-image-wrapper img {
 		width: 100%;
-		/* max-width: 700px; */
 		height: auto;
 		display: block;
-		/* border-radius: 8px; */
-		/* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); */
 	}
 </style>

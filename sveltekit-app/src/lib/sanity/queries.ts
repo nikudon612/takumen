@@ -63,3 +63,17 @@ export interface Home {
 		caption?: string;
 	}[];
 }
+
+export const menuQuery = groq`*[_type == "menuPage"][0]{
+  images[]{
+    name,
+    uploadedAt,
+    asset->{
+      url,
+      metadata {
+        dimensions,
+        lqip
+      }
+    }
+  }
+}`;
