@@ -49,6 +49,21 @@
 				<p class="footer_label">{footer.locationLabel}</p>
 				<p class="footer_address">{footer.address}</p>
 			</div>
+			<div class="hours_content">
+				<p class="footer_label">Hours</p>
+				<div class="hours_info">
+					<div>
+						<p class="footer_address">Sunday to Thursday</p>
+						<p class="footer_address">Lunch 11:30am - 3:30pm</p>
+						<p class="footer_address">Dinner 5:30pm - 9:30pm</p>
+					</div>
+					<div>
+						<p class="footer_address">Friday & Saturday</p>
+						<p class="footer_address">Lunch 11:30am - 3:30pm</p>
+						<p class="footer_address">Dinner 5:30pm - 10:00pm</p>
+					</div>
+				</div>
+			</div>
 		{:else}
 			<p>loading...</p>
 		{/if}
@@ -117,10 +132,10 @@
 		bottom: 0;
 		z-index: 10;
 		display: flex;
-		justify-content: flex-end;
+		justify-content: center;
 		background-color: #ffe14d;
 		width: 100%;
-		height: 12vh;
+		height: 14vh;
 	}
 
 	.footer_content {
@@ -129,7 +144,7 @@
 		align-items: flex-start;
 		justify-content: center;
 		gap: var(--space-1);
-		width: 100%;
+		width: 50%;
 		padding: var(--space-3) var(--space-4);
 	}
 
@@ -148,6 +163,19 @@
 
 	.footer_address {
 		margin: 0;
+	}
+	.hours_content {
+		display: flex;
+		flex-direction: column;
+		padding-top: 1rem;
+		width: 50%;
+	}
+
+	.hours_info {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		gap: 1.5rem;
 	}
 
 	@media (min-width: 575px) {
