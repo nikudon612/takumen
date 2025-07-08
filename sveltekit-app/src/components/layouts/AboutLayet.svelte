@@ -80,7 +80,8 @@
 
 	.header_link {
 		text-decoration: none;
-		color: black;
+		color: #333;
+		font-family: futura, sans-serif;
 	}
 	.header_link:hover,
 	.header_link.active {
