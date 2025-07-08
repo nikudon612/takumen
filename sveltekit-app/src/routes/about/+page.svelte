@@ -90,8 +90,8 @@
 		color: #333;
 	}
 
-	.right-text h1 {
-		font-size: 3rem;
+	.text-scroll h1 {
+		font-size: 1.875rem;
 		margin-bottom: 1rem;
 	}
 
@@ -107,8 +107,9 @@
 	}
 
 	.text-scroll p {
-		font-size: 1.75rem;
+		font-size: 1.5rem;
 		line-height: 1.6;
 		margin-bottom: 1.5rem;
+		letter-spacing: 0.06em;
 	}
 </style>
