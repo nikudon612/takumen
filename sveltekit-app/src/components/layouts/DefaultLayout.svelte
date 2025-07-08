@@ -121,9 +121,8 @@
 
 	.header_link {
 		text-decoration: none;
-		/* mix-blend-mode: difference; */
-		color: black;
-		/* font-size: 1.125rem; */
+		color: #333;
+		font-family: futura, sans-serif;
 	}
 
 	.header_link:hover,

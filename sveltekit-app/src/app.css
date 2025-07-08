@@ -1,3 +1,66 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
+
+/* === Adobe Fonts === */
+
+/* Avenir Next LT Pro Condensed */
+.avenir-light {
+	font-family: 'avenir-next-lt-pro-condensed', sans-serif;
+	font-weight: 200;
+}
+
+.avenir-regular {
+	font-family: 'avenir-next-lt-pro-condensed', sans-serif;
+	font-weight: 400;
+}
+
+/* Futura PT Book */
+.futura-book {
+	font-family: 'futura-pt', sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+/* Futura PT Book Oblique */
+.futura-book-italic {
+	font-family: 'futura-pt', sans-serif;
+	font-weight: 400;
+	font-style: italic;
+}
+
+/* Futura PT Heavy */
+.futura-heavy {
+	font-family: 'futura-pt', sans-serif;
+	font-weight: 700;
+	font-style: normal;
+}
+
+/* Futura PT Heavy Oblique */
+.futura-heavy-italic {
+	font-family: 'futura-pt', sans-serif;
+	font-weight: 700;
+	font-style: italic;
+}
+
+/* Futura PT Bold */
+.futura-bold {
+	font-family: 'futura-pt-bold', sans-serif;
+	font-weight: 700;
+	font-style: normal;
+}
+
+/* Futura PT Bold Oblique */
+.futura-bold-italic {
+	font-family: 'futura-pt-bold', sans-serif;
+	font-weight: 700;
+	font-style: italic;
+}
+
+:root {
+	--font-family-sans: 'futura', sans-serif;
+}
+
+html {
+	font-family: 'futura', sans-serif;
+}

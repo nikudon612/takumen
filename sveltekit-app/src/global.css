@@ -1,6 +1,5 @@
-
-
-:root {
+:/*
+root {
 	--space-0: 0;
 	--space-1: 4px;
 	--space-2: 8px;
@@ -12,9 +11,6 @@
 	--space-8: 136px;
 	--space-9: 220px;
 
-	--font-family-sans: Inter;
-	--font-family-serif: PT Serif;
-	--font-family-mono: IBM Plex Mono;
 
 	--font-size-0: 12px;
 	--font-size-1: 14px;
@@ -55,12 +51,10 @@
 
 html {
 	background-color: var(--white);
-	font-family: var(--font-family-sans), var(--font-family-serif), sans-serif;
-	-webkit-text-size-adjust: 100%;
-	-moz-text-size-adjust: 100%;
+	font-family: var(--font-family-sans);
 	text-size-adjust: 100%;
 }
 
 body {
 	margin: 0;
-}
+} */

@@ -9,7 +9,7 @@
 
 	export let data;
 	const { menu } = data;
-	console.log('Menu data:', menu);
+	// console.log('Menu data:', menu);
 
 	let menuImage = '';
 
@@ -81,7 +81,7 @@
 
 	.toggle-group {
 		display: flex;
-		gap: 2rem;
+		gap: 1.5rem;
 		font-size: 1.5rem;
 		font-weight: 600;
 		margin-bottom: 2rem;
@@ -99,6 +99,11 @@
 		color: #ffe356;
 	}
 
+	.menu-image-wrapper {
+		overflow-y: auto;
+		width: 100%;
+		max-height: 70vh; /* Adjust as needed */
+	}
 	.menu-image-wrapper img {
 		width: 100%;
 		height: auto;

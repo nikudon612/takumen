@@ -93,6 +93,8 @@
 	.text-scroll h1 {
 		font-size: 1.875rem;
 		margin-bottom: 1rem;
+		font-family: futura, sans-serif;
+		font-weight: 500;
 	}
 
 	.text-scroll {
@@ -110,6 +112,7 @@
 		font-size: 1.5rem;
 		line-height: 1.6;
 		margin-bottom: 1.5rem;
-		letter-spacing: 0.06em;
+		letter-spacing: 0.04em;
+		font-family: avenir-next-lt-pro-condensed, sans-serif;
 	}
 </style>
