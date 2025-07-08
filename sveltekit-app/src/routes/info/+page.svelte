@@ -17,7 +17,10 @@
 			<div class="block">
 				<h3>RESERVATIONS</h3>
 				<p>
-					RESERVE WITH RESY<br />
+					<a
+						href="https://resy.com/cities/long-island-city-queens-ny/venues/takumen?seats=2&date=2025-07-08"
+						>RESERVE WITH RESY</a
+					><br />
 					OR GIVE US A CALL 718.361.7973
 				</p>
 			</div>
