@@ -98,7 +98,7 @@
 		z-index: 10;
 		width: 100%;
 		background: transparent;
-		height: 18vh;
+		height: 20vh;
 	}
 
 	.header_content {
@@ -138,6 +138,11 @@
 	.header_link.active {
 		color: #ffe14d; /* bright yellow to match the footer bg */
 		/* font-weight: bold; */
+	}
+
+	.header_logo {
+		width: 30%;
+		height: auto;
 	}
 
 	.footer {
@@ -180,8 +185,9 @@
 	.hours_content {
 		display: flex;
 		flex-direction: column;
-		padding-top: 1rem;
 		width: 50%;
+		justify-content: center;
+		padding: var(--space-3) var(--space-4);
 	}
 
 	.hours_info {

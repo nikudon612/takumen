@@ -49,10 +49,16 @@
 		height: 100vh;
 		overflow: hidden;
 	}
-
 	.slideshow_half {
-		width: 50%;
-		height: 100%;
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: #000; /* Fallback background color */
+	}
+	.slideshow_half {
+		width: 50vw;
+		height: 100vh;
 	}
 
 	.slideshow_half img {
