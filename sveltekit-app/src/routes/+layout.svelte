@@ -27,7 +27,9 @@
 	<header class="header">
 		{#if navigation}
 			<div class="header_content">
-				<img src={navigation.logo.asset.url} alt="Takumen Logo" class="header_logo" />
+				<a href="/">
+					<img src={navigation.logo.asset.url} alt="Takumen Logo" class="header_logo" />
+				</a>
 				<div class="header_links">
 					{#each navigation.links as link}
 						<a
