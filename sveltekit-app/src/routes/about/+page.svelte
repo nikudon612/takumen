@@ -84,7 +84,7 @@
 
 	.right-text {
 		width: 55vw;
-		padding: 2rem;
+		padding: 3rem 6rem 0rem 6rem;
 		display: flex;
 		flex-direction: column;
 		color: #333;

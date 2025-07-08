@@ -69,7 +69,7 @@
 		align-items: center;
 		justify-content: space-between;
 		width: 100%;
-		padding: var(--space-3) var(--space-4);
+		padding: 0 3rem;
 	}
 
 	.header_links {

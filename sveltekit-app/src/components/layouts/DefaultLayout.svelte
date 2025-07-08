@@ -98,7 +98,7 @@
 		align-items: center;
 		justify-content: space-between;
 		width: 100%;
-		padding: var(--space-3) var(--space-4);
+		padding: 0 3rem 0 3rem;
 		background-color: white;
 	}
 
@@ -154,7 +154,7 @@
 		justify-content: center;
 		gap: var(--space-1);
 		width: 50%;
-		padding: var(--space-3) var(--space-4);
+		padding: 0 3rem;
 	}
 
 	.footer .footer__text {

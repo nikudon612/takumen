@@ -103,6 +103,10 @@
 	.menu-image-wrapper {
 		overflow-y: auto;
 		width: 100%;
+		max-width: 90vw;
+
+		/* padding-left: 2rem;
+		padding-right: 2rem; */
 		max-height: 70vh; /* Adjust as needed */
 		scrollbar-width: none; /* Firefox */
 		-ms-overflow-style: none; /* Internet Explorer 10+ */
@@ -115,5 +119,6 @@
 		width: 100%;
 		height: auto;
 		display: block;
+		/* margin: 0 2rem 0 2rem; */
 	}
 </style>
