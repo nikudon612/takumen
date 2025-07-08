@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { isPreviewing, VisualEditing } from '@sanity/visual-editing/svelte';
 	import { page } from '$app/stores';
-	import LiveMode from '../components/LiveMode.svelte';
-	import AboutLayout from '../components/layouts/AboutLayet.svelte';
-	import DefaultLayout from '../components/layouts/DefaultLayout.svelte';
+	import LiveMode from '../LiveMode.svelte';
 
 	export let data;
 
@@ -25,15 +23,58 @@
 	<title>Takumen LIC</title>
 </svelte:head>
 
-{#if $page.url.pathname === '/'}
-	<DefaultLayout {data}>
+<div class="container">
+	<header class="header">
+		{#if navigation}
+			<div class="header_content">
+				<a href="/">
+					<img src={navigation.logo.asset.url} alt="Takumen Logo" class="header_logo" />
+				</a>
+				<div class="header_links">
+					{#each navigation.links as link}
+						<a
+							class="header_link {link.href === $page.url.pathname ? 'active' : ''}"
+							href={link.href}
+							target={link.target}
+						>
+							{link.label}
+						</a>
+					{/each}
+				</div>
+			</div>
+		{:else}
+			<p>loading...</p>
+		{/if}
+	</header>
+	<main>
 		<slot />
-	</DefaultLayout>
-{:else if $page.url.pathname.startsWith('/about')}
-	<AboutLayout {data}>
-		<slot />
-	</AboutLayout>
-{/if}
+	</main>
+	<footer class="footer">
+		{#if footer}
+			<div class="footer_content">
+				<p class="footer_label">{footer.locationLabel}</p>
+				<p class="footer_address">{footer.address}</p>
+			</div>
+			<div class="hours_content">
+				<!-- <p class="footer_label">Hours</p>
+				<div class="hours_info">
+					<div>
+						<p class="footer_address">Sunday to Thursday</p>
+						<p class="footer_address">Lunch 11:30am - 3:30pm</p>
+						<p class="footer_address">Dinner 5:30pm - 9:30pm</p>
+					</div>
+					<div>
+						<p class="footer_address">Friday & Saturday</p>
+						<p class="footer_address">Lunch 11:30am - 3:30pm</p>
+						<p class="footer_address">Dinner 5:30pm - 10:00pm</p>
+					</div>
+				</div> -->
+			</div>
+		{:else}
+			<p>loading...</p>
+		{/if}
+	</footer>
+</div>
 
 {#if $isPreviewing}
 	<VisualEditing />
