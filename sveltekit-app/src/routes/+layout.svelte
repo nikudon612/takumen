@@ -4,6 +4,7 @@
 	import LiveMode from '../components/LiveMode.svelte';
 	import AboutLayout from '../components/layouts/AboutLayet.svelte';
 	import DefaultLayout from '../components/layouts/DefaultLayout.svelte';
+	import TakuParlorLayout from '../components/layouts/TakuParlorLayout.svelte';
 
 	export let data;
 
@@ -29,6 +30,10 @@
 	<DefaultLayout {data}>
 		<slot />
 	</DefaultLayout>
+{:else if $page.url.pathname === '/takuparlor'}
+	<TakuParlorLayout {data}>
+		<slot />
+	</TakuParlorLayout>
 {:else}
 	<!-- {:else if $page.url.pathname.startsWith('/about')} -->
 	<AboutLayout {data}>
