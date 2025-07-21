@@ -88,6 +88,8 @@
 		display: flex;
 		flex-direction: column;
 		color: #333;
+		height: 100%;
+		background-color: #87b28b;
 	}
 
 	.text-scroll h1 {
