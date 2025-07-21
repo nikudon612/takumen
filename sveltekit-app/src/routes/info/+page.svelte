@@ -40,9 +40,9 @@
 		<div class="info-block right">
 			<div>
 				<h3>FIND US AT</h3>
-				<p><a href="https://instagram.com">INSTAGRAM</a></p>
+				<p><a href="https://instagram.com/takumenlic" target="_blank" rel="noopener noreferrer">INSTAGRAM</a></p>
 			</div>
-			<div>
+			<div class="newsletter-signup">
 				<h3>JOIN OUR NEWSLETTER</h3>
 				<p>SIGN UP WITH YOUR EMAIL FOR UPDATES</p>
 				<input type="email" placeholder="Email Address" class="newsletter-input" />
@@ -62,34 +62,42 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		flex-direction: column;
 	}
 
 	.content-container {
 		display: flex;
-		/* max-width: 1200px; */
-		/* margin: 0 auto; */
-		align-items: center;
+		align-items: stretch;
 		justify-content: space-between;
 		gap: 2rem;
-		flex-wrap: wrap;
+		flex-wrap: nowrap;
+		width: 100%;
 	}
 
 	.info-block {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-		flex: 1 1 300px;
+		justify-content: space-between;
+		height: 100%;
 	}
 
 	.info-block.left,
 	.info-block.right {
-		max-width: 300px;
+		width: 300px;
+		text-wrap: nowrap;
+	}
+
+	.info-block.center {
+		/* flex: 1; */
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.info-block.center img {
-		width: 100%;
-		height: auto;
-		max-height: 400px;
+		width: auto;
+		height: 100%;
+		max-height: 500px;
 		object-fit: contain;
 	}
 
@@ -98,7 +106,7 @@
 		font-family: futura, sans-serif;
 		color: white;
 		font-size: 1.2rem;
-		font-weight: bold;
+		font-weight: normal;
 		margin: 0.5rem 0;
 	}
 
@@ -114,10 +122,15 @@
 		font-weight: bold;
 	}
 
+	.newsletter-signup {
+		display: flex;
+		flex-direction: column;
+	}
+
 	.newsletter-input {
 		padding: 0.5rem;
 		border: none;
-		width: 100%;
+		width: 50%;
 		margin-top: 0.5rem;
 		margin-bottom: 0.5rem;
 	}
@@ -126,20 +139,31 @@
 		background-color: #a8c38b;
 		border: none;
 		padding: 0.5rem 1rem;
-		font-weight: bold;
+		font-weight: semi-bold;
+		color: white;
 		cursor: pointer;
+		width: 50%;
+	}
+	.subscribe-btn:hover {
+		color: #fed314;
 	}
 
-	/* Mobile */
-	@media (max-width: 768px) {
+	@media (max-width: 1024px) {
 		.content-container {
 			flex-direction: column;
+			align-items: center;
 			text-align: center;
 		}
 
-		.info-block.left,
-		.info-block.right {
-			max-width: 100%;
+		.info-block {
+			width: 100%;
+			max-width: 600px;
+		}
+
+		.info-block.center img {
+			width: 100%;
+			height: auto;
+			max-height: none;
 		}
 	}
 </style>
