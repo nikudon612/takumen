@@ -1,11 +1,12 @@
 <script lang="ts">
-	import plates from '../../lib/assets/plates.png';
+	import image from '../../lib/assets/takumensign.jpg';
 </script>
 
 <section class="hours-info">
 	<div class="content-container">
-		<div class="info-left">
-			<div class="block">
+		<!-- Left column -->
+		<div class="info-block left">
+			<div>
 				<h2>TAKUMEN NEW AMERICAN IZAKAYA</h2>
 				<p>
 					5-50 50TH AVENUE,<br />
@@ -13,30 +14,7 @@
 					718.361.7973
 				</p>
 			</div>
-
-			<div class="block">
-				<h3>RESERVATIONS</h3>
-				<p>
-					<a
-						href="https://resy.com/cities/long-island-city-queens-ny/venues/takumen?seats=2&date=2025-07-08"
-						>RESERVE WITH RESY</a
-					><br />
-					OR GIVE US A CALL 718.361.7973
-				</p>
-			</div>
-
-			<div class="block">
-				<h3>LARGE GROUP RESERVATIONS,<br />CATERING & GENERAL INQUIRIES</h3>
-				<p><a href="mailto:info@takumenlic.com">INFO@TAKUMENLIC.COM</a></p>
-			</div>
-		</div>
-
-		<div class="info-center">
-			<img src={plates} alt="Table full of shared plates" />
-		</div>
-
-		<div class="info-right">
-			<div class="block">
+			<div>
 				<h3>HOURS</h3>
 				<p>
 					OPEN EVERYDAY<br />
@@ -51,10 +29,24 @@
 					5:30PM - 10:00PM
 				</p>
 			</div>
+		</div>
 
-			<div class="block">
+		<!-- Center image -->
+		<div class="info-block center">
+			<img src={image} alt="Table full of shared plates" />
+		</div>
+
+		<!-- Right column -->
+		<div class="info-block right">
+			<div>
 				<h3>FIND US AT</h3>
 				<p><a href="https://instagram.com">INSTAGRAM</a></p>
+			</div>
+			<div>
+				<h3>JOIN OUR NEWSLETTER</h3>
+				<p>SIGN UP WITH YOUR EMAIL FOR UPDATES</p>
+				<input type="email" placeholder="Email Address" class="newsletter-input" />
+				<button class="subscribe-btn">SUBSCRIBE</button>
 			</div>
 		</div>
 	</div>
@@ -63,81 +55,91 @@
 <style>
 	.hours-info {
 		background-color: #fed314;
-		padding: 4rem 2rem;
-		font-family: sans-serif;
+		padding: 4rem 3rem;
+		font-family: avenir-next-lt-pro-condensed, sans-serif;
 		color: black;
-		height: 80vh;
-	}
-
-	.content-container {
-		max-width: 1400px;
-		margin: 0 auto;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 4rem;
-		align-items: flex-start;
-		justify-content: space-between;
-	}
-
-	.info-left,
-	.info-right {
-		flex: 1 1 250px;
-		min-width: 250px;
-	}
-
-	.info-center {
+		height: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
 
-	.info-center img {
+	.content-container {
+		display: flex;
+		/* max-width: 1200px; */
+		/* margin: 0 auto; */
+		align-items: center;
+		justify-content: space-between;
+		gap: 2rem;
+		flex-wrap: wrap;
+	}
+
+	.info-block {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		flex: 1 1 300px;
+	}
+
+	.info-block.left,
+	.info-block.right {
+		max-width: 300px;
+	}
+
+	.info-block.center img {
 		width: 100%;
 		height: auto;
+		max-height: 400px;
 		object-fit: contain;
-		max-height: 100%;
-	}
-
-	.block {
-		margin-bottom: 2rem;
-	}
-
-	.block h2,
-	.block h3 {
-		font-size: 1.5rem;
-		font-family: futura, sans-serif;
-		font-weight: 500;
-		color: white;
 	}
 
 	h2,
 	h3 {
-		margin: 0 0 0.5rem;
+		font-family: futura, sans-serif;
+		color: white;
+		font-size: 1.2rem;
 		font-weight: bold;
+		margin: 0.5rem 0;
 	}
 
-	.block p {
-		font-size: 1.5rem;
+	p {
+		font-size: 1rem;
 		line-height: 1.5;
 		margin: 0.5rem 0;
-		font-family: avenir-next-lt-pro-condensed, sans-serif;
 	}
 
 	a {
-		text-decoration: underline;
+		text-decoration: none;
 		color: inherit;
+		font-weight: bold;
 	}
 
+	.newsletter-input {
+		padding: 0.5rem;
+		border: none;
+		width: 100%;
+		margin-top: 0.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.subscribe-btn {
+		background-color: #a8c38b;
+		border: none;
+		padding: 0.5rem 1rem;
+		font-weight: bold;
+		cursor: pointer;
+	}
+
+	/* Mobile */
 	@media (max-width: 768px) {
 		.content-container {
 			flex-direction: column;
-			align-items: center;
 			text-align: center;
 		}
 
-		.info-left,
-		.info-right {
-			text-align: center;
+		.info-block.left,
+		.info-block.right {
+			max-width: 100%;
 		}
 	}
 </style>
