@@ -89,7 +89,7 @@
 		z-index: 10;
 		width: 100%;
 		background: transparent;
-		height: 20vh;
+		height: 15vh;
 	}
 
 	.header_content {
@@ -132,7 +132,7 @@
 	}
 
 	.header_logo {
-		width: 30%;
+		width: 40%;
 		height: auto;
 	}
 

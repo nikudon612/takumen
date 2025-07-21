@@ -52,7 +52,7 @@
 	}
 
 	.header {
-		height: 20vh;
+		height: 15vh;
 		background-color: white;
 		display: flex;
 		align-items: center;
@@ -85,7 +85,7 @@
 	}
 
 	.header_logo {
-		width: 20%;
+		width: 15%;
 		height: auto;
 	}
 
