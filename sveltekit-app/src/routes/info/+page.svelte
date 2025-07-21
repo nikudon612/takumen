@@ -40,7 +40,11 @@
 		<div class="info-block right">
 			<div>
 				<h3>FIND US AT</h3>
-				<p><a href="https://instagram.com/takumenlic" target="_blank" rel="noopener noreferrer">INSTAGRAM</a></p>
+				<p>
+					<a href="https://instagram.com/takumenlic" target="_blank" rel="noopener noreferrer"
+						>INSTAGRAM</a
+					>
+				</p>
 			</div>
 			<div class="newsletter-signup">
 				<h3>JOIN OUR NEWSLETTER</h3>
@@ -67,9 +71,9 @@
 
 	.content-container {
 		display: flex;
-		align-items: stretch;
-		justify-content: space-between;
-		gap: 2rem;
+		align-items: center;
+		justify-content: center;
+		gap: 4rem;
 		flex-wrap: nowrap;
 		width: 100%;
 	}
@@ -81,9 +85,13 @@
 		height: 100%;
 	}
 
+	.info-block.left div {
+		width: 100%;
+	}
+
 	.info-block.left,
 	.info-block.right {
-		width: 300px;
+		/* width: 300px; */
 		text-wrap: nowrap;
 	}
 
@@ -103,15 +111,17 @@
 
 	h2,
 	h3 {
-		font-family: futura, sans-serif;
+		font-family: futura-pt-condensed, sans-serif;
+		font-weight: 500;
 		color: white;
-		font-size: 1.2rem;
+		font-size: 1.875rem;
+		line-height: 2.25rem;
 		font-weight: normal;
 		margin: 0.5rem 0;
 	}
 
 	p {
-		font-size: 1rem;
+		font-size: 1.375rem;
 		line-height: 1.5;
 		margin: 0.5rem 0;
 	}
@@ -143,6 +153,7 @@
 		color: white;
 		cursor: pointer;
 		width: 50%;
+		text-align: left;
 	}
 	.subscribe-btn:hover {
 		color: #fed314;
