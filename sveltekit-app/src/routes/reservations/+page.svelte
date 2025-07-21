@@ -57,14 +57,16 @@
 
 	.reservation-info h2,
 	.group-info h2 {
-		font-weight: bold;
-		font-size: 1.25rem;
+        font-family: Futura-pt-condensed, sans-serif;
+		font-weight: normal;
+		font-size: 2.125rem;
 		margin-bottom: 10px;
 	}
 
 	.reservation-info p,
 	.group-info p {
-		font-size: 1rem;
+        font-family: avenir-next-lt-pro-condensed, sans-serif;
+		font-size: 1.625rem;
 		color: black;
 	}
 
