@@ -26,8 +26,15 @@
 				bits of joy and unexpected smiles wherever he wanders.
 			</p>
 			<p>
-				instaglam : <a href="#">@sloppymonsta</a><br />
-				website : <a href="#">sloppymonsta.bigcartel.com</a>
+				instagram : <a
+					href="https://www.instagram.com/sloppymonsta/"
+					target="_blank"
+					rel="noopener noreferrer">@sloppymonsta</a
+				><br />
+				website :
+				<a href="https://sloppymonsta.bigcartel.com" target="_blank" rel="noopener noreferrer"
+					>sloppymonsta.bigcartel.com</a
+				>
 			</p>
 
 			<p class="divider">**************************************************</p>
@@ -54,7 +61,7 @@
 		height: 100%;
 		width: 100%;
 		gap: 2rem;
-		align-items: center;
+		align-items: flex-start;
 		justify-content: space-between;
 		box-sizing: border-box;
 		overflow: hidden;
@@ -83,13 +90,15 @@
 		width: 50vw;
 		flex: 1 1 500px;
 		color: black;
-		font-family: sans-serif;
+		font-family: futura, sans-serif;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.artwork-details h3 {
 		font-weight: bold;
-		font-size: 1.2rem;
-		margin-bottom: 10px;
+		font-size: 2.125rem;
+		/* margin-bottom: 10px; */
 		color: #ffffff;
 	}
 
@@ -102,7 +111,13 @@
 	.artwork-details p {
 		font-size: 1rem;
 		line-height: 1.6;
-		margin-bottom: 16px;
+		/* margin-bottom: 16px; */
+		margin: 0.5rem 0;
+		font-family: avenir-next-lt-pro-condensed, sans-serif;
+	}
+
+	.artwork-details p strong a {
+		font-weight: bold;
 	}
 
 	.artwork-details a {
