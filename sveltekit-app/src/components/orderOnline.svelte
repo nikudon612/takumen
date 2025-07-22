@@ -24,24 +24,25 @@
 			<img src={DoorDash} alt="Doordash" />
 		</div>
 	</div>
-	<div class="order-right">
+	<!-- <div class="order-right">
 		{#if menuImage}
 			<img src={menuImage} alt="Takumen delivery preview" />
 		{:else}
 			<p>Loading image...</p>
 		{/if}
-	</div>
+	</div> -->
 </div>
 
 <style>
 	.order-online-content {
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between;
+		justify-content: center;
 		align-items: center;
 		width: 100%;
 		max-width: 90vw;
 		gap: 2rem;
+        height: 70%;
 	}
 
 	.order-left {
@@ -52,6 +53,9 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+        height: 100%;
+        justify-content: center;
+        text-align: center;
 	}
 
 	.order-left h2 {

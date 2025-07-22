@@ -40,36 +40,63 @@
 	<title>Takumen - Menu</title>
 </svelte:head>
 
-<section class="menu-container" style="background-color: {backgroundColors[activeMenu]}">
-	<nav class="toggle-group">
-		<span
-			class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
-			on:click={() => (activeMenu = 'dinner')}
-		>
-			Dinner
-		</span>
-		<span
-			class="toggle {activeMenu === 'lunch' ? 'active' : ''}"
-			on:click={() => (activeMenu = 'lunch')}
-		>
-			Lunch
-		</span>
-		<span
-			class="toggle {activeMenu === 'drink' ? 'active' : ''}"
-			on:click={() => (activeMenu = 'drink')}
-		>
-			Drink
-		</span>
-		<span
-			class="toggle {activeMenu === 'order' ? 'active' : ''}"
-			on:click={() => (activeMenu = 'order')}
-			style="flex-grow: 1;">Order Online</span
-		>
-	</nav>
-
+<section
+	class="menu-container {activeMenu === 'order' ? 'order-layout' : ''}"
+	style="background-color: {backgroundColors[activeMenu]}"
+>
 	{#if activeMenu === 'order'}
-		<OrderOnline {menuImage} />
+		<!-- Toggle group is inside the left column -->
+		<div class="order-layout-wrapper">
+			<div class="order-left-column">
+				<nav class="toggle-group">
+					<span
+						class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
+						on:click={() => (activeMenu = 'dinner')}>Dinner</span
+					>
+					<span
+						class="toggle {activeMenu === 'lunch' ? 'active' : ''}"
+						on:click={() => (activeMenu = 'lunch')}>Lunch</span
+					>
+					<span
+						class="toggle {activeMenu === 'drink' ? 'active' : ''}"
+						on:click={() => (activeMenu = 'drink')}>Drink</span
+					>
+					<span
+						class="toggle {activeMenu === 'order' ? 'active' : ''}"
+						on:click={() => (activeMenu = 'order')}>Order Online</span
+					>
+				</nav>
+				<OrderOnline {menuImage} />
+			</div>
+			<div class="order-right">
+				{#if menuImage}
+					<img src={menuImage} alt="Takumen delivery preview" />
+				{:else}
+					<p>Loading image...</p>
+				{/if}
+			</div>
+		</div>
 	{:else}
+		<!-- Toggle group outside in default state -->
+		<nav class="toggle-group">
+			<span
+				class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
+				on:click={() => (activeMenu = 'dinner')}>Dinner</span
+			>
+			<span
+				class="toggle {activeMenu === 'lunch' ? 'active' : ''}"
+				on:click={() => (activeMenu = 'lunch')}>Lunch</span
+			>
+			<span
+				class="toggle {activeMenu === 'drink' ? 'active' : ''}"
+				on:click={() => (activeMenu = 'drink')}>Drink</span
+			>
+			<span
+				class="toggle {activeMenu === 'order' ? 'active' : ''}"
+				on:click={() => (activeMenu = 'order')}>Order Online</span
+			>
+		</nav>
+
 		<div class="menu-image-wrapper">
 			{#if menuImage}
 				<img src={menuImage} alt="{activeMenu} menu" />
@@ -88,7 +115,7 @@
 		justify-content: flex-start;
 		min-height: 100vh;
 		height: 100%;
-		padding: 2rem 1rem;
+		padding: 2rem 3rem;
 		transition: background-color 0.3s ease;
 	}
 
@@ -101,7 +128,6 @@
 		cursor: pointer;
 		width: 100%;
 		text-align: left;
-		max-width: 90vw;
 	}
 
 	.toggle {
@@ -120,23 +146,50 @@
 		overflow-y: auto;
 		width: 100%;
 		max-width: 90vw;
-
-		/* padding-left: 2rem;
-		padding-right: 2rem; */
-		max-height: 70vh; /* Adjust as needed */
-		scrollbar-width: none; /* Firefox */
-		-ms-overflow-style: none; /* Internet Explorer 10+ */
+		max-height: 75vh;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
 	}
 
 	.menu-image-wrapper::-webkit-scrollbar {
-		display: none; /* Chrome, Safari, Opera */
+		display: none;
 	}
+
 	.menu-image-wrapper img {
 		width: 100%;
 		height: auto;
 		display: block;
-		/* margin: 0 2rem 0 2rem; */
 	}
 
-	
+	.menu-container.order-layout {
+		background-color: transparent;
+		padding: 0;
+	}
+
+	.order-layout-wrapper {
+		display: flex;
+		width: 100%;
+		min-height: 100vh;
+	}
+
+	.order-left-column {
+		width: 50%;
+		background-color: #789faf;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 2rem 3rem;
+		box-sizing: border-box;
+	}
+
+	.order-right {
+		width: 50%;
+		height: 100vh;
+	}
+
+	.order-right img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
 </style>
