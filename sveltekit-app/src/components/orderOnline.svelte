@@ -6,31 +6,25 @@
 	import GrubHub from '../lib/assets/grubhub.png';
 
 	export let menuImage;
+	export let takeoutMenu;
 </script>
 
 <div class="order-online-content">
 	<div class="order-left">
 		<h2>DELIVERY AND TAKE OUT AVAILABLE</h2>
-		<a href="/path-to-takeout-menu.pdf" class="takeout-link" target="_blank">TAKE OUT MENU HERE</a>
+		<a href={takeoutMenu} class="takeout-link" target="_blank">TAKE OUT MENU HERE</a>
 		<p>ORDER DIRECT FROM TAKUMEN</p>
 		<a href="https://your-direct-order-link.com" class="order-button" target="_blank">ORDER HERE</a>
 		<p>ORDER BY PHONE 718.361.7973</p>
 		<p>DELIVERY OPTIONS AVAILABLE ON ONLINE PLATFORMS</p>
 		<div class="platform-logos">
-			<img src={GrubHub} alt="Grubhub" />
-			<img src={Seamless} alt="Seamless" />
-			<img src={UberEats} alt="Uber Eats" />
-			<img src={Caviar} alt="Caviar" />
-			<img src={DoorDash} alt="Doordash" />
+			<a href="https://www.grubhub.com" target="_blank"><img src={GrubHub} alt="Grubhub" /></a>
+			<a href="https://www.seamless.com" target="_blank"><img src={Seamless} alt="Seamless" /></a>
+			<a href="https://www.ubereats.com" target="_blank"><img src={UberEats} alt="Uber Eats" /></a>
+			<a href="https://www.caviar.com" target="_blank"><img src={Caviar} alt="Caviar" /></a>
+			<a href="https://www.doordash.com" target="_blank"><img src={DoorDash} alt="Doordash" /></a>
 		</div>
 	</div>
-	<!-- <div class="order-right">
-		{#if menuImage}
-			<img src={menuImage} alt="Takumen delivery preview" />
-		{:else}
-			<p>Loading image...</p>
-		{/if}
-	</div> -->
 </div>
 
 <style>
@@ -42,7 +36,7 @@
 		width: 100%;
 		max-width: 90vw;
 		gap: 2rem;
-        height: 70%;
+		height: 70%;
 	}
 
 	.order-left {
@@ -53,9 +47,9 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-        height: 100%;
-        justify-content: center;
-        text-align: center;
+		height: 100%;
+		justify-content: center;
+		text-align: center;
 	}
 
 	.order-left h2 {
@@ -71,6 +65,9 @@
 		margin-bottom: 1rem;
 	}
 
+	.takeout-link:hover {
+		color: #333;
+	}
 	.order-button {
 		display: inline-block;
 		margin: 1rem 0;
@@ -80,6 +77,10 @@
 		text-decoration: none;
 		border-radius: 4px;
 		font-weight: bold;
+	}
+
+	.order-button:hover {
+		color: #fed314;
 	}
 
 	.platform-logos {

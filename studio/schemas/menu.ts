@@ -35,6 +35,15 @@ export default defineType({
         },
       ],
     },
+    {
+      name: 'takeoutMenu',
+      title: 'Takeout Menu PDF',
+      type: 'file',
+      options: {
+        accept: 'application/pdf',
+      },
+      validation: (Rule) => Rule.required(),
+    },
   ],
   preview: {
     prepare() {

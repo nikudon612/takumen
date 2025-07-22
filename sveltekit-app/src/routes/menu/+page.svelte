@@ -11,7 +11,8 @@
 
 	export let data;
 	const { menu } = data;
-	// console.log('Menu data:', menu);
+	console.log('Menu data:', menu);
+	const takeoutMenu = menu?.takeoutMenu?.asset?.url || '';
 
 	let menuImage = '';
 
@@ -66,7 +67,7 @@
 						on:click={() => (activeMenu = 'order')}>Order Online</span
 					>
 				</nav>
-				<OrderOnline {menuImage} />
+				<OrderOnline {menuImage} {takeoutMenu} />
 			</div>
 			<div class="order-right">
 				{#if menuImage}
