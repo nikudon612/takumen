@@ -138,6 +138,9 @@
 		font-weight: lighter;
 		font-family: avenir-next-lt-pro-condensed, sans-serif;
 	}
+	.toggle:hover {
+		color: #ffe356;
+	}
 
 	.toggle.active {
 		color: #ffe356;
