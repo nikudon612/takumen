@@ -70,7 +70,7 @@
 	.menu-scroll-wrapper {
 		flex: 1;
 		overflow-y: auto;
-		padding: 4rem 2rem;
+		padding: 2rem 3rem;
 
 		/* Hide scrollbar for WebKit (Chrome, Safari) */
 		scrollbar-width: none; /* Firefox */

@@ -75,5 +75,13 @@ export const menuQuery = groq`*[_type == "menuPage"][0]{
         lqip
       }
     }
+  },
+  takeoutMenu{
+    asset->{
+      url,
+      originalFilename,
+      mimeType,
+      size
+    }
   }
 }`;

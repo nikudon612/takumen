@@ -46,15 +46,17 @@
 	.slideshow {
 		display: flex;
 		width: 100vw;
-		height: 100vh;
+		height: 85vh; 
 		overflow: hidden;
+		position: relative;
+		padding-top: 15vh;
 	}
 	.slideshow_half {
 		flex: 1;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background-color: #000; /* Fallback background color */
+		background-color: #000; 
 	}
 	.slideshow_half {
 		width: 50vw;
@@ -64,7 +66,7 @@
 	.slideshow_half img {
 		width: 100%;
 		height: 100%;
-		object-fit: contain;
+		object-fit: cover; /* Changed from contain to cover */
 		display: block;
 	}
 </style>
