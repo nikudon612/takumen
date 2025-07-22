@@ -49,7 +49,7 @@
 	<main>
 		<slot />
 	</main>
-	<footer class="footer">
+	<!-- <footer class="footer">
 		{#if footer}
 			<div class="footer_content">
 				<p class="footer_label">{footer.locationLabel}</p>
@@ -59,7 +59,7 @@
 		{:else}
 			<p>loading...</p>
 		{/if}
-	</footer>
+	</footer> -->
 </div>
 
 {#if $isPreviewing}

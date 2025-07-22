@@ -93,7 +93,7 @@
 	}
 
 	.platform-logos img {
-		height: 44px;
+		height: 50px;
 		object-fit: contain;
 	}
 
