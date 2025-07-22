@@ -14,7 +14,12 @@
 		<h2>DELIVERY AND TAKE OUT AVAILABLE</h2>
 		<a href={takeoutMenu} class="takeout-link" target="_blank">TAKE OUT MENU HERE</a>
 		<p>ORDER DIRECT FROM TAKUMEN</p>
-		<a href="https://your-direct-order-link.com" class="order-button" target="_blank">ORDER HERE</a>
+		<a
+			href="https://order.toasttab.com/online/takumen"
+			class="order-button"
+			target="_blank"
+			rel="noopener noreferrer">ORDER HERE</a
+		>
 		<p>ORDER BY PHONE 718.361.7973</p>
 		<p>DELIVERY OPTIONS AVAILABLE ON ONLINE PLATFORMS</p>
 		<div class="platform-logos">
