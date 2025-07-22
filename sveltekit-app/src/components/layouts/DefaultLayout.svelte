@@ -143,8 +143,9 @@
 		display: flex;
 		justify-content: center;
 		background-color: #ffe14d;
+		opacity: 0.7;
 		width: 100%;
-		height: 12vh;
+		height: 10vh;
 	}
 
 	.footer_content {
