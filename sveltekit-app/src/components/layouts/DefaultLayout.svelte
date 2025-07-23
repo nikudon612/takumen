@@ -75,7 +75,7 @@
 			<div class="mobile-menu-content">
 				{#each navigation.links as link}
 					<a
-						class="mobile-nav-link"
+						class="mobile-nav-link {link.href === $page.url.pathname ? 'active' : ''}"
 						href={link.href}
 						on:click={closeMobileMenu}
 						target={link.target}
@@ -313,6 +313,11 @@
 
 		.mobile-nav-link:hover {
 			opacity: 0.8;
+		}
+
+		.mobile-nav-link.active {
+			text-decoration: underline;
+			text-underline-offset: 4px;
 		}
 
 		.mobile-menu-close {
