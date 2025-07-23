@@ -29,14 +29,29 @@
 </section>
 
 <style>
+	@media (max-width: 768px) {
+		.reservations-container {
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.reservation-info,
+		.group-info {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		.reservation-image img {
+			max-width: 100%;
+			height: auto;
+		}
+	}
 	.reservations-section {
 		background-color: #f26c5a;
-		padding-top: 60px;
-		padding-bottom: 60px;
-		height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+		height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.reservations-container {
@@ -57,7 +72,7 @@
 
 	.reservation-info h2,
 	.group-info h2 {
-        font-family: Futura-pt-condensed, sans-serif;
+		font-family: Futura-pt-condensed, sans-serif;
 		font-weight: normal;
 		font-size: 2.125rem;
 		margin-bottom: 10px;
@@ -65,7 +80,7 @@
 
 	.reservation-info p,
 	.group-info p {
-        font-family: avenir-next-lt-pro-condensed, sans-serif;
+		font-family: avenir-next-lt-pro-condensed, sans-serif;
 		font-size: 1.625rem;
 		color: black;
 	}

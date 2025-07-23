@@ -10,9 +10,9 @@
 
 	const { navigation, footer } = data;
 
-	console.log('Layout data:', data);
-	console.log('Navigation:', navigation);
-	console.log('Footer:', footer);
+	// console.log('Layout data:', data);
+	// console.log('Navigation:', navigation);
+	// console.log('Footer:', footer);
 </script>
 
 {#if $isPreviewing}
@@ -35,10 +35,13 @@
 		<slot />
 	</TakuParlorLayout>
 {:else}
-	<!-- {:else if $page.url.pathname.startsWith('/about')} -->
-	<AboutLayout {data}>
+	<DefaultLayout {data}>
 		<slot />
-	</AboutLayout>
+	</DefaultLayout>
+	<!-- {:else if $page.url.pathname.startsWith('/about')} -->
+	<!-- <AboutLayout {data}>
+		<slot />
+	</AboutLayout> -->
 {/if}
 
 {#if $isPreviewing}

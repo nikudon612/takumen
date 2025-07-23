@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import LiveMode from '../LiveMode.svelte';
 	import hamburger from '../../lib/assets/hamburger.svg';
+	import closebutton from '../../lib/assets/closebutton.svg';
 
 	export let data;
 
@@ -64,10 +65,17 @@
 	</main>
 	{#if mobileMenuOpen}
 		<div class="mobile-menu-overlay">
+			<img
+				src={closebutton}
+				alt="Close Menu"
+				class="mobile-menu-close"
+				on:click={closeMobileMenu}
+			/>
+
 			<div class="mobile-menu-content">
 				{#each navigation.links as link}
 					<a
-						class="mobile-nav-link"
+						class="mobile-nav-link {link.href === $page.url.pathname ? 'active' : ''}"
 						href={link.href}
 						on:click={closeMobileMenu}
 						target={link.target}
@@ -272,6 +280,56 @@
 
 		.header_links {
 			display: none; /* Or set to column and show below logo if needed */
+		}
+		.mobile-menu-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			background-color: #87b28b; /* muted green */
+			z-index: 100;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.mobile-menu-content {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 1.5rem;
+		}
+
+		.mobile-nav-link {
+			font-size: 1.25rem;
+			color: white;
+			text-decoration: none;
+			font-family: futura, sans-serif;
+			text-transform: capitalize;
+		}
+
+		.mobile-nav-link:hover {
+			opacity: 0.8;
+		}
+
+		.mobile-nav-link.active {
+			text-decoration: underline;
+			text-underline-offset: 4px;
+		}
+
+		.mobile-menu-close {
+			position: absolute;
+			top: 3rem;
+			right: 1.5rem;
+			background: none;
+			border: none;
+			color: white;
+			font-size: 2rem;
+			cursor: pointer;
+			z-index: 101;
 		}
 	}
 
