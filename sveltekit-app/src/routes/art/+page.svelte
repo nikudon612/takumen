@@ -51,7 +51,7 @@
 	.artwork-section {
 		background-color: #83a77d;
 		padding: 60px;
-		height: 100vh;
+		height: 85vh;
 		box-sizing: border-box;
 		overflow: hidden; /* ensures nothing spills out */
 	}
