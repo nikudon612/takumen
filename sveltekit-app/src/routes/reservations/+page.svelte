@@ -48,7 +48,7 @@
 	}
 	.reservations-section {
 		background-color: #f26c5a;
-		height: 100vh;
+		height: 85vh;
 		display: flex;
 		align-items: center;
 		justify-content: center;

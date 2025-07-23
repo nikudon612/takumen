@@ -72,9 +72,16 @@
 	.about_layout {
 		display: flex;
 		flex-direction: column;
+		min-height: 100vh; /* instead of fixed 100vh */
 		width: 100vw;
-		height: 100vh;
 		overflow-x: hidden;
+	}
+
+	.about_content_wrapper {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		overflow: visible; /* let content expand naturally */
 	}
 
 	.header {
@@ -113,14 +120,6 @@
 	.header_logo {
 		width: 40%;
 		height: auto;
-	}
-
-	.about_content_wrapper {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		height: 80vh;
-		overflow: hidden;
 	}
 
 	/* Mobile Styles */
