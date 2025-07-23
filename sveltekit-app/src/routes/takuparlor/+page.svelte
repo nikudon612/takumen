@@ -129,4 +129,54 @@
 		height: 100%;
 		object-fit: cover;
 	}
+
+	@media (max-width: 768px) {
+		.split-menu {
+			flex-direction: column-reverse;
+			height: auto;
+
+		}
+
+		.menu-left,
+		.menu-right {
+			width: 100%;
+			flex: unset;
+			height: auto;
+		}
+
+		.menu-right img {
+			width: 100%;
+			height: auto;
+			object-fit: cover;
+		}
+
+		.mascot-top {
+			position: static;
+			display: block;
+			margin: 1rem auto 0 auto;
+			width: 100px;
+		}
+
+		.mascot-bottom {
+			position: static;
+			display: block;
+			margin: 2rem auto 1rem auto;
+			width: 120px;
+		}
+
+		.menu-scroll-wrapper {
+			padding: 1.5rem;
+			max-height: unset;
+			overflow: visible;
+		}
+
+		.menu-items h2 {
+			font-size: 1.375rem;
+			margin-top: 1.25rem;
+		}
+
+		.menu-items p {
+			font-size: 1rem;
+		}
+	}
 </style>

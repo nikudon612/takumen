@@ -100,4 +100,50 @@
 		height: auto;
 		display: block;
 	}
+
+	@media (max-width: 768px) {
+		.reservations-section {
+			height: auto;
+			padding-bottom: 2rem;
+		}
+
+		.reservations-container {
+			flex-direction: column;
+			align-items: center;
+			background-color: #f26c5a;
+			padding: 2rem 1.5rem;
+			gap: 2rem;
+		}
+
+		.reservation-image {
+			display: none;
+		}
+
+		.reservation-image-mobile {
+			display: block;
+			width: 100%;
+		}
+
+		.reservation-image-mobile img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+
+		.reservation-info,
+		.group-info {
+			text-align: center;
+			margin-bottom: 0;
+		}
+
+		.reservation-info h2,
+		.group-info h2 {
+			font-size: 1.75rem;
+		}
+
+		.reservation-info p,
+		.group-info p {
+			font-size: 1.25rem;
+		}
+	}
 </style>
