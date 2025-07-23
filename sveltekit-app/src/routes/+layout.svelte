@@ -10,9 +10,9 @@
 
 	const { navigation, footer } = data;
 
-	console.log('Layout data:', data);
-	console.log('Navigation:', navigation);
-	console.log('Footer:', footer);
+	// console.log('Layout data:', data);
+	// console.log('Navigation:', navigation);
+	// console.log('Footer:', footer);
 </script>
 
 {#if $isPreviewing}
