@@ -46,7 +46,7 @@
 	.slideshow {
 		display: flex;
 		width: 100vw;
-		height: 85vh; 
+		height: 85vh;
 		overflow: hidden;
 		position: relative;
 		padding-top: 15vh;
@@ -56,7 +56,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background-color: #000; 
+		background-color: #000;
 	}
 	.slideshow_half {
 		width: 50vw;
@@ -68,5 +68,28 @@
 		height: 100%;
 		object-fit: cover; /* Changed from contain to cover */
 		display: block;
+	}
+
+	@media (max-width: 768px) {
+		.slideshow {
+			display: flex;
+			flex-direction: column;
+			height: calc(100vh - 15vh); /* fill rest of viewport under the header */
+			width: 100vw;
+			padding-top: 0;
+		}
+
+		.slideshow_half {
+			width: 100%;
+			height: 50%; /* exactly half of the remaining space */
+			flex-shrink: 0; /* prevent collapsing */
+		}
+
+		.slideshow_half img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+		}
 	}
 </style>

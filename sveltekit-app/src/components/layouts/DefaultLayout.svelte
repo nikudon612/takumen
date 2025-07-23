@@ -2,14 +2,25 @@
 	import { isPreviewing, VisualEditing } from '@sanity/visual-editing/svelte';
 	import { page } from '$app/stores';
 	import LiveMode from '../LiveMode.svelte';
+	import hamburger from '../../lib/assets/hamburger.svg';
 
 	export let data;
 
 	const { navigation, footer } = data;
 
-	console.log('Layout data:', data);
-	console.log('Navigation:', navigation);
-	console.log('Footer:', footer);
+	// console.log('Layout data:', data);
+	// console.log('Navigation:', navigation);
+	// console.log('Footer:', footer);
+
+	let mobileMenuOpen = false;
+
+	function toggleMobileMenu() {
+		mobileMenuOpen = !mobileMenuOpen;
+	}
+
+	function closeMobileMenu() {
+		mobileMenuOpen = false;
+	}
 </script>
 
 {#if $isPreviewing}
@@ -30,6 +41,8 @@
 				<a href="/">
 					<img src={navigation.logo.asset.url} alt="Takumen Logo" class="header_logo" />
 				</a>
+				<img src={hamburger} alt="Menu" class="hamburger-icon" on:click={toggleMobileMenu} />
+
 				<div class="header_links">
 					{#each navigation.links as link}
 						<a
@@ -49,6 +62,23 @@
 	<main>
 		<slot />
 	</main>
+	{#if mobileMenuOpen}
+		<div class="mobile-menu-overlay">
+			<div class="mobile-menu-content">
+				{#each navigation.links as link}
+					<a
+						class="mobile-nav-link"
+						href={link.href}
+						on:click={closeMobileMenu}
+						target={link.target}
+					>
+						{link.label}
+					</a>
+				{/each}
+			</div>
+		</div>
+	{/if}
+
 	<!-- <footer class="footer">
 		{#if footer}
 			<div class="footer_content">
@@ -187,6 +217,62 @@
 		flex-direction: row;
 		width: 100%;
 		gap: 1.5rem;
+	}
+
+	.hamburger-icon {
+		display: none;
+		width: 2rem;
+		height: 2rem;
+		cursor: pointer;
+	}
+
+	@media (max-width: 768px) {
+		.hamburger-icon {
+			display: block;
+			position: absolute;
+			right: 1.5rem;
+			top: 50%;
+			transform: translateY(-50%);
+			z-index: 20;
+		}
+		.container {
+			width: 100%;
+			height: auto;
+		}
+
+		main {
+			margin-top: 0;
+		}
+
+		.header {
+			position: relative;
+			height: 15vh;
+			background-color: white;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 0;
+		}
+
+		.header_content {
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start;
+			padding: 0;
+			width: 100%;
+			padding: 0 1rem;
+		}
+
+		.header_logo {
+			width: 65%;
+			max-width: 300px;
+			height: auto;
+			margin: 0 auto;
+		}
+
+		.header_links {
+			display: none; /* Or set to column and show below logo if needed */
+		}
 	}
 
 	@media (min-width: 575px) {
