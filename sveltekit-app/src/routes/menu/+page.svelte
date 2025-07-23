@@ -153,6 +153,7 @@
 		max-height: 75vh;
 		scrollbar-width: none;
 		-ms-overflow-style: none;
+		background-color: #fff;
 	}
 
 	.menu-image-wrapper::-webkit-scrollbar {

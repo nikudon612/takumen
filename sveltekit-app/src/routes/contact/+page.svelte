@@ -59,14 +59,15 @@
 <style>
 	.hours-info {
 		background-color: #fed314;
-		padding: 4rem 3rem;
+		/* padding: 4rem 3rem; */
 		font-family: avenir-next-lt-pro-condensed, sans-serif;
 		color: black;
-		height: 100%;
+		height: 85vh;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
+		overflow: hidden;
 	}
 
 	.content-container {

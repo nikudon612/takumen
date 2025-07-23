@@ -23,11 +23,16 @@
 		<p>ORDER BY PHONE 718.361.7973</p>
 		<p>DELIVERY OPTIONS AVAILABLE ON ONLINE PLATFORMS</p>
 		<div class="platform-logos">
-			<a href="https://www.grubhub.com" target="_blank"><img src={GrubHub} alt="Grubhub" /></a>
-			<a href="https://www.seamless.com" target="_blank"><img src={Seamless} alt="Seamless" /></a>
-			<a href="https://www.ubereats.com" target="_blank"><img src={UberEats} alt="Uber Eats" /></a>
-			<a href="https://www.caviar.com" target="_blank"><img src={Caviar} alt="Caviar" /></a>
-			<a href="https://www.doordash.com" target="_blank"><img src={DoorDash} alt="Doordash" /></a>
+			<div class="platform-row top-row">
+				<a class="logo-item"><img src={GrubHub} alt="Grubhub" /></a>
+				<a class="logo-item"><img src={Seamless} alt="Seamless" /></a>
+				<a class="logo-item"><img src={UberEats} alt="Uber Eats" /></a>
+			</div>
+
+			<div class="platform-row bottom-row">
+				<a class="logo-item"><img src={DoorDash} alt="Doordash" /></a>
+				<a class="logo-item"><img src={Caviar} alt="Caviar" /></a>
+			</div>
 		</div>
 	</div>
 </div>
@@ -90,15 +95,38 @@
 
 	.platform-logos {
 		display: flex;
-		flex-wrap: wrap;
+		flex-direction: column;
 		gap: 1rem;
-		margin-top: 1.5rem;
+		/* width: 100%;
+		max-width: 800px; */
+		margin: 2rem auto 0;
+	}
+
+	.platform-row {
+		display: flex;
+		width: 100%;
+		gap: 0rem;
+		justify-content: space-between;
+	}
+
+	.bottom-row {
+		justify-content: center; /* center the 2 items */
+	}
+
+	.bottom-row .logo-item {
+		flex: 1;
+	}
+
+	.logo-item {
+		display: flex;
+		justify-content: center;
 		align-items: center;
-		justify-content: space-around;
+		/* flex: 1; */
 	}
 
 	.platform-logos img {
-		height: 50px;
+		height: 35px;
+		max-width: 100%;
 		object-fit: contain;
 	}
 
