@@ -272,8 +272,7 @@
 		}
 
 		.header_logo {
-			width: 65%;
-			max-width: 300px;
+			width: 40%;
 			height: auto;
 			margin: 0 auto;
 		}
@@ -313,11 +312,6 @@
 
 		.mobile-nav-link:hover {
 			opacity: 0.8;
-		}
-
-		.mobile-nav-link.active {
-			text-decoration: underline;
-			text-underline-offset: 4px;
 		}
 
 		.mobile-menu-close {

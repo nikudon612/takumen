@@ -118,7 +118,7 @@
 	}
 
 	.header_logo {
-		width: 40%;
+		width: 65%;
 		height: auto;
 	}
 
@@ -131,6 +131,13 @@
 	}
 
 	@media (max-width: 768px) {
+		.header_content {
+			padding: 0 1rem;
+		}
+
+		.header_logo {
+			width: 40%;
+		}
 		.hamburger-icon {
 			display: block;
 			position: absolute;
