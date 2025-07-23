@@ -51,7 +51,6 @@
 		display: flex;
 		width: 100%;
 		height: 85vh;
-		padding-top: 15vh;
 		background-color: #87b28b;
 	}
 

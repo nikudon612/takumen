@@ -35,13 +35,13 @@
 		<slot />
 	</TakuParlorLayout>
 {:else}
-	<DefaultLayout {data}>
+	<!-- <DefaultLayout {data}>
 		<slot />
-	</DefaultLayout>
+	</DefaultLayout> -->
 	<!-- {:else if $page.url.pathname.startsWith('/about')} -->
-	<!-- <AboutLayout {data}>
+	<AboutLayout {data}>
 		<slot />
-	</AboutLayout> -->
+	</AboutLayout>
 {/if}
 
 {#if $isPreviewing}
