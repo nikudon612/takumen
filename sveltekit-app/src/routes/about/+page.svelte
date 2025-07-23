@@ -50,7 +50,7 @@
 	.about_section {
 		display: flex;
 		width: 100%;
-		height: 80vh;
+		height: 85vh;
 		background-color: #87b28b;
 	}
 
@@ -70,7 +70,8 @@
 
 	.right-text {
 		width: 55vw;
-		padding: 3rem 6rem 3rem 6rem;
+		padding: 0rem 6rem 3rem 6rem;
+		/* padding-top: 15vh; */
 		display: flex;
 		flex-direction: column;
 		color: #333;
