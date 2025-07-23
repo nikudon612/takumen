@@ -53,7 +53,8 @@
 	.split-menu {
 		display: flex;
 		width: 100vw;
-		height: 100vh; /* full viewport height */
+		height: 85vh; /* full viewport height */
+		overflow: hidden;
 	}
 
 	.menu-left {
@@ -120,7 +121,7 @@
 
 	.menu-right {
 		flex: 1;
-		height: 100vh;
+		height: 85vh;
 		overflow: hidden;
 	}
 
