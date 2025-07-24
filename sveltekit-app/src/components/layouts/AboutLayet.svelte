@@ -118,7 +118,7 @@
 	}
 
 	.header_logo {
-		width: 65%;
+		width: 40%;
 		height: auto;
 	}
 
