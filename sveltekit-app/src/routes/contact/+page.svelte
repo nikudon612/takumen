@@ -199,7 +199,6 @@
 		}
 		.content-container {
 			display: none;
-			overflow: visible;
 		}
 
 		.mobile-hours-info {
@@ -207,7 +206,12 @@
 			flex-direction: column;
 			width: 100%;
 			height: 100%;
-			overflow: visible;
+			overflow: hidden;
+		}
+
+		.mobile-hours-image {
+			width: 100%;
+			flex-shrink: 0;
 		}
 
 		.mobile-hours-image img {
@@ -218,6 +222,8 @@
 		}
 
 		.mobile-hours-text {
+			flex: 1;
+			overflow-y: auto;
 			background-color: #fed314;
 			color: black;
 			padding: 1.5rem 1rem;
