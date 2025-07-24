@@ -3,6 +3,23 @@
 </script>
 
 <section class="reservations-section">
+	<!-- Mobile Layout -->
+	<div class="mobile-reservations">
+		<div class="mobile-image">
+			<img src={image} alt="People dining at Takumen" />
+		</div>
+		<div class="mobile-info">
+			<h2>RESERVATIONS</h2>
+			<p>
+				RESERVE WITH RESY<br />
+				OR GIVE US A CALL <a href="tel:7183617973">718.361.7973</a>
+			</p>
+			<h2>LARGE GROUP RESERVATIONS,<br />CATERING & GENERAL INQUIRIES</h2>
+			<p><a href="mailto:info@takumenlic.com">INFO@TAKUMENLIC.COM</a></p>
+		</div>
+	</div>
+
+	<!-- Desktop Layout -->
 	<div class="reservations-container">
 		<!-- Left: Reservation Info -->
 		<div class="reservation-info">
@@ -29,29 +46,18 @@
 </section>
 
 <style>
-	@media (max-width: 768px) {
-		.reservations-container {
-			flex-direction: column;
-			align-items: center;
-		}
-
-		.reservation-info,
-		.group-info {
-			text-align: center;
-			margin-bottom: 20px;
-		}
-
-		.reservation-image img {
-			max-width: 100%;
-			height: auto;
-		}
+	.mobile-reservations {
+		display: none;
 	}
+
 	.reservations-section {
 		background-color: #f26c5a;
 		height: 85vh;
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		position: relative;
 	}
 
 	.reservations-container {
@@ -103,47 +109,56 @@
 
 	@media (max-width: 768px) {
 		.reservations-section {
-			height: auto;
-			padding-bottom: 2rem;
+			justify-content: flex-start;
 		}
-
 		.reservations-container {
-			flex-direction: column;
-			align-items: center;
-			background-color: #f26c5a;
-			padding: 2rem 1.5rem;
-			gap: 2rem;
-		}
-
-		.reservation-image {
 			display: none;
 		}
 
-		.reservation-image-mobile {
-			display: block;
+		.mobile-reservations {
+			display: flex;
+			flex-direction: column;
 			width: 100%;
+			height: 100%;
 		}
 
-		.reservation-image-mobile img {
+		.mobile-image img {
 			width: 100%;
-			height: auto;
 			display: block;
+			object-fit: cover;
 		}
 
-		.reservation-info,
-		.group-info {
-			text-align: center;
-			margin-bottom: 0;
+		.mobile-info {
+			background-color: #f26c5a;
+			padding: 0rem 1rem;
+			text-align: left;
+			color: white;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			height: 100%;
+			gap: 0rem;
 		}
 
-		.reservation-info h2,
-		.group-info h2 {
+		.mobile-info h2 {
+			font-family: Futura-pt-condensed, sans-serif;
 			font-size: 1.75rem;
+			font-weight: normal;
+			margin: 0.5rem 0rem;
 		}
 
-		.reservation-info p,
-		.group-info p {
+		.mobile-info p {
+			font-family: avenir-next-lt-pro-condensed, sans-serif;
 			font-size: 1.25rem;
+			color: black;
+			line-height: 1.5;
+			margin: 0.5rem 0rem;
+		}
+
+		.mobile-info a {
+			color: black;
+			text-decoration: underline;
+			margin: 0.5rem 0rem;
 		}
 	}
 </style>
