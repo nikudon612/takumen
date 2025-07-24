@@ -194,6 +194,12 @@
 	}
 
 	@media (max-width: 768px) {
+		html,
+		body {
+			height: 100dvh;
+			overflow: hidden;
+			touch-action: none; /* Prevents pull-to-refresh */
+		}
 		.hours-info {
 			overflow: visible;
 			height: 85dvh;
@@ -206,7 +212,7 @@
 			display: flex;
 			flex-direction: column;
 			width: 100%;
-			height: 100%;
+			height: 100dvh;
 			overflow: hidden;
 		}
 
@@ -252,7 +258,7 @@
 		}
 
 		.mobile-hours-text .newsletter-input {
-			width: 100%;
+			width: 96%;
 			padding: 0.5rem;
 			margin: 0.5rem 0;
 			border: none;
