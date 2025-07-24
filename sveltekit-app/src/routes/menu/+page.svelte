@@ -114,9 +114,10 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: flex-start;
-		min-height: 85vh;
+		min-height: 78vh;
 		height: 100%;
-		padding: 2rem 3rem;
+		padding: 0rem 3rem;
+		padding-top: 2rem;
 		transition: background-color 0.3s ease;
 	}
 
