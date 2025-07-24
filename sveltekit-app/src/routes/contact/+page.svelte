@@ -196,6 +196,7 @@
 	@media (max-width: 768px) {
 		.hours-info {
 			overflow: visible;
+			height: 85dvh;
 		}
 		.content-container {
 			display: none;
