@@ -53,7 +53,7 @@
 	.reservations-section {
 		background-color: #f26c5a;
 		/* height: calc(100dvh - 15dvh); */
-		height: 100dvh;
+		height: 85dvh;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
