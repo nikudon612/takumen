@@ -128,7 +128,7 @@
 			display: block;
 			object-fit: cover;
 			max-height: 42.5vh;
-			height: auto;
+			height: 42.5vh;
 			flex-shrink: 0;
 		}
 
