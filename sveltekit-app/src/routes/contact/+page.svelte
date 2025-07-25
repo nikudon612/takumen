@@ -194,12 +194,6 @@
 	}
 
 	@media (max-width: 768px) {
-		html,
-		body {
-			height: 100dvh;
-			overflow: hidden;
-			touch-action: none; /* Prevents pull-to-refresh */
-		}
 		.hours-info {
 			overflow: visible;
 			height: 85dvh;
@@ -212,7 +206,7 @@
 			display: flex;
 			flex-direction: column;
 			width: 100%;
-			height: 100dvh;
+			height: 85dvh;
 			overflow: hidden;
 		}
 
