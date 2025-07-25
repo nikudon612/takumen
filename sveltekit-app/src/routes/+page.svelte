@@ -74,7 +74,7 @@
 		.slideshow {
 			display: flex;
 			flex-direction: column;
-			height: calc(100vh - 15vh); /* fill rest of viewport under the header */
+			height: calc(100dvh - 15dvh); /* fill rest of viewport under the header */
 			width: 100vw;
 			padding-top: 0;
 		}
