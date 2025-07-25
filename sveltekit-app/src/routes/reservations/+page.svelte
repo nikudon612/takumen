@@ -127,6 +127,9 @@
 			width: 100%;
 			display: block;
 			object-fit: cover;
+			max-height: 42.5vh;
+			height: auto;
+			flex-shrink: 0;
 		}
 
 		.mobile-info {
