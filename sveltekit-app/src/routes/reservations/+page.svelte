@@ -59,7 +59,6 @@
 		justify-content: center;
 		position: relative;
 		overflow: hidden;
-		padding-top: 15vh;
 	}
 
 	.reservations-container {
