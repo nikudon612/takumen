@@ -72,7 +72,7 @@
 	.about_layout {
 		display: flex;
 		flex-direction: column;
-		min-height: 100vh; /* instead of fixed 100vh */
+		min-height: 100dvh; /* instead of fixed 100vh */
 		width: 100vw;
 		overflow-x: hidden;
 	}
@@ -131,6 +131,10 @@
 	}
 
 	@media (max-width: 768px) {
+		.about_layout {
+			width: 100vw;
+			height: 100dvh; /* fill the viewport */
+		}
 		.header_content {
 			padding: 0 1rem;
 		}
