@@ -52,14 +52,14 @@
 
 	.reservations-section {
 		background-color: #f26c5a;
-		/* height: calc(100dvh - 15dvh); */
-		height: 100dvh;
+		height: calc(100dvh - 15dvh);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		position: relative;
 		overflow: hidden;
+		padding-top: 15vh;
 	}
 
 	.reservations-container {
