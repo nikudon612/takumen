@@ -76,13 +76,13 @@
 				5:30PM - 10:00PM
 			</p>
 
-			<h3>FIND US AT</h3>
-			<p><a href="https://instagram.com/takumenlic" target="_blank">INSTAGRAM</a></p>
-
 			<h3>JOIN OUR NEWSLETTER</h3>
 			<p>SIGN UP WITH YOUR EMAIL FOR UPDATES</p>
 			<input type="email" placeholder="Email Address" class="newsletter-input" />
 			<button class="subscribe-btn">SUBSCRIBE</button>
+
+			<h3>FIND US AT</h3>
+			<p><a href="https://instagram.com/takumenlic" target="_blank">INSTAGRAM</a></p>
 		</div>
 	</div>
 </section>
@@ -146,7 +146,7 @@
 		color: white;
 		font-size: 1.875rem;
 		line-height: 2.25rem;
-		margin: 0.5rem 0;
+		margin: 0.25rem 0;
 	}
 
 	p {
@@ -237,13 +237,13 @@
 			font-family: futura-pt-condensed, sans-serif;
 			font-size: 1.75rem;
 			font-weight: normal;
-			margin: 0.75rem 0 0.25rem;
+			margin: 1.5rem 0 0rem;
 		}
 
 		.mobile-hours-text p {
 			font-size: 1.25rem;
 			line-height: 1.5;
-			margin: 0.5rem 0;
+			margin: 0rem 0;
 		}
 
 		.mobile-hours-text a {
