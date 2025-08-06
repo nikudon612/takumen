@@ -1,14 +1,15 @@
 <script lang="ts">
 	export let data;
 	import Icecream from '../../lib/assets/icecream.jpg';
-	import MascotTop from '../../lib/assets/mascot1.png';
-	import MascotBottom from '../../lib/assets/mascot2.png';
+	import Menu from '../../lib/assets/tpmenu.jpg';
 	// const { image } = data; // image.asset.url should point to the soft-serve CMS image
 </script>
 
 <section class="split-menu">
 	<div class="menu-left">
-		<img src={MascotTop} alt="Mascot" class="mascot-top" />
+		<img src={Menu} alt="Taku Parlor dessert menu" />
+
+		<!-- <img src={MascotTop} alt="Mascot" class="mascot-top" />
 
 		<div class="menu-scroll-wrapper">
 			<div class="menu-items">
@@ -31,17 +32,9 @@
 				<h2>MOCHIDOKI</h2>
 				<p>mochi ice cream<br />assorted flavors</p>
 			</div>
-			<h2>TEST SECTION</h2>
-			<p>line 1<br />line 2<br />line 3<br />line 4<br />line 5</p>
-			<h2>TEST SECTION</h2>
-			<p>line 1<br />line 2<br />line 3<br />line 4<br />line 5</p>
-			<h2>TEST SECTION</h2>
-			<p>line 1<br />line 2<br />line 3<br />line 4<br />line 5</p>
-			<h2>TEST SECTION</h2>
-			<p>line 1<br />line 2<br />line 3<br />line 4<br />line 5</p>
 		</div>
 
-		<img src={MascotBottom} alt="Mascot cheering" class="mascot-bottom" />
+		<img src={MascotBottom} alt="Mascot cheering" class="mascot-bottom" /> -->
 	</div>
 
 	<div class="menu-right">
@@ -59,64 +52,20 @@
 
 	.menu-left {
 		position: relative;
-		flex: 1;
+		flex: 0 0 auto; /* don’t grow or shrink */
+		aspect-ratio: 1 / 1;
 		background-color: #789faf;
-		color: white;
 		font-family: avenir-next-lt-pro-condensed, sans-serif;
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
+		width: 50%;
 	}
 
-	.menu-scroll-wrapper {
-		flex: 1;
-		overflow-y: auto;
-		padding: 2rem 3rem;
-
-		/* Hide scrollbar for WebKit (Chrome, Safari) */
-		scrollbar-width: none; /* Firefox */
-		-ms-overflow-style: none; /* IE 10+ */
-	}
-
-	.menu-scroll-wrapper::-webkit-scrollbar {
-		display: none; /* WebKit */
-	}
-
-	.menu-items {
-		text-align: center;
-		max-width: 600px;
-		margin: 0 auto;
-	}
-
-	.menu-items h2 {
-		font-size: 1.5rem;
-		margin: 1.5rem 0 0.5rem;
-		font-weight: bold;
-	}
-
-	.menu-items p {
-		font-size: 1.125rem;
-		line-height: 1.5;
-		font-family: Futura, sans-serif;
-	}
-
-	.mascot-top,
-	.mascot-bottom {
-		position: absolute;
-		z-index: 10;
-		pointer-events: none;
-	}
-
-	.mascot-top {
-		top: 2rem;
-		right: 6rem;
-		width: 120px;
-	}
-
-	.mascot-bottom {
-		bottom: 16rem;
-		left: 5rem;
-		width: 150px;
+	.menu-left img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
 	}
 
 	.menu-right {
@@ -134,50 +83,28 @@
 	@media (max-width: 768px) {
 		.split-menu {
 			flex-direction: column-reverse;
-			height: auto;
-
+			height: 85vh; /* two halves = full screen */
+			overflow: hidden; /* no scrollbars */
 		}
 
 		.menu-left,
 		.menu-right {
 			width: 100%;
-			flex: unset;
-			height: auto;
+			flex: none; /* don’t flex-grow or -shrink */
+			height: 50%; /* each takes exactly half the viewport */
+			overflow: hidden; /* clip anything outside */
 		}
 
+		/* your existing object-fit rules still apply: */
+		.menu-left img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain; /* or cover, as you prefer */
+		}
 		.menu-right img {
 			width: 100%;
-			height: auto;
-			object-fit: cover;
-		}
-
-		.mascot-top {
-			position: static;
-			display: block;
-			margin: 1rem auto 0 auto;
-			width: 100px;
-		}
-
-		.mascot-bottom {
-			position: static;
-			display: block;
-			margin: 2rem auto 1rem auto;
-			width: 120px;
-		}
-
-		.menu-scroll-wrapper {
-			padding: 1.5rem;
-			max-height: unset;
-			overflow: visible;
-		}
-
-		.menu-items h2 {
-			font-size: 1.375rem;
-			margin-top: 1.25rem;
-		}
-
-		.menu-items p {
-			font-size: 1rem;
+			height: 100%;
+			object-fit: cover; /* or cover, as you prefer */
 		}
 	}
 </style>
