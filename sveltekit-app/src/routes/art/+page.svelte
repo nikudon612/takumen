@@ -83,7 +83,7 @@
 				>
 			</p>
 
-			<p class="divider">**************************************************</p>
+			<!-- <p class="divider">**************************************************</p> -->
 
 			<p>
 				For inquiries regarding artworks, please contact us,<br />
@@ -194,7 +194,7 @@
 	/* Hide desktop layout on mobile */
 	@media (max-width: 768px) {
 		.artwork-section {
-			padding: 0rem 1rem;
+			padding: 0rem 1rem 1.75rem 1rem;
 			height: auto !important; /* Allow height to adjust based on content */
 			overflow: visible; /* Allow content to overflow */
 			display: flex;
