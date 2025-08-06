@@ -178,8 +178,12 @@
 	}
 
 	.divider {
-		margin: 20px 0;
+		/* allow asterisks to break onto the next line */
+		overflow-wrap: break-word; /* modern */
+		word-break: break-all; /* old-school fallback */
 		font-family: monospace;
+		margin: 1rem 0;
+		text-align: left;
 	}
 
 	/* Mobile only structure - hidden on desktop */
