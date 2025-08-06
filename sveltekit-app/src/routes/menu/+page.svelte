@@ -198,4 +198,36 @@
 		height: 100%;
 		object-fit: cover;
 	}
+
+	@media (max-width: 768px) {
+		.menu-container {
+			padding: 0rem 1rem;
+			height: 85vh;
+		}
+		.menu-image-wrapper {
+			max-width: 100%;
+			max-height: 100%;
+		}
+		.order-layout-wrapper {
+			flex-direction: column;
+		}
+
+		.order-left-column {
+		}
+		.order-left-column,
+		.order-right {
+			width: 100%;
+			height: auto;
+			padding: 0rem 1rem;
+		}
+
+		.toggle-group {
+			flex-direction: row;
+			gap: 1rem;
+			margin: 1rem 0;
+		}
+		.toggle {
+			font-size: 1.125rem;
+		}
+	}
 </style>

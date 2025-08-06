@@ -37,6 +37,46 @@
 	</div>
 </div>
 
+<div class="mobile-order-wrapper">
+	<!-- Nav Row -->
+	<div class="mobile-nav">
+		<a class="active">Order Online</a>
+		<a>Lunch</a>
+		<a>Dinner</a>
+		<a>Drink</a>
+	</div>
+
+	<!-- Full-width image -->
+	<img src={FamilyImage} alt="Family eating" class="mobile-hero" />
+
+	<!-- Ordering Content -->
+	<div class="mobile-order-content">
+		<h2>DELIVERY AND TAKE OUT AVAILABLE</h2>
+		<a href={takeoutMenu} class="takeout-link" target="_blank">TAKE OUT MENU HERE</a>
+		<p>ORDER DIRECT FROM TAKUMEN</p>
+		<a
+			href="https://order.toasttab.com/online/takumen"
+			class="order-button"
+			target="_blank"
+			rel="noopener noreferrer">ORDER HERE</a
+		>
+		<p>ORDER BY PHONE 718.361.7973</p>
+		<p>DELIVERY OPTIONS AVAILABLE ON ONLINE PLATFORMS</p>
+
+		<div class="platform-logos">
+			<div class="platform-row">
+				<a class="logo-item"><img src={GrubHub} alt="Grubhub" /></a>
+				<a class="logo-item"><img src={Seamless} alt="Seamless" /></a>
+				<a class="logo-item"><img src={UberEats} alt="Uber Eats" /></a>
+			</div>
+			<div class="platform-row">
+				<a class="logo-item"><img src={Caviar} alt="Caviar" /></a>
+				<a class="logo-item"><img src={DoorDash} alt="Doordash" /></a>
+			</div>
+		</div>
+	</div>
+</div>
+
 <style>
 	.order-online-content {
 		display: flex;
@@ -138,5 +178,107 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+	}
+
+	@media screen and (max-width: 768px) {
+		.desktop-only {
+			display: none;
+		}
+
+		.mobile-only {
+			display: block;
+		}
+	}
+	.desktop-only {
+		display: none;
+	}
+
+	/* Mobile layout */
+	.mobile-order-wrapper {
+		display: flex;
+		flex-direction: column;
+		background-color: #78a1b4;
+		color: white;
+		font-family: avenir-next-lt-pro-condensed, sans-serif;
+	}
+
+	/* Top nav bar */
+	.mobile-nav {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 1rem;
+		padding: 0.75rem 1rem;
+		background-color: #d6a743;
+		color: black;
+		font-weight: 500;
+	}
+
+	.mobile-nav a {
+		color: black;
+		text-decoration: none;
+		font-size: 1rem;
+	}
+
+	.mobile-nav a.active {
+		color: #f0b400;
+		font-weight: bold;
+	}
+
+	/* Hero image */
+	.mobile-hero {
+		width: 100%;
+		height: auto;
+		object-fit: cover;
+	}
+
+	/* Text content */
+	.mobile-order-content {
+		text-align: center;
+		padding: 2rem 1rem;
+		background-color: #78a1b4;
+		color: white;
+	}
+
+	.mobile-order-content h2 {
+		font-size: 1.2rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.takeout-link {
+		display: block;
+		color: white;
+		text-decoration: underline;
+		font-size: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.order-button {
+		display: inline-block;
+		background-color: #87b28b;
+		color: white;
+		padding: 0.75rem 1.5rem;
+		border-radius: 4px;
+		font-weight: bold;
+		text-decoration: none;
+		margin: 1rem 0;
+	}
+
+	/* Logos */
+	.platform-logos {
+		margin-top: 1.5rem;
+	}
+
+	.platform-row {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.logo-item img {
+		height: 30px;
+		max-width: 100px;
+		object-fit: contain;
 	}
 </style>
