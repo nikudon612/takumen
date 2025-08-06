@@ -220,6 +220,7 @@
 			height: auto;
 			object-fit: cover;
 			display: block;
+			max-height: 42.5vh;
 		}
 
 		.mobile-hours-text {
@@ -227,7 +228,7 @@
 			overflow-y: auto;
 			background-color: #fed314;
 			color: black;
-			padding: 1.5rem 1rem;
+			padding: 1rem 1rem;
 			text-align: left;
 		}
 
