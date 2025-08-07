@@ -102,4 +102,21 @@
 		letter-spacing: 0.04em;
 		font-family: avenir-next-lt-pro-condensed, sans-serif;
 	}
+
+	@media (max-width: 768px) {
+		.about_section {
+			flex-direction: column;
+			height: auto; /* allow it to grow */
+		}
+
+		.left-image,
+		.right-text {
+			flex: 1 0 auto; /* allow both to take full width */
+			height: auto; /* let them grow with content */
+		}
+
+		.right-text {
+			padding: 2rem; /* adjust padding for smaller screens */
+		}
+	}
 </style>
