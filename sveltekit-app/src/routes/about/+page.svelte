@@ -51,15 +51,15 @@
 		display: flex;
 		width: 100%;
 		height: 85vh;
+		overflow: hidden; /* lock the whole section to 85vh */
 		background-color: #87b28b;
 	}
 
 	.left-image {
-		width: 45vw;
+		flex: 0 0 45vw; /* always 45% of viewport width */
 		position: sticky;
 		top: 0;
-		height: 100vh;
-		flex-shrink: 0;
+		height: 100%; /* matches the 85vh parent */
 	}
 
 	.left-image img {
@@ -69,28 +69,26 @@
 	}
 
 	.right-text {
-		width: 55vw;
-		padding: 0rem 6rem 3rem 6rem;
-		/* padding-top: 15vh; */
+		flex: 0 0 55vw; /* your fixed 55vw */
+		box-sizing: border-box; /* ← makes padding count inside that 55vw */
+		padding: 0 6rem;
 		display: flex;
 		flex-direction: column;
-		color: #333;
 		height: 100%;
-		background-color: #87b28b;
-	}
-
-	.text-scroll h1 {
-		font-size: 1.5rem;
-		margin-bottom: 1rem;
-		font-family: futura, sans-serif;
-		font-weight: 500;
+		overflow: hidden;
+		color: #333;
 	}
 
 	.text-scroll {
-		max-height: calc(100vh - 4rem); /* subtract padding if needed */
+		flex: 1;
 		overflow-y: auto;
-		scroll-behavior: smooth;
+		overscroll-behavior: contain;
 		scrollbar-width: none;
+
+		/* wrap any long/forced text */
+		white-space: normal;
+		overflow-wrap: break-word;
+		word-wrap: break-word;
 	}
 
 	.text-scroll::-webkit-scrollbar {
