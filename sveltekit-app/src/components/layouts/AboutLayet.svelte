@@ -131,16 +131,26 @@
 	}
 
 	@media (max-width: 768px) {
+		.header {
+			justify-content: center;
+		}
+
+		/* keep the logo flush‐left inside that centered header */
+		.header_content {
+			justify-content: flex-start;
+		}
 		.about_layout {
 			width: 100vw;
 			height: 100dvh; /* fill the viewport */
 		}
 		.header_content {
-			padding: 0 1rem;
+			padding: 1rem;
 		}
 
 		.header_logo {
 			width: 40%;
+			height: auto;
+			margin: 0 auto;
 		}
 		.hamburger-icon {
 			display: block;
