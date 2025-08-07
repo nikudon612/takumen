@@ -174,59 +174,6 @@
 		height: auto;
 	}
 
-	.footer {
-		position: absolute;
-		bottom: 0;
-		z-index: 10;
-		display: flex;
-		justify-content: center;
-		background-color: #ffe14d;
-		opacity: 0.7;
-		width: 100%;
-		height: 10vh;
-	}
-
-	.footer_content {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		justify-content: center;
-		gap: var(--space-1);
-		width: 50%;
-		padding: 0 3rem;
-	}
-
-	.footer .footer__text {
-		font-size: var(--font-size-1);
-		line-height: var(--line-height-1);
-		display: flex;
-		align-items: center;
-		gap: 2px;
-	}
-
-	.footer_label {
-		margin: 0;
-		font-weight: 800;
-	}
-
-	.footer_address {
-		margin: 0;
-	}
-	.hours_content {
-		display: flex;
-		flex-direction: column;
-		width: 50%;
-		justify-content: center;
-		padding: var(--space-3) var(--space-4);
-	}
-
-	.hours_info {
-		display: flex;
-		flex-direction: row;
-		width: 100%;
-		gap: 1.5rem;
-	}
-
 	.hamburger-icon {
 		display: none;
 		width: 2rem;
@@ -267,7 +214,7 @@
 			align-items: center;
 			justify-content: flex-start;
 			padding: 0;
-			width: 100%;
+			/* width: 100%; */
 			padding: 0 1rem;
 		}
 
