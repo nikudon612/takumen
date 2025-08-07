@@ -38,7 +38,7 @@
 </script>
 
 <svelte:head>
-	<title>Takumen - Menu</title>
+	<title>Menu - Takumen</title>
 </svelte:head>
 
 <section

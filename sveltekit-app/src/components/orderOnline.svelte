@@ -47,7 +47,7 @@
 	</div>
 
 	<!-- Full-width image -->
-	<img src={FamilyImage} alt="Family eating" class="mobile-hero" />
+	<!-- <img src={FamilyImage} alt="Family eating" class="mobile-hero" /> -->
 
 	<!-- Ordering Content -->
 	<div class="mobile-order-content">
@@ -78,6 +78,11 @@
 </div>
 
 <style>
+	.mobile-order-wrapper, .mobile-order-content, .mobile-nav {
+		display: none !important;
+	}
+	.mobile-order-content {
+	}
 	.order-online-content {
 		display: flex;
 		flex-direction: row;
@@ -86,7 +91,7 @@
 		width: 100%;
 		max-width: 90vw;
 		gap: 2rem;
-		height: 70%;
+		height: 85vh;
 	}
 
 	.order-left {

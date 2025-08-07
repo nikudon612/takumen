@@ -1,49 +1,101 @@
 <script lang="ts">
 	export let data;
 	import Icecream from '../../lib/assets/icecream.jpg';
-	import MascotTop from '../../lib/assets/mascot1.png';
-	import MascotBottom from '../../lib/assets/mascot2.png';
-	// const { image } = data; // image.asset.url should point to the soft-serve CMS image
 </script>
 
 <section class="split-menu">
+	<!-- LEFT: White menu card -->
 	<div class="menu-left">
-		<img src={MascotTop} alt="Mascot" class="mascot-top" />
+		<div class="menu-box">
+			<div class="menu-columns">
+				<!-- LEFT COLUMN -->
+				<div class="column">
+					<!-- Soft Serve -->
+					<div class="menu-section">
+						<div class="japanese">ソフトクリーム</div>
+						<h2 class="section-title">Soft Serve</h2>
+						<div class="price">7.5</div>
+						<div class="subtitle">Cone or Cup</div>
+						<ul class="options">
+							<li>Vanilla</li>
+							<li>Matcha</li>
+							<li>Swirl</li>
+						</ul>
+					</div>
 
-		<div class="menu-scroll-wrapper">
-			<div class="menu-items">
-				<h2>SOFTSERVE</h2>
-				<p>matcha<br />vanilla<br />swirl</p>
+					<!-- Purin -->
+					<div class="menu-section">
+						<div class="japanese">プリン</div>
+						<h2 class="section-title">Purin</h2>
+						<div class="subtitle">Japanese Custard Pudding</div>
+						<div class="description">Housemade salted caramel sauce</div>
+						<ul class="options">
+							<li><span class="option-label">Single</span><span class="option-price">7.5</span></li>
+							<li>
+								<span class="option-label">Gift Box</span><span class="option-price">29</span>
+							</li>
+							<li class="note">(4 piece)</li>
+						</ul>
+					</div>
 
-				<h2>CREAM ANMITSU</h2>
-				<p>
-					<strong>hojicha</strong><br />hojicha kanten, original jello, shiratama mochi, redbean
-					paste, matcha soft serve, kinako, homemade maple sauce
-				</p>
-				<p>
-					<strong>mango</strong><br />mango kanten, original jello, shiratama mochi, redbean paste,
-					mango pulp, vanilla soft serve, homemade mango sauce
-				</p>
+					<!-- Ice Cream Float -->
+					<div class="menu-section">
+						<h2 class="section-title">Ice Cream Float</h2>
+						<div class="price">10</div>
+						<div class="subtitle">Made with soft serve</div>
+						<ul class="options">
+							<li>Melon Soda × Vanilla</li>
+							<li>Matcha × Matcha</li>
+							<li>Coffee × Vanilla</li>
+						</ul>
+					</div>
+				</div>
 
-				<h2>ICE CREAM FLOAT</h2>
-				<p>melon soda & vanilla<br />matcha & matcha<br />coffee & vanilla</p>
+				<!-- RIGHT COLUMN -->
+				<div class="column">
+					<!-- Sundae -->
+					<div class="menu-section">
+						<h2 class="section-title">Sundae</h2>
+						<div class="subtitle">- Japanese Parfait -</div>
+						<h3 class="subsection-title">Purin à la Mode</h3>
+						<div class="price">16</div>
+						<div class="description">
+							Housemade custard pudding, salted caramel sauce, vanilla soft serve,<br />
+							strawberry, blueberry, banana, cantaloupe, cherry
+						</div>
+					</div>
 
-				<h2>MOCHIDOKI</h2>
-				<p>mochi ice cream<br />assorted flavors</p>
+					<!-- Cream Anmitsu -->
+					<div class="menu-section">
+						<h3 class="section-title">Cream Anmitsu</h3>
+						<div class="price">14</div>
+						<ul class="flavors">
+							<li>
+								<span class="flavor-name">Hojicha</span>hojicha kanten, original jello, shiratama
+								mochi, anko-red bean paste,<br />matcha soft serve, kinako, homemade maple sauce
+							</li>
+							<li>
+								<span class="flavor-name">Mango</span>mango kanten, original jello, shiratama mochi,
+								anko-red bean paste,<br />mango pulp, vanilla soft serve, homemade mango sauce
+							</li>
+						</ul>
+						<div class="note">* Anmitsu : Traditional Japanese Dessert</div>
+					</div>
+				</div>
 			</div>
-			<h2>TEST SECTION</h2>
-			<p>line 1<br />line 2<br />line 3<br />line 4<br />line 5</p>
-			<h2>TEST SECTION</h2>
-			<p>line 1<br />line 2<br />line 3<br />line 4<br />line 5</p>
-			<h2>TEST SECTION</h2>
-			<p>line 1<br />line 2<br />line 3<br />line 4<br />line 5</p>
-			<h2>TEST SECTION</h2>
-			<p>line 1<br />line 2<br />line 3<br />line 4<br />line 5</p>
-		</div>
 
-		<img src={MascotBottom} alt="Mascot cheering" class="mascot-bottom" />
+			<!-- Allergens Info -->
+			<div class="allergens">
+				<div class="allergens-left">Contains Allergens</div>
+				<div class="allergens-right">
+					<span><strong>Soft Serve</strong> : Milk</span>
+					<span><strong>Purin</strong> : Milk and Egg</span>
+				</div>
+			</div>
+		</div>
 	</div>
 
+	<!-- RIGHT: Image -->
 	<div class="menu-right">
 		<img src={Icecream} alt="Taku Parlor Soft Serve" />
 	</div>
@@ -53,131 +105,139 @@
 	.split-menu {
 		display: flex;
 		width: 100vw;
-		height: 85vh; /* full viewport height */
-		overflow: hidden;
-	}
-
-	.menu-left {
-		position: relative;
-		flex: 1;
-		background-color: #789faf;
-		color: white;
-		font-family: avenir-next-lt-pro-condensed, sans-serif;
-		overflow: hidden;
-		display: flex;
-		flex-direction: column;
-	}
-
-	.menu-scroll-wrapper {
-		flex: 1;
-		overflow-y: auto;
-		padding: 2rem 3rem;
-
-		/* Hide scrollbar for WebKit (Chrome, Safari) */
-		scrollbar-width: none; /* Firefox */
-		-ms-overflow-style: none; /* IE 10+ */
-	}
-
-	.menu-scroll-wrapper::-webkit-scrollbar {
-		display: none; /* WebKit */
-	}
-
-	.menu-items {
-		text-align: center;
-		max-width: 600px;
-		margin: 0 auto;
-	}
-
-	.menu-items h2 {
-		font-size: 1.5rem;
-		margin: 1.5rem 0 0.5rem;
-		font-weight: bold;
-	}
-
-	.menu-items p {
-		font-size: 1.125rem;
-		line-height: 1.5;
-		font-family: Futura, sans-serif;
-	}
-
-	.mascot-top,
-	.mascot-bottom {
-		position: absolute;
-		z-index: 10;
-		pointer-events: none;
-	}
-
-	.mascot-top {
-		top: 2rem;
-		right: 6rem;
-		width: 120px;
-	}
-
-	.mascot-bottom {
-		bottom: 16rem;
-		left: 5rem;
-		width: 150px;
-	}
-
-	.menu-right {
-		flex: 1;
 		height: 85vh;
 		overflow: hidden;
 	}
 
+	/* LEFT PANE: exactly half the viewport */
+	.menu-left {
+		flex: 0 0 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #789faf;
+		overflow: hidden;
+	}
+
+	/* WHITE CARD inset by 2rem on all sides */
+	.menu-box {
+		box-sizing: border-box;
+
+		/* fill the pane minus 4rem total (2rem each side) */
+		width: calc(100% - 4rem);
+		height: calc(100% - 4rem);
+
+		margin: 2rem; /* 2rem gap on top/right/bottom/left */
+		padding: 2rem; /* your inner card padding */
+
+		background: white;
+		display: grid;
+		grid-template-rows: 1fr auto; /* menu + allergens box */
+		gap: 2rem;
+		overflow-y: auto; /* scroll inside if it overflows */
+	}
+
+	/* Two-column layout inside the card */
+	.menu-columns {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+	}
+
+	/* …your existing typography & section styles… */
+
+	.column {
+	}
+	.menu-section {
+		margin-bottom: 1.5rem;
+	}
+	.japanese {
+		font-size: 0.875rem;
+		margin-bottom: 0.25rem;
+	}
+	.section-title {
+		font-size: 1.25rem;
+		text-transform: uppercase;
+		margin: 0.25rem 0;
+	}
+	.subsection-title {
+		font-size: 1.1rem;
+		margin: 0.25rem 0;
+	}
+	.price {
+		font-weight: bold;
+		margin-bottom: 0.5rem;
+	}
+	.subtitle {
+		font-size: 0.875rem;
+		font-style: italic;
+		margin-bottom: 0.5rem;
+	}
+	.options,
+	.flavors {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 1rem;
+	}
+	.options li::before {
+		content: ': ';
+	}
+	.options li {
+		margin-bottom: 0.25rem;
+	}
+	.flavors li {
+		margin-bottom: 0.5rem;
+	}
+	.flavor-name {
+		font-weight: bold;
+		text-transform: capitalize;
+		margin-right: 0.25rem;
+	}
+	.description {
+		margin-bottom: 0.5rem;
+		line-height: 1.3;
+	}
+	.note {
+		font-size: 0.875rem;
+		margin-top: 0.5rem;
+	}
+	.allergens {
+		display: flex;
+		justify-content: space-between;
+		border: 1px dashed #000;
+		padding: 1rem;
+		font-size: 0.875rem;
+	}
+	.allergens-right {
+		display: flex;
+		gap: 1.5rem;
+	}
+	.menu-right {
+		flex: 0 0 50%;
+		overflow: hidden;
+	}
 	.menu-right img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 	}
-
 	@media (max-width: 768px) {
 		.split-menu {
 			flex-direction: column-reverse;
-			height: auto;
-
+			height: 85vh;
 		}
-
 		.menu-left,
 		.menu-right {
+			flex: none;
 			width: 100%;
-			flex: unset;
-			height: auto;
+			height: 50%;
 		}
-
+		.menu-box {
+			max-width: none;
+			margin: 0 1rem;
+		}
 		.menu-right img {
-			width: 100%;
-			height: auto;
 			object-fit: cover;
-		}
-
-		.mascot-top {
-			position: static;
-			display: block;
-			margin: 1rem auto 0 auto;
-			width: 100px;
-		}
-
-		.mascot-bottom {
-			position: static;
-			display: block;
-			margin: 2rem auto 1rem auto;
-			width: 120px;
-		}
-
-		.menu-scroll-wrapper {
-			padding: 1.5rem;
-			max-height: unset;
-			overflow: visible;
-		}
-
-		.menu-items h2 {
-			font-size: 1.375rem;
-			margin-top: 1.25rem;
-		}
-
-		.menu-items p {
-			font-size: 1rem;
 		}
 	}
 </style>
