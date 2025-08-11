@@ -150,7 +150,7 @@
 	.menu-image-wrapper {
 		overflow-y: auto;
 		width: 100%;
-		max-width: 90vw;
+		/* max-width: 90vw; */
 		max-height: 75vh;
 		scrollbar-width: none;
 		-ms-overflow-style: none;
