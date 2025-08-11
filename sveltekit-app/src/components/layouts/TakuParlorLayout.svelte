@@ -104,7 +104,7 @@
 	}
 
 	.header {
-		height: 15vh;
+		height: 15dvh;
 		background-color: white;
 		display: flex;
 		align-items: center;
