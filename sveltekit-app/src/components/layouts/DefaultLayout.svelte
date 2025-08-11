@@ -39,7 +39,7 @@
 	<header class="header">
 		{#if navigation}
 			<div class="header_content">
-				<a href="/">
+				<a href="/" class="logo-link">
 					<img src={navigation.logo.asset.url} alt="Takumen Logo" class="header_logo" />
 				</a>
 				<img src={hamburger} alt="Menu" class="hamburger-icon" on:click={toggleMobileMenu} />
@@ -114,6 +114,21 @@
 		width: 100vw;
 		height: 100dvh;
 		overflow: hidden;
+	}
+
+	/* Ensure the logo link is only the size of the image */
+	.logo-link {
+		display: inline-block; /* override any global a { display:block } */
+		line-height: 0; /* removes stray inline line-height click area */
+		padding: 0;
+		margin: 0;
+	}
+
+	/* Make the image define the box; no extra clickable padding */
+	.logo-link .header_logo {
+		display: block; /* removes inline gaps */
+		width: clamp(120px, 40vw, 280px); /* keep your 40% intent but with sane bounds */
+		height: auto;
 	}
 
 	main {

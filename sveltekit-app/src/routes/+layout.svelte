@@ -35,10 +35,6 @@
 		<slot />
 	</TakuParlorLayout>
 {:else}
-	<!-- <DefaultLayout {data}>
-		<slot />
-	</DefaultLayout> -->
-	<!-- {:else if $page.url.pathname.startsWith('/about')} -->
 	<AboutLayout {data}>
 		<slot />
 	</AboutLayout>
