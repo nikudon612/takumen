@@ -42,7 +42,7 @@ export default defineType({
       options: {
         accept: 'application/pdf',
       },
-      validation: (Rule) => Rule.required(),
+      // validation: (Rule) => Rule.required(),
     },
   ],
   preview: {

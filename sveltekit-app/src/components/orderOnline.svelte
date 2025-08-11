@@ -78,20 +78,22 @@
 </div>
 
 <style>
-	.mobile-order-wrapper, .mobile-order-content, .mobile-nav {
+	.mobile-order-wrapper,
+	.mobile-order-content,
+	.mobile-nav {
 		display: none !important;
 	}
-	.mobile-order-content {
-	}
+
 	.order-online-content {
 		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
+		flex-direction: column; /* its content stack */
+		justify-content: center; /* vertical center */
+		align-items: center; /* horizontal center */
 		width: 100%;
 		max-width: 90vw;
-		gap: 2rem;
-		height: 85vh;
+		gap: 1rem;
+		height: 100%;
+		min-height: 0;
 	}
 
 	.order-left {

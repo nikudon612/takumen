@@ -1,6 +1,6 @@
 <script lang="ts">
 	import OrderOnline from '../../components/orderOnline.svelte';
-	let activeMenu: 'dinner' | 'lunch' | 'drink' = 'dinner';
+	let activeMenu: 'dinner' | 'lunch' | 'drink' | 'order' = 'order';
 
 	const backgroundColors = {
 		dinner: '#789FAF',
@@ -17,11 +17,11 @@
 	let menuImage = '';
 
 	// Normalize and map image names to lowercase keys
-	let menuImageMap: Record<'dinner' | 'lunch' | 'drink' | 'order', string> = {
+	let menuImageMap: Record<'order' | 'dinner' | 'lunch' | 'drinks', string> = {
+		order: '',
 		dinner: '',
 		lunch: '',
-		drinks: '',
-		order: ''
+		drinks: ''
 	};
 
 	if (menu?.images?.length) {
@@ -51,6 +51,10 @@
 			<div class="order-left-column">
 				<nav class="toggle-group">
 					<span
+						class="toggle {activeMenu === 'order' ? 'active' : ''}"
+						on:click={() => (activeMenu = 'order')}>Order Online</span
+					>
+					<span
 						class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
 						on:click={() => (activeMenu = 'dinner')}>Dinner</span
 					>
@@ -61,10 +65,6 @@
 					<span
 						class="toggle {activeMenu === 'drink' ? 'active' : ''}"
 						on:click={() => (activeMenu = 'drink')}>Drink</span
-					>
-					<span
-						class="toggle {activeMenu === 'order' ? 'active' : ''}"
-						on:click={() => (activeMenu = 'order')}>Order Online</span
 					>
 				</nav>
 				<OrderOnline {menuImage} {takeoutMenu} />
@@ -81,6 +81,10 @@
 		<!-- Toggle group outside in default state -->
 		<nav class="toggle-group">
 			<span
+				class="toggle {activeMenu === 'order' ? 'active' : ''}"
+				on:click={() => (activeMenu = 'order')}>Order Online</span
+			>
+			<span
 				class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
 				on:click={() => (activeMenu = 'dinner')}>Dinner</span
 			>
@@ -91,10 +95,6 @@
 			<span
 				class="toggle {activeMenu === 'drink' ? 'active' : ''}"
 				on:click={() => (activeMenu = 'drink')}>Drink</span
-			>
-			<span
-				class="toggle {activeMenu === 'order' ? 'active' : ''}"
-				on:click={() => (activeMenu = 'order')}>Order Online</span
 			>
 		</nav>
 
@@ -147,6 +147,18 @@
 		color: #ffe356;
 	}
 
+	:root {
+		--header-h: 15vh;
+	} /* or exact px height if you know it */
+
+	.order-layout-wrapper {
+		display: flex;
+		width: 100%;
+		/* use the space that’s actually left under the header */
+		height: calc(100vh - var(--header-h));
+		min-height: calc(100vh - var(--header-h));
+	}
+
 	.menu-image-wrapper {
 		overflow-y: auto;
 		width: 100%;
@@ -168,31 +180,52 @@
 	}
 
 	.menu-container.order-layout {
-		background-color: transparent;
 		padding: 0;
+		min-height: 0; /* kill the 78vh from .menu-container */
+		height: calc(100dvh - var(--header-h));
+		overflow: hidden; /* page itself won’t scroll */
 	}
 
 	.order-layout-wrapper {
-		display: flex;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 		width: 100%;
-		min-height: 100vh;
+		height: 100%; /* fill the container */
 	}
 
 	.order-left-column {
-		width: 50%;
-		background-color: #789faf;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+		background: #789faf;
 		padding: 2rem 3rem;
 		box-sizing: border-box;
+
+		display: grid;
+		grid-template-rows: auto 1fr; /* toggles on top, content fills remaining */
+		align-items: stretch; /* let second row fill */
+		overflow: hidden; /* prevent left col scroll unless needed */
+	}
+
+	/* Keep toggles fixed at top of left column */
+	.toggle-group {
+		position: sticky;
+		top: 0;
+		z-index: 2;
+		width: 100%;
+		margin-bottom: 1rem;
+		padding: 0.5rem 0;
+	}
+
+	/* Center the content inside its cell */
+	.order-online-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center; /* vertical center */
+		align-items: center; /* horizontal center */
+		height: 100%;
 	}
 
 	.order-right {
-		width: 50%;
-		height: 100vh;
+		height: 100%;
 	}
-
 	.order-right img {
 		width: 100%;
 		height: 100%;
