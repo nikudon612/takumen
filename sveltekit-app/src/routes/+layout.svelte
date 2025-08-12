@@ -5,6 +5,7 @@
 	import AboutLayout from '../components/layouts/AboutLayet.svelte';
 	import DefaultLayout from '../components/layouts/DefaultLayout.svelte';
 	import TakuParlorLayout from '../components/layouts/TakuParlorLayout.svelte';
+	import '../app.css';
 
 	export let data;
 

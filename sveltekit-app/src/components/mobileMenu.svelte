@@ -108,8 +108,8 @@
 		color: #ffe356;
 	}
 
-	.hero {
-		/* background-color: white; */
+	.tabs button:hover {
+		cursor: pointer;
 	}
 
 	/* hero image (full-bleed) */
@@ -117,14 +117,14 @@
 		display: block;
 		width: 100%;
 		height: auto;
-        background-color: white;
+		background-color: white;
 	}
 
 	/* add padding for non-order menus */
 	.hero.padded {
 		padding-left: 1rem;
 		padding-right: 1rem;
-        /* background-color: white; */
+		/* background-color: white; */
 	}
 
 	/* blue panel */
@@ -140,21 +140,6 @@
 		max-width: 26rem;
 		margin: 0 auto;
 	}
-
-	/* .platforms {
-		display: grid;
-		grid-template-columns: repeat(5, 1fr);
-		align-items: center;
-		justify-items: center;
-		gap: 0.75rem;
-		margin-top: 1rem;
-	}
-	.platforms img {
-		max-width: 72px;
-		width: 100%;
-		height: auto;
-		display: block;
-	} */
 
 	/* this component is only for mobile; hide above tablet if you mount both */
 	@media (min-width: 769px) {
