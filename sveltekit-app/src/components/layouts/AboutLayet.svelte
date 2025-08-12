@@ -170,7 +170,7 @@
 		}
 
 		.logo-link .header_logo {
-			width: clamp(120px, 40vw, 280px);
+			width: clamp(120px, 40vw, 200px);
 			height: auto;
 		}
 /* 

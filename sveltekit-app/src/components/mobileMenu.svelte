@@ -141,7 +141,7 @@
 		margin: 0 auto;
 	}
 
-	.platforms {
+	/* .platforms {
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
 		align-items: center;
@@ -154,7 +154,7 @@
 		width: 100%;
 		height: auto;
 		display: block;
-	}
+	} */
 
 	/* this component is only for mobile; hide above tablet if you mount both */
 	@media (min-width: 769px) {

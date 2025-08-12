@@ -154,6 +154,7 @@
 		width: 100%;
 		gap: 0rem;
 		justify-content: space-between;
+		flex-wrap: wrap; 
 	}
 
 	.bottom-row {
