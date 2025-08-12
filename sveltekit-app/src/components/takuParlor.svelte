@@ -105,7 +105,7 @@
 		grid-template-rows: 1fr auto;
 		gap: var(--gap);
 		overflow: auto;
-		border-radius: 8px;
+		/* border-radius: 8px; */
 	}
 
 	/* == Columns ============================================================ */
@@ -165,13 +165,6 @@
 		content: ': ';
 	}
 
-	/* price-aligned rows (Purin) */
-	.options.priced li {
-		display: flex;
-		align-items: baseline;
-		justify-content: space-between;
-		gap: 1rem;
-	}
 	.option-label {
 		text-transform: capitalize;
 	}
@@ -226,8 +219,8 @@
 	@media (max-width: 1024px) {
 		.menu-box {
 			width: calc(100% - 2rem);
-			height: auto;
-			margin: 1rem;
+			/* height: auto; */
+			height: calc(100% - 2rem);
 		}
 	}
 
@@ -259,6 +252,13 @@
 		}
 		.menu-section {
 			margin-bottom: 1.1rem;
+		}
+	}
+
+	@media (300px <= width <= 600px) {
+		.menu-box {
+			width: calc(100% - 1rem);
+			height: calc(100% - 1rem);
 		}
 	}
 </style>

@@ -20,7 +20,7 @@
 	.split-menu {
 		display: flex;
 		width: 100vw;
-		height: 85vh;
+		height: 85dvh;
 		overflow: hidden;
 	}
 
