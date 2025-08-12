@@ -87,20 +87,26 @@
 	}
 
 	/* Force the logo link to size to its contents only */
-	.header_content > a.logo-link {
-		display: inline-block !important;
-		width: auto !important; /* override width:100% resets */
-		max-width: none !important;
-		inline-size: auto !important; /* logical width, for safety */
-		flex: 0 0 auto !important; /* don't stretch in flex */
-		padding: 0 !important;
-		margin: 0 !important;
+	/* force the anchor to match the image dimensions exactly */
+	.logo-link {
+		display: inline-block; /* so it sizes to content */
+		line-height: 0; /* removes extra inline text height */
+		padding: 0;
+		margin: 0;
+	}
+
+	/* make sure the image is block-level so no gaps appear */
+	.logo-link img {
+		display: block;
+		height: auto;
+		width: auto; /* or your set max-width/height */
 	}
 
 	/* Image defines the box; removes inline gaps */
 	.header_content > a.logo-link .header_logo {
 		display: block;
 		height: auto;
+		width: clamp(120px, 40vw, 10%); /* keep your 40% intent but with sane bounds */
 	}
 
 	.header {
@@ -157,7 +163,7 @@
 		cursor: pointer;
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 835px) {
 		.hamburger-icon {
 			display: block;
 			position: absolute;

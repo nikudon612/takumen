@@ -100,7 +100,7 @@
 		padding: 0;
 		font-size: 1.0625rem;
 		line-height: 1;
-		color: #ffffff;
+		color: #333;
 		font-family: avenir-next-lt-pro-condensed, sans-serif;
 		font-weight: 600;
 	}
