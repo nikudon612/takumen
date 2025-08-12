@@ -11,43 +11,58 @@
 			<!-- Soft Serve with mascot -->
 			<div class="menu-section softserve-with-mascot">
 				<div class="softserve-text">
-					<div class="japanese">ソフトクリーム</div>
-					<h2 class="section-title">Soft Serve</h2>
-					<div class="price">7.5</div>
-					<div class="subtitle">Cone or Cup</div>
-					<ul class="options">
-						<li>Vanilla</li>
-						<li>Matcha</li>
-						<li>Swirl</li>
-					</ul>
+					<div class="section-header">
+						<div class="japanese">ソフトクリーム</div>
+						<h2 class="section-title">Soft Serve</h2>
+					</div>
+
+					<div class="price ssprice">7.5</div>
+
+					<div class="section-content softserve-content">
+						<div class="softserve-info">
+							<div class="icecream-note">Cone or Cup</div>
+							<ul class="options icecream-options">
+								<li>Vanilla</li>
+								<li>Matcha</li>
+								<li>Swirl</li>
+							</ul>
+						</div>
+						<img src={mascot1} alt="" class="mascot-side" />
+					</div>
 				</div>
-				<img src={mascot1} alt="" class="mascot-side" />
 			</div>
 
 			<!-- Purin -->
 			<div class="menu-section">
-				<div class="japanese">プリン</div>
-				<h2 class="section-title">Purin</h2>
-				<div class="subtitle">Japanese Custard Pudding</div>
-				<div class="description">Housemade salted caramel sauce</div>
-				<ul class="options">
-					<li><span class="option-label">Single</span><span class="option-price">7.5</span></li>
-					<li>
-						<span class="option-label">Gift Box</span><span class="option-price">29</span>
+				<div class="section-header">
+					<div class="japanese">プリン</div>
+					<h2 class="section-title">Purin</h2>
+					<div class="subtitle purin-subtitle">Japanese Custard Pudding</div>
+					<div class="description">Housemade salted caramel sauce</div>
+				</div>
+				<ul class="options purin-options">
+					<li class="option">
+						<span class="option-label">Single</span><span class="option-price">7.5</span>
 					</li>
-					<li class="note">(4 piece)</li>
+					<li class="option">
+						<span class="option-label">Gift Box <span class="purin-amount">(4 piece)</span></span
+						><span class="option-price">29</span>
+					</li>
 				</ul>
 			</div>
 
 			<!-- Ice Cream Float -->
 			<div class="menu-section">
-				<h2 class="section-title">Ice Cream Float</h2>
-				<div class="price">10</div>
-				<div class="">Made with soft serve</div>
-				<ul class="options">
-					<li>Melon Soda × Vanilla</li>
-					<li>Matcha × Matcha</li>
-					<li>Coffee × Vanilla</li>
+				<div class="section-header">
+					<h2 class="section-title">Ice Cream Float</h2>
+					<div class="price">10</div>
+				</div>
+
+				<div class="icecream-note">Made with soft serve</div>
+				<ul class="options icecream-options">
+					<li>Melon Soda X Vanilla</li>
+					<li>Matcha X Matcha</li>
+					<li>Coffee X Vanilla</li>
 				</ul>
 			</div>
 		</div>
@@ -56,13 +71,18 @@
 		<div class="column">
 			<!-- Sundae -->
 			<div class="menu-section">
-				<h2 class="section-title">Sundae</h2>
-				<div class="subtitle">- Japanese Parfait -</div>
-				<h3 class="subsection-title">Purin à la Mode</h3>
-				<div class="price">16</div>
-				<div class="description">
-					housemade custard pudding, salted caramel sauce, vanilla soft serve,<br />
-					strawberry, blueberry, banana, cantaloupe, cherry
+				<div class="section-header">
+					<h2 class="section-title">Sundae</h2>
+					<div class="subtitle">- Japanese Parfait -</div>
+				</div>
+
+				<div class="section-content">
+					<h3 class="subsection-title">Purin à la Mode</h3>
+					<div class="price">16</div>
+					<div class="description">
+						housemade custard pudding, salted caramel sauce, vanilla soft serve, strawberry,
+						blueberry, banana, cantaloupe, cherry
+					</div>
 				</div>
 			</div>
 
@@ -71,16 +91,25 @@
 
 			<!-- Cream Anmitsu -->
 			<div class="menu-section">
-				<h3 class="section-title">Cream Anmitsu</h3>
-				<div class="price">14</div>
+				<div class="section-header">
+					<h3 class="section-title">Cream Anmitsu</h3>
+					<div class="price">14</div>
+				</div>
+
 				<ul class="flavors">
-					<li>
-						<span class="flavor-name">Hojicha</span>hojicha kanten, original jello, shiratama mochi,
-						anko-red bean paste,<br />matcha soft serve, kinako, homemade maple sauce
+					<li class="flavor">
+						<span class="flavor-name">Hojicha</span>
+						<span class="flavor-description"
+							>hojicha kanten, original jello, shiratama mochi, anko-red bean paste, matcha soft
+							serve, kinako, homemade maple sauce</span
+						>
 					</li>
-					<li>
-						<span class="flavor-name">Mango</span>mango kanten, original jello, shiratama mochi,
-						anko-red bean paste,<br />mango pulp, vanilla soft serve, homemade mango sauce
+					<li class="flavor">
+						<span class="flavor-name">Mango</span>
+						<span class="flavor-description"
+							>mango kanten, original jello, shiratama mochi, anko-red bean paste, mango pulp,
+							vanilla soft serve, homemade mango sauce</span
+						>
 					</li>
 				</ul>
 				<div class="note">* Anmitsu : Traditional Japanese Dessert</div>
@@ -126,12 +155,19 @@
 		gap: clamp(1rem, 2vw, 2rem);
 	}
 
+	.column {
+		display: flex;
+		flex-direction: column;
+		gap: clamp(1rem, 2vw, 2rem);
+	}
+
 	/* == Type scale (roughly matches the reference) ======================== */
 	.japanese {
 		font-size: clamp(0.9rem, 0.4vw + 0.7rem, 1.1rem);
 		margin-bottom: 0.25rem;
 		letter-spacing: var(--lead);
-		font-family: 'everyrun', sans-serif;
+		font-family: 'Luckiest Guy', sans-serif;
+		font-weight: 800;
 	}
 	.section-title {
 		text-transform: uppercase;
@@ -149,10 +185,14 @@
 		font-family: 'everyrun', sans-serif;
 	}
 	.price {
-		font-weight: 900;
-		font-size: clamp(1.25rem, 1.4vw + 1rem, 2.25rem);
+		font-weight: 500;
+		font-size: clamp(1rem, 1.4vw + 1rem, 1.5rem);
 		margin: 0.25rem 0 0.5rem;
 		font-family: 'Luckiest Guy', sans-serif;
+		letter-spacing: 0.1em;
+	}
+	.ssprice {
+		text-align: center;
 	}
 	.subtitle {
 		font-size: clamp(0.9rem, 0.3vw + 0.8rem, 1rem);
@@ -163,8 +203,9 @@
 	.description {
 		margin: 0.25rem 0 0.75rem;
 		line-height: 1.35;
-		font-size: clamp(0.95rem, 0.25vw + 0.85rem, 1rem);
+		font-size: clamp(0.95rem, 0.25vw + 0.85rem, 0.825rem);
 		font-family: 'avenir-next-lt-pro-condensed';
+		text-align: center;
 		font-weight: 800;
 	}
 
@@ -187,6 +228,12 @@
 		text-transform: capitalize;
 		font-family: 'everyrun', sans-serif;
 	}
+
+	.option-label::before {
+		content: ':';
+		margin-right: 0.25rem;
+		color: #333;
+	}
 	.option-price {
 		font-weight: 800;
 	}
@@ -196,28 +243,150 @@
 		opacity: 0.85;
 	}
 
+	.icecream-options {
+		font-family: 'everyrun', sans-serif;
+		text-align: left;
+		display: flex;
+		flex-direction: column;
+	}
+	.icecream-note {
+		font-family: 'everyrun', sans-serif;
+		text-align: left;
+	}
+
 	/* flavor callouts */
 	.flavors li {
-		margin-bottom: 0.6rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+		/* margin-bottom: 0.6rem; */
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.flavors {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.flavor {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.25rem;
 	}
 	.flavor-name {
-		font-weight: 900;
+		font-weight: 400;
 		text-transform: uppercase;
 		margin-right: 0.35rem;
 		font-family: 'everyrun', sans-serif;
 	}
 
+	.flavor-description {
+		font-size: 0.9rem;
+		line-height: 1.3;
+		text-align: center;
+		font-family: 'avenir-next-lt-pro-condensed';
+		font-weight: 600;
+		margin-top: 0.15rem;
+		text-wrap: pretty;
+	}
+
 	/* sections */
 	.menu-section {
-		margin-bottom: 1.5rem;
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
 		align-items: center;
+		gap: 1rem;
+	}
+
+	.section-header {
+		text-align: center;
+	}
+
+	.section-content {
+		text-align: center;
+	}
+
+	.softserve-content {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		margin-top: -3rem;
+	}
+
+	.softserve-info {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	/* PURIN ROWS — label ⟶ price, centered and evenly spaced */
+	.purin-options {
+		width: min(440px, 90%);
+		margin: 0 auto; /* center the block in the section */
+	}
+
+	/* PURIN — remove extra colon from the list item itself */
+	.purin-options li::before {
+		content: none !important;
+	}
+
+	/* Keep a single colon tight before the label text */
+	.purin-options .option-label::before {
+		content: ':'; /* one colon */
+		margin-right: 0.25rem; /* small gap */
+	}
+
+	.purin-options .option {
+		display: flex;
+		align-items: center; /* center price vertically vs label */
+		justify-content: space-between; /* push price away from label */
+		gap: 1.25rem; /* breathing room between them */
+	}
+
+	.purin-options .option-label {
+		display: inline-flex;
+		align-items: center;
+		text-align: left;
+	}
+
+	.purin-options .option-price {
+		min-width: 3.5ch; /* keeps 7.5 / 29 from jittering */
+		text-align: right;
+		padding-left: 0.5rem; /* small buffer from label */
+	}
+
+	.purin-subtitle {
+		font-size: clamp(0.9rem, 0.3vw + 0.8rem, 3rem);
+		margin-bottom: 0rem;
+		font-family: 'futura-pt', sans-serif;
+		text-transform: uppercase;
+		font-weight: 600;
+	}
+
+	.option {
+		display: flex;
+		/* justify-content: space-between; */
+		width: 100%;
+		align-items: center;
+		text-align: left;
+	}
+
+	.option-price {
+		font-family: 'Luckiest Guy', sans-serif;
+		display: flex;
+		align-items: center;
+	}
+
+	.purin-amount {
+		font-family: 'futura-pt', sans-serif;
+		font-size: 0.9rem;
+		margin-left: 0.25rem;
 	}
 
 	/* == Allergens bar ====================================================== */
@@ -259,12 +428,14 @@
 
 	.softserve-with-mascot {
 		display: flex;
-		align-items: flex-start; /* align mascot to top of text block */
 		gap: clamp(8px, 1vw, 16px);
 	}
 
 	.softserve-text {
 		flex: 1;
+		gap: 1rem;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.mascot-side {
@@ -276,6 +447,9 @@
 
 	.note {
 		font-family: 'everyrun', sans-serif;
+		font-size: 1rem;
+		width: 100%;
+		text-align: center;
 	}
 
 	/* == Responsive ========================================================= */
