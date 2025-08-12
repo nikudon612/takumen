@@ -1,4 +1,8 @@
-<script></script>
+<script>
+    import mascot1 from '../lib/assets/mascot1.png';
+    import mascot2 from '../lib/assets/mascot2.png';
+    // import mascot3 from '../lib/assets/mascot3.png';
+</script>
 
 <div class="menu-box">
 	<div class="menu-columns">
@@ -96,9 +100,8 @@
 		--lead: 0.02em;
 
 		box-sizing: border-box;
-		width: calc(100% - 4rem);
-		height: calc(100% - 4rem);
-		margin: 2rem;
+		width: calc(100% - 2rem);
+		height: calc(100% - 2rem);
 		padding: clamp(1rem, 2vw, 2rem);
 		background: #fff;
 		display: grid;
@@ -222,7 +225,7 @@
 		.menu-box {
 			width: calc(100% - 2rem);
 			/* height: auto; */
-			height: calc(100% - 4rem);
+			height: calc(100% - 2rem);
 		}
 	}
 
@@ -230,7 +233,7 @@
 	@media (max-width: 820px) {
 		.menu-box {
 			width: calc(100% - 2rem);
-			height: calc(100% - 4rem);
+			height: calc(100% - 2rem);
 		}
 		.menu-columns {
 			grid-template-columns: 1fr;
@@ -249,8 +252,8 @@
 	@media (max-width: 600px) {
 		.menu-box {
 			margin: 0;
-			width: 100%;
-			height: auto;
+			width: calc(100% - 1rem);
+			height: calc(100% - 1rem);
 			border-radius: 0;
 		}
 		.menu-columns {
