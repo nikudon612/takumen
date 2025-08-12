@@ -105,6 +105,8 @@
 		grid-template-rows: 1fr auto;
 		gap: var(--gap);
 		overflow: auto;
+		scrollbar-width: none; /* Firefox */
+		-ms-overflow-style: none; /* IE/Edge */
 		/* border-radius: 8px; */
 	}
 
