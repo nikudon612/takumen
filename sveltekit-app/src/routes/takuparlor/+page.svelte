@@ -46,7 +46,7 @@
 	@media (max-width: 768px) {
 		.split-menu {
 			flex-direction: column-reverse;
-			height: 85vh;
+			height: 85dvh;
 		}
 		.menu-left,
 		.menu-right {
