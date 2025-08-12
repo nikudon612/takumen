@@ -37,15 +37,17 @@
 				<div class="section-header">
 					<div class="japanese">プリン</div>
 					<h2 class="section-title">Purin</h2>
-					<div class="subtitle">Japanese Custard Pudding</div>
+					<div class="subtitle purin-subtitle">Japanese Custard Pudding</div>
 					<div class="description">Housemade salted caramel sauce</div>
 				</div>
-				<ul class="options">
-					<li><span class="option-label">Single</span><span class="option-price">7.5</span></li>
-					<li>
-						<span class="option-label">Gift Box</span><span class="option-price">29</span>
+				<ul class="options purin-options">
+					<li class="option">
+						<span class="option-label">Single</span><span class="option-price">7.5</span>
 					</li>
-					<li class="note"><span class="price">(4 piece)</span></li>
+					<li class="option">
+						<span class="option-label">Gift Box <span class="purin-amount">(4 piece)</span></span
+						><span class="option-price">29</span>
+					</li>
 				</ul>
 			</div>
 
@@ -226,6 +228,12 @@
 		text-transform: capitalize;
 		font-family: 'everyrun', sans-serif;
 	}
+
+	.option-label::before {
+		content: ':';
+		margin-right: 0.25rem;
+		color: #333;
+	}
 	.option-price {
 		font-weight: 800;
 	}
@@ -307,7 +315,78 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		margin-top: -2rem;
+		margin-top: -3rem;
+	}
+
+	.softserve-info {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	/* PURIN ROWS — label ⟶ price, centered and evenly spaced */
+	.purin-options {
+		width: min(440px, 90%);
+		margin: 0 auto; /* center the block in the section */
+	}
+
+	/* PURIN — remove extra colon from the list item itself */
+	.purin-options li::before {
+		content: none !important;
+	}
+
+	/* Keep a single colon tight before the label text */
+	.purin-options .option-label::before {
+		content: ':'; /* one colon */
+		margin-right: 0.25rem; /* small gap */
+	}
+
+	.purin-options .option {
+		display: flex;
+		align-items: center; /* center price vertically vs label */
+		justify-content: space-between; /* push price away from label */
+		gap: 1.25rem; /* breathing room between them */
+	}
+
+	.purin-options .option-label {
+		display: inline-flex;
+		align-items: center;
+		text-align: left;
+	}
+
+	.purin-options .option-price {
+		min-width: 3.5ch; /* keeps 7.5 / 29 from jittering */
+		text-align: right;
+		padding-left: 0.5rem; /* small buffer from label */
+	}
+
+	.purin-subtitle {
+		font-size: clamp(0.9rem, 0.3vw + 0.8rem, 3rem);
+		margin-bottom: 0rem;
+		font-family: 'futura-pt', sans-serif;
+		text-transform: uppercase;
+		font-weight: 600;
+	}
+
+	.option {
+		display: flex;
+		/* justify-content: space-between; */
+		width: 100%;
+		align-items: center;
+		text-align: left;
+	}
+
+	.option-price {
+		font-family: 'Luckiest Guy', sans-serif;
+		display: flex;
+		align-items: center;
+	}
+
+	.purin-amount {
+		font-family: 'futura-pt', sans-serif;
+		font-size: 0.9rem;
+		margin-left: 0.25rem;
 	}
 
 	/* == Allergens bar ====================================================== */
@@ -349,7 +428,6 @@
 
 	.softserve-with-mascot {
 		display: flex;
-		align-items: flex-start; /* align mascot to top of text block */
 		gap: clamp(8px, 1vw, 16px);
 	}
 
