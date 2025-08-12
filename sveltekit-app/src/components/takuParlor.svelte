@@ -18,16 +18,17 @@
 
 					<div class="price ssprice">7.5</div>
 
-					<div class="section-content">
-						<div class="subtitle">Cone or Cup</div>
-						<ul class="options">
-							<li>Vanilla</li>
-							<li>Matcha</li>
-							<li>Swirl</li>
-						</ul>
+					<div class="section-content softserve-content">
+						<div class="softserve-info">
+							<div class="icecream-note">Cone or Cup</div>
+							<ul class="options icecream-options">
+								<li>Vanilla</li>
+								<li>Matcha</li>
+								<li>Swirl</li>
+							</ul>
+						</div>
+						<img src={mascot1} alt="" class="mascot-side" />
 					</div>
-
-					<img src={mascot1} alt="" class="mascot-side" />
 				</div>
 			</div>
 
@@ -50,13 +51,16 @@
 
 			<!-- Ice Cream Float -->
 			<div class="menu-section">
-				<h2 class="section-title">Ice Cream Float</h2>
-				<div class="price">10</div>
-				<div class="">Made with soft serve</div>
-				<ul class="options">
-					<li>Melon Soda × Vanilla</li>
-					<li>Matcha × Matcha</li>
-					<li>Coffee × Vanilla</li>
+				<div class="section-header">
+					<h2 class="section-title">Ice Cream Float</h2>
+					<div class="price">10</div>
+				</div>
+
+				<div class="icecream-note">Made with soft serve</div>
+				<ul class="options icecream-options">
+					<li>Melon Soda X Vanilla</li>
+					<li>Matcha X Matcha</li>
+					<li>Coffee X Vanilla</li>
 				</ul>
 			</div>
 		</div>
@@ -74,8 +78,8 @@
 					<h3 class="subsection-title">Purin à la Mode</h3>
 					<div class="price">16</div>
 					<div class="description">
-						housemade custard pudding, salted caramel sauce, vanilla soft serve,
-						strawberry, blueberry, banana, cantaloupe, cherry
+						housemade custard pudding, salted caramel sauce, vanilla soft serve, strawberry,
+						blueberry, banana, cantaloupe, cherry
 					</div>
 				</div>
 			</div>
@@ -94,8 +98,8 @@
 					<li class="flavor">
 						<span class="flavor-name">Hojicha</span>
 						<span class="flavor-description"
-							>hojicha kanten, original jello, shiratama mochi, anko-red bean paste, matcha
-							soft serve, kinako, homemade maple sauce</span
+							>hojicha kanten, original jello, shiratama mochi, anko-red bean paste, matcha soft
+							serve, kinako, homemade maple sauce</span
 						>
 					</li>
 					<li class="flavor">
@@ -149,11 +153,11 @@
 		gap: clamp(1rem, 2vw, 2rem);
 	}
 
-    .column {
-        display: flex;
-        flex-direction: column;
-        gap: clamp(1rem, 2vw, 2rem);
-    }
+	.column {
+		display: flex;
+		flex-direction: column;
+		gap: clamp(1rem, 2vw, 2rem);
+	}
 
 	/* == Type scale (roughly matches the reference) ======================== */
 	.japanese {
@@ -161,6 +165,7 @@
 		margin-bottom: 0.25rem;
 		letter-spacing: var(--lead);
 		font-family: 'Luckiest Guy', sans-serif;
+		font-weight: 800;
 	}
 	.section-title {
 		text-transform: uppercase;
@@ -230,6 +235,17 @@
 		opacity: 0.85;
 	}
 
+	.icecream-options {
+		font-family: 'everyrun', sans-serif;
+		text-align: left;
+		display: flex;
+		flex-direction: column;
+	}
+	.icecream-note {
+		font-family: 'everyrun', sans-serif;
+		text-align: left;
+	}
+
 	/* flavor callouts */
 	.flavors li {
 		/* margin-bottom: 0.6rem; */
@@ -239,20 +255,20 @@
 		align-items: center;
 	}
 
-    .flavors {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        flex-direction: column;
-        gap: 1rem;
-    }
+	.flavors {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		flex-direction: column;
+		gap: 1rem;
+	}
 
-    .flavor {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.25rem;
-    }
+	.flavor {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.25rem;
+	}
 	.flavor-name {
 		font-weight: 400;
 		text-transform: uppercase;
@@ -285,6 +301,13 @@
 
 	.section-content {
 		text-align: center;
+	}
+
+	.softserve-content {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		gap: 0.5rem;
 	}
 
 	/* == Allergens bar ====================================================== */
@@ -332,6 +355,9 @@
 
 	.softserve-text {
 		flex: 1;
+		gap: 1rem;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.mascot-side {
@@ -343,6 +369,9 @@
 
 	.note {
 		font-family: 'everyrun', sans-serif;
+		font-size: 1rem;
+		width: 100%;
+		text-align: center;
 	}
 
 	/* == Responsive ========================================================= */
