@@ -57,6 +57,26 @@
 	font-style: italic;
 }
 
+.craftdude {
+	font-family: 'craftdude', sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+.everyrun {
+	font-family: 'everyrun', sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+.sundaytime {
+	font-family: 'sundaytime', sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+
+
 @font-face {
 	font-family: 'futura-pt-condensed';
 	src: url('/fonts/futura-pt-cond-book.woff2') format('woff2');
@@ -118,6 +138,30 @@
 	src: url('/fonts/futura-pt-cond-extrabold-oblique.woff2') format('woff2');
 	font-weight: 800;
 	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'craftdude';
+	src: url('/fonts/craft-dude.regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'everyrun';
+	src: url('/fonts/EveryRunDemo.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'sundaytime';
+	src: url('/fonts/sunday-time.regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
 	font-display: swap;
 }
 

@@ -1,20 +1,27 @@
-<script></script>
+<script>
+	import mascot1 from '../lib/assets/mascot1.png';
+	import mascot2 from '../lib/assets/mascot2.png';
+</script>
 
 <div class="menu-box">
 	<div class="menu-columns">
 		<!-- LEFT COLUMN -->
 		<div class="column">
 			<!-- Soft Serve -->
-			<div class="menu-section">
-				<div class="japanese">ソフトクリーム</div>
-				<h2 class="section-title">Soft Serve</h2>
-				<div class="price">7.5</div>
-				<div class="subtitle">Cone or Cup</div>
-				<ul class="options">
-					<li>Vanilla</li>
-					<li>Matcha</li>
-					<li>Swirl</li>
-				</ul>
+			<!-- Soft Serve with mascot -->
+			<div class="menu-section softserve-with-mascot">
+				<div class="softserve-text">
+					<div class="japanese">ソフトクリーム</div>
+					<h2 class="section-title">Soft Serve</h2>
+					<div class="price">7.5</div>
+					<div class="subtitle">Cone or Cup</div>
+					<ul class="options">
+						<li>Vanilla</li>
+						<li>Matcha</li>
+						<li>Swirl</li>
+					</ul>
+				</div>
+				<img src={mascot1} alt="" class="mascot-side" />
 			</div>
 
 			<!-- Purin -->
@@ -59,6 +66,9 @@
 				</div>
 			</div>
 
+			<!-- ⬇️ MASCOT 2 (below Sundae, above Cream Anmitsu) -->
+			<img src={mascot2} alt="" class="mascot-inline mascot-sundae" />
+
 			<!-- Cream Anmitsu -->
 			<div class="menu-section">
 				<h3 class="section-title">Cream Anmitsu</h3>
@@ -96,9 +106,8 @@
 		--lead: 0.02em;
 
 		box-sizing: border-box;
-		width: calc(100% - 4rem);
-		height: calc(100% - 4rem);
-		margin: 2rem;
+		width: calc(100% - 2rem);
+		height: calc(100% - 2rem);
 		padding: clamp(1rem, 2vw, 2rem);
 		background: #fff;
 		display: grid;
@@ -122,6 +131,7 @@
 		font-size: clamp(0.9rem, 0.4vw + 0.7rem, 1.1rem);
 		margin-bottom: 0.25rem;
 		letter-spacing: var(--lead);
+		font-family: 'everyrun', sans-serif;
 	}
 	.section-title {
 		text-transform: uppercase;
@@ -130,22 +140,26 @@
 		margin: 0.25rem 0 0.25rem;
 		font-size: clamp(1.25rem, 1.2vw + 1rem, 2rem);
 		line-height: 1.1;
+		font-family: 'everyrun', sans-serif;
 	}
 	.subsection-title {
 		font-weight: 800;
 		margin: 0.15rem 0 0.25rem;
 		font-size: clamp(1.1rem, 1vw + 0.7rem, 1.5rem);
+		font-family: 'everyrun', sans-serif;
 	}
 	.price {
 		font-weight: 900;
 		font-size: clamp(1.25rem, 1.4vw + 1rem, 2.25rem);
 		margin: 0.25rem 0 0.5rem;
+		font-family: 'sundaytime', sans-serif;
 	}
 	.subtitle {
 		font-size: clamp(0.9rem, 0.3vw + 0.8rem, 1rem);
 		font-style: italic;
 		margin-bottom: 0.5rem;
 		letter-spacing: 0.02em;
+		/* font-family: 'everyrun', sans-serif; */
 	}
 	.description {
 		margin: 0.25rem 0 0.75rem;
@@ -160,6 +174,7 @@
 		padding: 0;
 		margin: 0 0 1rem;
 	}
+
 	.options li {
 		margin-bottom: 0.25rem;
 	}
@@ -169,6 +184,7 @@
 
 	.option-label {
 		text-transform: capitalize;
+		font-family: 'everyrun', sans-serif;
 	}
 	.option-price {
 		font-weight: 800;
@@ -187,6 +203,7 @@
 		font-weight: 900;
 		text-transform: uppercase;
 		margin-right: 0.35rem;
+		font-family: 'everyrun', sans-serif;
 	}
 
 	/* sections */
@@ -216,13 +233,53 @@
 		flex-wrap: wrap;
 	}
 
+	/* mascots: inline, responsive, never capture clicks, no scrollbars affected */
+	.mascot-inline {
+		display: block;
+		margin: clamp(8px, 2vw, 20px) auto;
+		max-width: clamp(140px, 20vw, 280px);
+		height: auto;
+		pointer-events: none;
+		user-select: none;
+	}
+
+	.mascot-sundae {
+		/* slight nudge right on wide screens */
+		transform: translateX(2%);
+	}
+
+	.softserve-with-mascot {
+		display: flex;
+		align-items: flex-start; /* align mascot to top of text block */
+		gap: clamp(8px, 1vw, 16px);
+	}
+
+	.softserve-text {
+		flex: 1;
+	}
+
+	.mascot-side {
+		max-width: clamp(80px, 18vw, 160px);
+		height: auto;
+		pointer-events: none;
+		user-select: none;
+	}
+
+	.note {
+		font-family: 'everyrun', sans-serif;
+	}
+
 	/* == Responsive ========================================================= */
 	/* Large tablets: keep two columns but tighten spacing */
 	@media (max-width: 1024px) {
 		.menu-box {
 			width: calc(100% - 2rem);
 			/* height: auto; */
-			height: calc(100% - 4rem);
+			height: calc(100% - 2rem);
+		}
+		.menu-columns {
+			display: flex;
+			flex-direction: column;
 		}
 	}
 
@@ -230,11 +287,9 @@
 	@media (max-width: 820px) {
 		.menu-box {
 			width: calc(100% - 2rem);
-			height: calc(100% - 4rem);
+			height: calc(100% - 2rem);
 		}
-		.menu-columns {
-			grid-template-columns: 1fr;
-		}
+
 		.section-title,
 		.subsection-title {
 			line-height: 1.1;
@@ -245,12 +300,20 @@
 		}
 	}
 
+	@media (max-width: 768px) {
+		.menu-columns {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: clamp(1rem, 2vw, 2rem);
+		}
+	}
+
 	/* Phones: edge‑to‑edge padding and tighter gaps */
 	@media (max-width: 600px) {
 		.menu-box {
 			margin: 0;
-			width: 100%;
-			height: auto;
+			width: calc(100% - 1rem);
+			height: calc(100% - 1rem);
 			border-radius: 0;
 		}
 		.menu-columns {
@@ -260,11 +323,24 @@
 			margin-bottom: 1.1rem;
 		}
 	}
+	@media (max-width: 525px) {
+		.menu-columns {
+			display: flex;
+			flex-direction: column;
+		}
+	}
 
 	@media (300px <= width <= 600px) {
 		.menu-box {
 			width: calc(100% - 1rem);
 			height: calc(100% - 1rem);
+		}
+		.softserve-with-mascot {
+			flex-direction: row;
+			align-items: center;
+		}
+		.mascot-side {
+			max-width: clamp(100px, 40vw, 180px);
 		}
 	}
 </style>

@@ -5,7 +5,10 @@ module.exports = {
 			fontFamily: {
 				futura: ['"futura-pt"', 'sans-serif'],
 				futuraBold: ['"futura-pt-bold"', 'sans-serif'],
-				avenir: ['"avenir-next-lt-pro-condensed"', 'sans-serif']
+				avenir: ['"avenir-next-lt-pro-condensed"', 'sans-serif'],
+				craftdude: ['"craft-dude"', 'sans-serif'],
+				everyrun: ['"everyrun"', 'sans-serif'],
+				sundaytime: ['"sundaytime"', 'sans-serif']
 			}
 		}
 	},
