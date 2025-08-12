@@ -22,7 +22,7 @@
 	<header class="header">
 		{#if navigation}
 			<div class="header_content">
-				<a href="/">
+				<a href="/" class="logo-link">
 					<img src={TakuParlorLogo} alt="Taku Parlor Logo" class="header_logo" />
 				</a>
 
@@ -82,12 +82,29 @@
 		display: flex;
 		flex-direction: column;
 		width: 100vw;
-		min-height: 100vh;
+		min-height: 100dvh;
 		overflow-x: hidden;
 	}
 
+	/* Force the logo link to size to its contents only */
+	.header_content > a.logo-link {
+		display: inline-block !important;
+		width: auto !important; /* override width:100% resets */
+		max-width: none !important;
+		inline-size: auto !important; /* logical width, for safety */
+		flex: 0 0 auto !important; /* don't stretch in flex */
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+
+	/* Image defines the box; removes inline gaps */
+	.header_content > a.logo-link .header_logo {
+		display: block;
+		height: auto;
+	}
+
 	.header {
-		height: 15vh;
+		height: 15dvh;
 		background-color: white;
 		display: flex;
 		align-items: center;
@@ -123,7 +140,7 @@
 	.header_logo {
 		width: 15%;
 		height: auto;
-	}
+	} /* desktop */
 
 	.about_content_wrapper {
 		flex: 1;
@@ -205,8 +222,12 @@
 			z-index: 101;
 		}
 		.header_logo {
-			width: 25% !important;
+			width: 10%;
 			height: auto;
+		} /* mobile */
+
+		.header_content {
+			padding-left: 1rem;
 		}
 	}
 </style>

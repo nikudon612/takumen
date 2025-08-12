@@ -1,6 +1,18 @@
 <script lang="ts">
+	import MobileMenu from '../../components/mobileMenu.svelte';
 	import OrderOnline from '../../components/orderOnline.svelte';
-	let activeMenu: 'dinner' | 'lunch' | 'drink' = 'dinner';
+	import { onMount } from 'svelte';
+	let activeMenu: 'lunch' | 'dinner' | 'drink' | 'order' = 'order';
+
+	let isMobile = false;
+	function checkMobile() {
+		isMobile = window.innerWidth <= 768;
+	}
+	onMount(() => {
+		checkMobile();
+		window.addEventListener('resize', checkMobile);
+		return () => window.removeEventListener('resize', checkMobile);
+	});
 
 	const backgroundColors = {
 		dinner: '#789FAF',
@@ -17,17 +29,17 @@
 	let menuImage = '';
 
 	// Normalize and map image names to lowercase keys
-	let menuImageMap: Record<'dinner' | 'lunch' | 'drink' | 'order', string> = {
+	let menuImageMap: Record<'order' | 'lunch' | 'dinner' | 'drinks', string> = {
+		order: '',
 		dinner: '',
 		lunch: '',
-		drinks: '',
-		order: ''
+		drinks: ''
 	};
 
 	if (menu?.images?.length) {
 		for (const img of menu.images) {
 			const key = img.name?.toLowerCase();
-			if (key && ['dinner', 'lunch', 'drink', 'order'].includes(key)) {
+			if (key && ['lunch', 'dinner', 'drink', 'order'].includes(key)) {
 				menuImageMap[key] = img.asset?.url || '';
 			}
 		}
@@ -41,72 +53,78 @@
 	<title>Menu - Takumen</title>
 </svelte:head>
 
-<section
-	class="menu-container {activeMenu === 'order' ? 'order-layout' : ''}"
-	style="background-color: {backgroundColors[activeMenu]}"
->
-	{#if activeMenu === 'order'}
-		<!-- Toggle group is inside the left column -->
-		<div class="order-layout-wrapper">
-			<div class="order-left-column">
-				<nav class="toggle-group">
-					<span
-						class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
-						on:click={() => (activeMenu = 'dinner')}>Dinner</span
-					>
-					<span
-						class="toggle {activeMenu === 'lunch' ? 'active' : ''}"
-						on:click={() => (activeMenu = 'lunch')}>Lunch</span
-					>
-					<span
-						class="toggle {activeMenu === 'drink' ? 'active' : ''}"
-						on:click={() => (activeMenu = 'drink')}>Drink</span
-					>
-					<span
-						class="toggle {activeMenu === 'order' ? 'active' : ''}"
-						on:click={() => (activeMenu = 'order')}>Order Online</span
-					>
-				</nav>
-				<OrderOnline {menuImage} {takeoutMenu} />
+{#if isMobile}
+	<MobileMenu {data} />
+{:else}
+	<section
+		class="menu-container {activeMenu === 'order' ? 'order-layout' : ''}"
+		style="background-color: {backgroundColors[activeMenu]}"
+	>
+		{#if activeMenu === 'order'}
+			<!-- Toggle group is inside the left column -->
+			<div class="order-layout-wrapper">
+				<div class="order-left-column">
+					<nav class="toggle-group">
+						<span
+							class="toggle {activeMenu === 'order' ? 'active' : ''}"
+							on:click={() => (activeMenu = 'order')}>Order Online</span
+						>
+						<span
+							class="toggle {activeMenu === 'lunch' ? 'active' : ''}"
+							on:click={() => (activeMenu = 'lunch')}>Lunch</span
+						>
+						<span
+							class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
+							on:click={() => (activeMenu = 'dinner')}>Dinner</span
+						>
+
+						<span
+							class="toggle {activeMenu === 'drink' ? 'active' : ''}"
+							on:click={() => (activeMenu = 'drink')}>Drink</span
+						>
+					</nav>
+					<OrderOnline {menuImage} {takeoutMenu} />
+				</div>
+				<div class="order-right">
+					{#if menuImage}
+						<img src={menuImage} alt="Takumen delivery preview" />
+					{:else}
+						<p>Loading image...</p>
+					{/if}
+				</div>
 			</div>
-			<div class="order-right">
+		{:else}
+			<!-- Toggle group outside in default state -->
+			<nav class="toggle-group">
+				<span
+					class="toggle {activeMenu === 'order' ? 'active' : ''}"
+					on:click={() => (activeMenu = 'order')}>Order Online</span
+				>
+				<span
+					class="toggle {activeMenu === 'lunch' ? 'active' : ''}"
+					on:click={() => (activeMenu = 'lunch')}>Lunch</span
+				>
+				<span
+					class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
+					on:click={() => (activeMenu = 'dinner')}>Dinner</span
+				>
+
+				<span
+					class="toggle {activeMenu === 'drink' ? 'active' : ''}"
+					on:click={() => (activeMenu = 'drink')}>Drink</span
+				>
+			</nav>
+
+			<div class="menu-image-wrapper">
 				{#if menuImage}
-					<img src={menuImage} alt="Takumen delivery preview" />
+					<img src={menuImage} alt="{activeMenu} menu" />
 				{:else}
 					<p>Loading image...</p>
 				{/if}
 			</div>
-		</div>
-	{:else}
-		<!-- Toggle group outside in default state -->
-		<nav class="toggle-group">
-			<span
-				class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
-				on:click={() => (activeMenu = 'dinner')}>Dinner</span
-			>
-			<span
-				class="toggle {activeMenu === 'lunch' ? 'active' : ''}"
-				on:click={() => (activeMenu = 'lunch')}>Lunch</span
-			>
-			<span
-				class="toggle {activeMenu === 'drink' ? 'active' : ''}"
-				on:click={() => (activeMenu = 'drink')}>Drink</span
-			>
-			<span
-				class="toggle {activeMenu === 'order' ? 'active' : ''}"
-				on:click={() => (activeMenu = 'order')}>Order Online</span
-			>
-		</nav>
-
-		<div class="menu-image-wrapper">
-			{#if menuImage}
-				<img src={menuImage} alt="{activeMenu} menu" />
-			{:else}
-				<p>Loading image...</p>
-			{/if}
-		</div>
-	{/if}
-</section>
+		{/if}
+	</section>
+{/if}
 
 <style>
 	.menu-container {
@@ -147,10 +165,22 @@
 		color: #ffe356;
 	}
 
+	:root {
+		--header-h: 15vh;
+	} /* or exact px height if you know it */
+
+	.order-layout-wrapper {
+		display: flex;
+		width: 100%;
+		/* use the space that’s actually left under the header */
+		height: calc(100vh - var(--header-h));
+		min-height: calc(100vh - var(--header-h));
+	}
+
 	.menu-image-wrapper {
 		overflow-y: auto;
 		width: 100%;
-		max-width: 90vw;
+		/* max-width: 90vw; */
 		max-height: 75vh;
 		scrollbar-width: none;
 		-ms-overflow-style: none;
@@ -168,31 +198,52 @@
 	}
 
 	.menu-container.order-layout {
-		background-color: transparent;
 		padding: 0;
+		min-height: 0; /* kill the 78vh from .menu-container */
+		height: calc(100dvh - var(--header-h));
+		overflow: hidden; /* page itself won’t scroll */
 	}
 
 	.order-layout-wrapper {
-		display: flex;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 		width: 100%;
-		min-height: 100vh;
+		height: 100%; /* fill the container */
 	}
 
 	.order-left-column {
-		width: 50%;
-		background-color: #789faf;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+		background: #789faf;
 		padding: 2rem 3rem;
 		box-sizing: border-box;
+
+		display: grid;
+		grid-template-rows: auto 1fr; /* toggles on top, content fills remaining */
+		align-items: stretch; /* let second row fill */
+		overflow: hidden; /* prevent left col scroll unless needed */
+	}
+
+	/* Keep toggles fixed at top of left column */
+	.toggle-group {
+		position: sticky;
+		top: 0;
+		z-index: 2;
+		width: 100%;
+		margin-bottom: 1rem;
+		padding: 0.5rem 0;
+	}
+
+	/* Center the content inside its cell */
+	.order-online-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center; /* vertical center */
+		align-items: center; /* horizontal center */
+		height: 100%;
 	}
 
 	.order-right {
-		width: 50%;
-		height: 100vh;
+		height: 100%;
 	}
-
 	.order-right img {
 		width: 100%;
 		height: 100%;
@@ -209,6 +260,7 @@
 			max-height: 100%;
 		}
 		.order-layout-wrapper {
+			display: flex;
 			flex-direction: column;
 		}
 

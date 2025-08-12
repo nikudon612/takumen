@@ -21,7 +21,7 @@
 	<header class="header">
 		{#if navigation}
 			<div class="header_content">
-				<a href="/">
+				<a href="/" class="logo-link">
 					<img src={navigation.logo.asset.url} alt="Takumen Logo" class="header_logo" />
 				</a>
 				<img src={hamburger} alt="Menu" class="hamburger-icon" on:click={toggleMobileMenu} />
@@ -85,7 +85,7 @@
 	}
 
 	.header {
-		height: 15vh;
+		height: 15dvh;
 		background-color: white;
 		display: flex;
 		align-items: center;
@@ -130,6 +130,28 @@
 		cursor: pointer;
 	}
 
+	/* make the logo’s click area = image box only */
+	.logo-link {
+		display: inline-block; /* override any global a { display:block } */
+		line-height: 0; /* kill extra inline click area */
+		padding: 0;
+		margin: 0;
+		flex: 0 0 auto; /* don’t stretch in the flex header */
+	}
+
+	.logo-link .header_logo {
+		display: block; /* removes inline-image gaps */
+		height: auto;
+	}
+
+	/* safety: don’t let header links become full-width blocks */
+	.header_links .header_link {
+		display: inline-block;
+		padding: 0;
+		margin: 0;
+		line-height: 1;
+	}
+
 	@media (max-width: 768px) {
 		.header {
 			justify-content: center;
@@ -147,11 +169,16 @@
 			padding: 1rem;
 		}
 
+		.logo-link .header_logo {
+			width: clamp(120px, 40vw, 200px);
+			height: auto;
+		}
+/* 
 		.header_logo {
 			width: 40%;
 			height: auto;
 			margin: 0 auto;
-		}
+		} */
 		.hamburger-icon {
 			display: block;
 			position: absolute;
