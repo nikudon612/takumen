@@ -151,7 +151,7 @@
 	}
 
 	.toggle {
-		color: white;
+		color: #333;
 		transition: color 0.2s ease;
 		font-size: 1.375rem;
 		font-weight: lighter;
