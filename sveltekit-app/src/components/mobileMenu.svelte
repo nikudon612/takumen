@@ -5,7 +5,7 @@
 	import DoorDash from '../lib/assets/doordash.png';
 	import UberEats from '../lib/assets/ubereats.png';
 	import GrubHub from '../lib/assets/grubhub.png';
-    import OrderOnline from './orderOnline.svelte';
+	import OrderOnline from './orderOnline.svelte';
 
 	// props from the route
 	export let data;
@@ -64,7 +64,7 @@
 	</nav>
 
 	<!-- hero image -->
-	<div class="hero">
+	<div class="hero {activeMenu !== 'order' ? 'padded' : ''}">
 		{#if menuImage}
 			<img src={menuImage} alt="{activeMenu} menu image" />
 		{/if}
@@ -73,17 +73,7 @@
 	<!-- blue order panel (only for Order tab) -->
 	{#if activeMenu === 'order'}
 		<div class="order-panel">
-			<!-- reuse your existing component so text/button/link styles stay in one place -->
 			<OrderOnline {menuImage} {takeoutMenu} />
-
-			<!-- platform logos row (if your OrderOnline already renders these, remove this block) -->
-			<!-- <div class="platforms">
-				<img src={GrubHub} alt="Grubhub" />
-				<img src={Seamless} alt="Seamless" />
-				<img src={UberEats} alt="Uber Eats" />
-				<img src={Caviar} alt="Caviar" />
-				<img src={DoorDash} alt="DoorDash" />
-			</div> -->
 		</div>
 	{/if}
 </section>
@@ -118,11 +108,23 @@
 		color: #ffe356;
 	}
 
+	.hero {
+		/* background-color: white; */
+	}
+
 	/* hero image (full-bleed) */
 	.hero img {
 		display: block;
 		width: 100%;
 		height: auto;
+        background-color: white;
+	}
+
+	/* add padding for non-order menus */
+	.hero.padded {
+		padding-left: 1rem;
+		padding-right: 1rem;
+        /* background-color: white; */
 	}
 
 	/* blue panel */

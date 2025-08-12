@@ -2,7 +2,7 @@
 	import MobileMenu from '../../components/mobileMenu.svelte';
 	import OrderOnline from '../../components/orderOnline.svelte';
 	import { onMount } from 'svelte';
-	let activeMenu: 'dinner' | 'lunch' | 'drink' | 'order' = 'order';
+	let activeMenu: 'lunch' | 'dinner' | 'drink' | 'order' = 'order';
 
 	let isMobile = false;
 	function checkMobile() {
@@ -29,7 +29,7 @@
 	let menuImage = '';
 
 	// Normalize and map image names to lowercase keys
-	let menuImageMap: Record<'order' | 'dinner' | 'lunch' | 'drinks', string> = {
+	let menuImageMap: Record<'order' | 'lunch' | 'dinner' | 'drinks', string> = {
 		order: '',
 		dinner: '',
 		lunch: '',
@@ -39,7 +39,7 @@
 	if (menu?.images?.length) {
 		for (const img of menu.images) {
 			const key = img.name?.toLowerCase();
-			if (key && ['dinner', 'lunch', 'drink', 'order'].includes(key)) {
+			if (key && ['lunch', 'dinner', 'drink', 'order'].includes(key)) {
 				menuImageMap[key] = img.asset?.url || '';
 			}
 		}
@@ -70,13 +70,14 @@
 							on:click={() => (activeMenu = 'order')}>Order Online</span
 						>
 						<span
-							class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
-							on:click={() => (activeMenu = 'dinner')}>Dinner</span
-						>
-						<span
 							class="toggle {activeMenu === 'lunch' ? 'active' : ''}"
 							on:click={() => (activeMenu = 'lunch')}>Lunch</span
 						>
+						<span
+							class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
+							on:click={() => (activeMenu = 'dinner')}>Dinner</span
+						>
+
 						<span
 							class="toggle {activeMenu === 'drink' ? 'active' : ''}"
 							on:click={() => (activeMenu = 'drink')}>Drink</span
@@ -100,13 +101,14 @@
 					on:click={() => (activeMenu = 'order')}>Order Online</span
 				>
 				<span
-					class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
-					on:click={() => (activeMenu = 'dinner')}>Dinner</span
-				>
-				<span
 					class="toggle {activeMenu === 'lunch' ? 'active' : ''}"
 					on:click={() => (activeMenu = 'lunch')}>Lunch</span
 				>
+				<span
+					class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
+					on:click={() => (activeMenu = 'dinner')}>Dinner</span
+				>
+
 				<span
 					class="toggle {activeMenu === 'drink' ? 'active' : ''}"
 					on:click={() => (activeMenu = 'drink')}>Drink</span
