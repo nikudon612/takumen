@@ -1,6 +1,18 @@
 <script lang="ts">
+	import MobileMenu from '../../components/mobileMenu.svelte';
 	import OrderOnline from '../../components/orderOnline.svelte';
+	import { onMount } from 'svelte';
 	let activeMenu: 'dinner' | 'lunch' | 'drink' | 'order' = 'order';
+
+	let isMobile = false;
+	function checkMobile() {
+		isMobile = window.innerWidth <= 768;
+	}
+	onMount(() => {
+		checkMobile();
+		window.addEventListener('resize', checkMobile);
+		return () => window.removeEventListener('resize', checkMobile);
+	});
 
 	const backgroundColors = {
 		dinner: '#789FAF',
@@ -41,72 +53,76 @@
 	<title>Menu - Takumen</title>
 </svelte:head>
 
-<section
-	class="menu-container {activeMenu === 'order' ? 'order-layout' : ''}"
-	style="background-color: {backgroundColors[activeMenu]}"
->
-	{#if activeMenu === 'order'}
-		<!-- Toggle group is inside the left column -->
-		<div class="order-layout-wrapper">
-			<div class="order-left-column">
-				<nav class="toggle-group">
-					<span
-						class="toggle {activeMenu === 'order' ? 'active' : ''}"
-						on:click={() => (activeMenu = 'order')}>Order Online</span
-					>
-					<span
-						class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
-						on:click={() => (activeMenu = 'dinner')}>Dinner</span
-					>
-					<span
-						class="toggle {activeMenu === 'lunch' ? 'active' : ''}"
-						on:click={() => (activeMenu = 'lunch')}>Lunch</span
-					>
-					<span
-						class="toggle {activeMenu === 'drink' ? 'active' : ''}"
-						on:click={() => (activeMenu = 'drink')}>Drink</span
-					>
-				</nav>
-				<OrderOnline {menuImage} {takeoutMenu} />
+{#if isMobile}
+	<MobileMenu {data} />
+{:else}
+	<section
+		class="menu-container {activeMenu === 'order' ? 'order-layout' : ''}"
+		style="background-color: {backgroundColors[activeMenu]}"
+	>
+		{#if activeMenu === 'order'}
+			<!-- Toggle group is inside the left column -->
+			<div class="order-layout-wrapper">
+				<div class="order-left-column">
+					<nav class="toggle-group">
+						<span
+							class="toggle {activeMenu === 'order' ? 'active' : ''}"
+							on:click={() => (activeMenu = 'order')}>Order Online</span
+						>
+						<span
+							class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
+							on:click={() => (activeMenu = 'dinner')}>Dinner</span
+						>
+						<span
+							class="toggle {activeMenu === 'lunch' ? 'active' : ''}"
+							on:click={() => (activeMenu = 'lunch')}>Lunch</span
+						>
+						<span
+							class="toggle {activeMenu === 'drink' ? 'active' : ''}"
+							on:click={() => (activeMenu = 'drink')}>Drink</span
+						>
+					</nav>
+					<OrderOnline {menuImage} {takeoutMenu} />
+				</div>
+				<div class="order-right">
+					{#if menuImage}
+						<img src={menuImage} alt="Takumen delivery preview" />
+					{:else}
+						<p>Loading image...</p>
+					{/if}
+				</div>
 			</div>
-			<div class="order-right">
+		{:else}
+			<!-- Toggle group outside in default state -->
+			<nav class="toggle-group">
+				<span
+					class="toggle {activeMenu === 'order' ? 'active' : ''}"
+					on:click={() => (activeMenu = 'order')}>Order Online</span
+				>
+				<span
+					class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
+					on:click={() => (activeMenu = 'dinner')}>Dinner</span
+				>
+				<span
+					class="toggle {activeMenu === 'lunch' ? 'active' : ''}"
+					on:click={() => (activeMenu = 'lunch')}>Lunch</span
+				>
+				<span
+					class="toggle {activeMenu === 'drink' ? 'active' : ''}"
+					on:click={() => (activeMenu = 'drink')}>Drink</span
+				>
+			</nav>
+
+			<div class="menu-image-wrapper">
 				{#if menuImage}
-					<img src={menuImage} alt="Takumen delivery preview" />
+					<img src={menuImage} alt="{activeMenu} menu" />
 				{:else}
 					<p>Loading image...</p>
 				{/if}
 			</div>
-		</div>
-	{:else}
-		<!-- Toggle group outside in default state -->
-		<nav class="toggle-group">
-			<span
-				class="toggle {activeMenu === 'order' ? 'active' : ''}"
-				on:click={() => (activeMenu = 'order')}>Order Online</span
-			>
-			<span
-				class="toggle {activeMenu === 'dinner' ? 'active' : ''}"
-				on:click={() => (activeMenu = 'dinner')}>Dinner</span
-			>
-			<span
-				class="toggle {activeMenu === 'lunch' ? 'active' : ''}"
-				on:click={() => (activeMenu = 'lunch')}>Lunch</span
-			>
-			<span
-				class="toggle {activeMenu === 'drink' ? 'active' : ''}"
-				on:click={() => (activeMenu = 'drink')}>Drink</span
-			>
-		</nav>
-
-		<div class="menu-image-wrapper">
-			{#if menuImage}
-				<img src={menuImage} alt="{activeMenu} menu" />
-			{:else}
-				<p>Loading image...</p>
-			{/if}
-		</div>
-	{/if}
-</section>
+		{/if}
+	</section>
+{/if}
 
 <style>
 	.menu-container {
@@ -242,6 +258,7 @@
 			max-height: 100%;
 		}
 		.order-layout-wrapper {
+			display: flex;
 			flex-direction: column;
 		}
 
