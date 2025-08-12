@@ -220,12 +220,16 @@
 		.menu-box {
 			width: calc(100% - 2rem);
 			/* height: auto; */
-			height: calc(100% - 2rem);
+			height: calc(100% - 4rem);
 		}
 	}
 
 	/* Tablets & down: stack columns, center headings a touch */
 	@media (max-width: 820px) {
+		.menu-box {
+			width: calc(100% - 2rem);
+			height: calc(100% - 4rem);
+		}
 		.menu-columns {
 			grid-template-columns: 1fr;
 		}
