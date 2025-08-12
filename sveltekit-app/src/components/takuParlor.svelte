@@ -1,7 +1,6 @@
 <script>
-    import mascot1 from '../lib/assets/mascot1.png';
-    import mascot2 from '../lib/assets/mascot2.png';
-    // import mascot3 from '../lib/assets/mascot3.png';
+	import mascot1 from '../lib/assets/mascot1.png';
+	import mascot2 from '../lib/assets/mascot2.png';
 </script>
 
 <div class="menu-box">
@@ -9,16 +8,20 @@
 		<!-- LEFT COLUMN -->
 		<div class="column">
 			<!-- Soft Serve -->
-			<div class="menu-section">
-				<div class="japanese">ソフトクリーム</div>
-				<h2 class="section-title">Soft Serve</h2>
-				<div class="price">7.5</div>
-				<div class="subtitle">Cone or Cup</div>
-				<ul class="options">
-					<li>Vanilla</li>
-					<li>Matcha</li>
-					<li>Swirl</li>
-				</ul>
+			<!-- Soft Serve with mascot -->
+			<div class="menu-section softserve-with-mascot">
+				<div class="softserve-text">
+					<div class="japanese">ソフトクリーム</div>
+					<h2 class="section-title">Soft Serve</h2>
+					<div class="price">7.5</div>
+					<div class="subtitle">Cone or Cup</div>
+					<ul class="options">
+						<li>Vanilla</li>
+						<li>Matcha</li>
+						<li>Swirl</li>
+					</ul>
+				</div>
+				<img src={mascot1} alt="" class="mascot-side" />
 			</div>
 
 			<!-- Purin -->
@@ -62,6 +65,9 @@
 					strawberry, blueberry, banana, cantaloupe, cherry
 				</div>
 			</div>
+
+			<!-- ⬇️ MASCOT 2 (below Sundae, above Cream Anmitsu) -->
+			<img src={mascot2} alt="" class="mascot-inline mascot-sundae" />
 
 			<!-- Cream Anmitsu -->
 			<div class="menu-section">
@@ -219,6 +225,38 @@
 		flex-wrap: wrap;
 	}
 
+	/* mascots: inline, responsive, never capture clicks, no scrollbars affected */
+	.mascot-inline {
+		display: block;
+		margin: clamp(8px, 2vw, 20px) auto;
+		max-width: clamp(140px, 20vw, 280px);
+		height: auto;
+		pointer-events: none;
+		user-select: none;
+	}
+
+	.mascot-sundae {
+		/* slight nudge right on wide screens */
+		transform: translateX(2%);
+	}
+
+	.softserve-with-mascot {
+		display: flex;
+		align-items: flex-start; /* align mascot to top of text block */
+		gap: clamp(8px, 1vw, 16px);
+	}
+
+	.softserve-text {
+		flex: 1;
+	}
+
+	.mascot-side {
+		max-width: clamp(80px, 18vw, 160px);
+		height: auto;
+		pointer-events: none;
+		user-select: none;
+	}
+
 	/* == Responsive ========================================================= */
 	/* Large tablets: keep two columns but tighten spacing */
 	@media (max-width: 1024px) {
@@ -268,6 +306,14 @@
 		.menu-box {
 			width: calc(100% - 1rem);
 			height: calc(100% - 1rem);
+		}
+		.softserve-with-mascot {
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+		}
+		.mascot-side {
+			max-width: clamp(100px, 40vw, 180px);
 		}
 	}
 </style>
