@@ -43,7 +43,7 @@
 			<div class="menu-section">
 				<h2 class="section-title">Ice Cream Float</h2>
 				<div class="price">10</div>
-				<div class="subtitle">Made with soft serve</div>
+				<div class="">Made with soft serve</div>
 				<ul class="options">
 					<li>Melon Soda × Vanilla</li>
 					<li>Matcha × Matcha</li>
@@ -61,7 +61,7 @@
 				<h3 class="subsection-title">Purin à la Mode</h3>
 				<div class="price">16</div>
 				<div class="description">
-					Housemade custard pudding, salted caramel sauce, vanilla soft serve,<br />
+					housemade custard pudding, salted caramel sauce, vanilla soft serve,<br />
 					strawberry, blueberry, banana, cantaloupe, cherry
 				</div>
 			</div>
@@ -152,19 +152,20 @@
 		font-weight: 900;
 		font-size: clamp(1.25rem, 1.4vw + 1rem, 2.25rem);
 		margin: 0.25rem 0 0.5rem;
-		font-family: 'sundaytime', sans-serif;
+		font-family: 'Luckiest Guy', sans-serif;
 	}
 	.subtitle {
 		font-size: clamp(0.9rem, 0.3vw + 0.8rem, 1rem);
-		font-style: italic;
 		margin-bottom: 0.5rem;
 		letter-spacing: 0.02em;
-		/* font-family: 'everyrun', sans-serif; */
+		font-family: 'futura-pt', sans-serif;
 	}
 	.description {
 		margin: 0.25rem 0 0.75rem;
 		line-height: 1.35;
 		font-size: clamp(0.95rem, 0.25vw + 0.85rem, 1rem);
+		font-family: 'avenir-next-lt-pro-condensed';
+		font-weight: 800;
 	}
 
 	/* == Lists ============================================================= */
@@ -198,6 +199,10 @@
 	/* flavor callouts */
 	.flavors li {
 		margin-bottom: 0.6rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
 	}
 	.flavor-name {
 		font-weight: 900;
@@ -209,6 +214,10 @@
 	/* sections */
 	.menu-section {
 		margin-bottom: 1.5rem;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
 	}
 
 	/* == Allergens bar ====================================================== */
