@@ -511,6 +511,11 @@
 			display: flex;
 			flex-direction: column;
 		}
+
+		.softserve-content {
+			justify-content: center;
+			margin-top: 0rem;
+		}
 	}
 
 	@media (300px <= width <= 600px) {
