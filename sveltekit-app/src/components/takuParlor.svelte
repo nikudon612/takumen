@@ -306,8 +306,8 @@
 	.softserve-content {
 		display: flex;
 		flex-direction: row;
-		align-items: flex-start;
-		gap: 0.5rem;
+		align-items: center;
+		margin-top: -2rem;
 	}
 
 	/* == Allergens bar ====================================================== */
