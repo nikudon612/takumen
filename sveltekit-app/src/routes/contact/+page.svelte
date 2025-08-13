@@ -93,7 +93,7 @@
 		background-color: #fed314;
 		font-family: avenir-next-lt-pro-condensed, sans-serif;
 		color: black;
-		height: 85vh;
+		/* height: 85vh; */
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -196,7 +196,7 @@
 	@media (max-width: 768px) {
 		.hours-info {
 			overflow: visible;
-			height: 85dvh;
+			/* height: 85dvh; */
 		}
 		.content-container {
 			display: none;
@@ -206,7 +206,7 @@
 			display: flex;
 			flex-direction: column;
 			width: 100%;
-			height: 85dvh;
+			/* height: 85dvh; */
 			overflow: hidden;
 		}
 
