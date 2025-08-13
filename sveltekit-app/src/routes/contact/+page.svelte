@@ -93,7 +93,7 @@
 		background-color: #fed314;
 		font-family: avenir-next-lt-pro-condensed, sans-serif;
 		color: black;
-		/* height: 85vh; */
+		height: 85vh;
 		display: flex;
 		align-items: center;
 		justify-content: center;
