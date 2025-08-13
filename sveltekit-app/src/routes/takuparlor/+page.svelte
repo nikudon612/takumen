@@ -46,13 +46,19 @@
 	@media (max-width: 768px) {
 		.split-menu {
 			flex-direction: column-reverse;
-			height: 85dvh;
+			/* height: 85dvh; */
+			height: auto;
 		}
 		.menu-left,
 		.menu-right {
 			flex: none;
 			width: 100%;
-			height: 50%;
+			height: auto;
+		}
+
+		.menu-left {
+			padding-top: 1rem; /* blue gap at the top */
+			background-color: #789faf; /* keep the blue */
 		}
 		.menu-right img {
 			object-fit: cover;
