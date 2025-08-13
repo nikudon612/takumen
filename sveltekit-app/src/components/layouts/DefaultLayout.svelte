@@ -4,6 +4,7 @@
 	import LiveMode from '../LiveMode.svelte';
 	import hamburger from '../../lib/assets/hamburger.svg';
 	import closebutton from '../../lib/assets/closebutton.svg';
+	import insta from '../../lib/assets/insta.svg';
 
 	export let data;
 
@@ -87,17 +88,30 @@
 		</div>
 	{/if}
 
-	<!-- <footer class="footer">
+	<footer class="footer">
 		{#if footer}
 			<div class="footer_content">
-				<p class="footer_label">{footer.locationLabel}</p>
-				<p class="footer_address">{footer.address}</p>
+				<div class="footer_info">
+					<!-- <p class="footer_label">{footer.locationLabel}</p> -->
+					<p class="footer_address">
+						<a
+							href="https://maps.app.goo.gl/ZSS7GLnRSzZuPBGi8"
+							class="footer_link"
+							target="_blank"
+							rel="noopener noreferrer">{footer.address}</a
+						>
+					</p>
+				</div>
+				<div class="socials">
+					<a href="https://www.instagram.com/takumenlic/" target="_blank" rel="noopener noreferrer">
+						<img src={insta} alt="Instagram" />
+					</a>
+				</div>
 			</div>
-			<div class="hours_content"></div>
 		{:else}
 			<p>loading...</p>
 		{/if}
-	</footer> -->
+	</footer>
 </div>
 
 {#if $isPreviewing}
@@ -132,7 +146,7 @@
 	}
 
 	main {
-		margin-top: 45px;
+		/* margin-top: 45px; */
 	}
 
 	.header {
@@ -143,6 +157,7 @@
 		width: 100%;
 		background: transparent;
 		height: 15vh;
+		max-width: 100vw;
 	}
 
 	.header_content {
@@ -153,16 +168,7 @@
 		width: 100%;
 		padding: 0 3rem 0 3rem;
 		background-color: white;
-	}
-
-	.header .header__title {
-		font-weight: 800;
-		font-size: var(--font-size-3);
-		line-height: var(--line-height-1);
-		padding-left: var(--space-2);
-		margin: var(--space-3) 0;
-		text-decoration: none;
-		color: var(--black);
+		max-width: 100vw;
 	}
 
 	.header_links {
@@ -196,6 +202,65 @@
 		cursor: pointer;
 	}
 
+	.footer_info {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: center;
+		gap: 0.5rem;
+	}
+
+	.footer_content {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-end;
+		justify-content: flex-start;
+		gap: 1rem;
+	}
+
+	.footer_link {
+		color: #333;
+		text-decoration: none;
+	}
+
+	.footer_label {
+		padding: 0;
+		margin: 0;
+	}
+
+	.footer_address {
+		padding: 0;
+		margin: 0;
+	}
+	.socials {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.footer {
+		position: fixed; /* escape the container's stacking/overflow */
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 99; /* above slideshow */
+		padding: 2rem 3rem;
+		max-width: 100vw;
+	}
+
+	@media (max-width: 924px) {
+		.header_links {
+			gap: 1rem;
+		}
+	}
+
+	@media (max-width: 800px) {
+		.header_links {
+			gap: 0.75rem;
+		}
+	}
+
 	@media (max-width: 768px) {
 		.hamburger-icon {
 			display: block;
@@ -222,6 +287,7 @@
 			align-items: center;
 			justify-content: center;
 			padding: 0;
+			max-width: 100vw;
 		}
 
 		.header_content {
@@ -231,6 +297,7 @@
 			padding: 0;
 			/* width: 100%; */
 			padding: 0 1rem;
+			max-width: 100vw;
 		}
 
 		.header_logo {
@@ -289,7 +356,7 @@
 		}
 	}
 
-	@media (min-width: 575px) {
+	@media (max-width: 575px) {
 		.container {
 			/* max-width: var(--max-width-1); */
 			/* padding: 0 var(--space-4); */
@@ -310,7 +377,24 @@
 		}
 
 		.footer {
-			/* margin: var(--space-3) 0; */
+			position: fixed; /* escape the container's stacking/overflow */
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 99; /* above slideshow */
+			padding: 1rem 1rem !important;
+		}
+		.footer_content {
+			padding: 0rem 0rem;
+			display: flex;
+			;
+		}
+		.footer_link {
+			font-size: 0.75rem;
+		}
+
+		.socials a {
+			display: flex;
 		}
 	}
 
