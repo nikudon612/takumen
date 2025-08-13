@@ -181,7 +181,7 @@
 		font-weight: semi-bold;
 		color: white;
 		cursor: pointer;
-		width: 50%;
+		width: 55%;
 		text-align: left;
 	}
 	.subscribe-btn:hover {

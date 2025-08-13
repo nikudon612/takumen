@@ -134,7 +134,7 @@
 
 		.mobile-info {
 			background-color: #f26c5a;
-			padding: 0rem 1rem;
+			padding: 1rem 1rem;
 			text-align: left;
 			color: white;
 			display: flex;
