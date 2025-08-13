@@ -111,7 +111,7 @@
 
 		.left-image {
 			flex: 0 0 auto;
-			height: 50vh; /* exactly half the viewport height */
+			height: 42.75vh; /* exactly half the viewport height */
 		}
 
 		.left-image img {
