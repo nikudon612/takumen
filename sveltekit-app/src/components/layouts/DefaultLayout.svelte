@@ -146,7 +146,7 @@
 	}
 
 	main {
-		margin-top: 45px;
+		/* margin-top: 45px; */
 	}
 
 	.header {
@@ -244,7 +244,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		z-index: 9000; /* above slideshow */
+		z-index: 99; /* above slideshow */
 		padding: 2rem 3rem;
 		max-width: 100vw;
 	}
@@ -381,7 +381,7 @@
 			left: 0;
 			right: 0;
 			bottom: 0;
-			z-index: 9000; /* above slideshow */
+			z-index: 99; /* above slideshow */
 			padding: 1rem 1rem !important;
 		}
 		.footer_content {

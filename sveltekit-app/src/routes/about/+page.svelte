@@ -9,7 +9,7 @@
 
 	<div class="right-text">
 		<div class="text-scroll">
-			<h1>ABOUT</h1>
+			<h1>ABOUT US</h1>
 			<p>
 				Takumen is an Izakaya-style restaurant located in Long Island City. Conceived by a group of
 				Japanese friends who forged their bonds in New York, their venture began as a Ramen project,
@@ -106,17 +106,24 @@
 	@media (max-width: 768px) {
 		.about_section {
 			flex-direction: column;
-			height: auto; /* allow it to grow */
+			height: auto; /* allow it to grow naturally */
 		}
 
-		.left-image,
-		.right-text {
-			flex: 1 0 auto; /* allow both to take full width */
-			height: auto; /* let them grow with content */
+		.left-image {
+			flex: 0 0 auto;
+			height: 50vh; /* exactly half the viewport height */
+		}
+
+		.left-image img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
 		}
 
 		.right-text {
-			padding: 2rem; /* adjust padding for smaller screens */
+			flex: 1 0 auto;
+			height: auto;
+			padding: 2rem;
 		}
 	}
 </style>
