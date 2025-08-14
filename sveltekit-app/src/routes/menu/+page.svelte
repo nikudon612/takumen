@@ -3,18 +3,17 @@
 	import OrderOnline from '../../components/orderOnline.svelte';
 	import { onMount } from 'svelte';
 
+	// shared state
 	let activeMenu: 'lunch' | 'dinner' | 'drink' | 'order' = 'order';
 
+	// mobile switch (client-only)
 	let isMobile = false;
 	function checkMobile() {
+		if (typeof window === 'undefined') return;
 		isMobile = window.innerWidth <= 768;
 	}
-	onMount(() => {
-		checkMobile();
-		window.addEventListener('resize', checkMobile);
-		return () => window.removeEventListener('resize', checkMobile);
-	});
 
+	// colors
 	const backgroundColors = {
 		dinner: '#789FAF',
 		lunch: '#F26C5A',
@@ -22,26 +21,39 @@
 		order: '#789FAF'
 	};
 
+	// data from load
 	export let data;
 	const { menu } = data;
 	console.log('Menu data:', menu);
 
-	// ---- Build clean arrays of URLs for each section ----
+	// arrays of URLs
 	const orderImages: string[] = (menu.orderImages ?? []).map((i) => i?.url).filter(Boolean);
 	const lunchImages: string[] = (menu.lunchImages ?? []).map((i) => i?.url).filter(Boolean);
 	const dinnerImages: string[] = (menu.dinnerImages ?? []).map((i) => i?.url).filter(Boolean);
 	const drinkImages: string[] = (menu.drinkImages ?? []).map((i) => i?.url).filter(Boolean);
 
-	// If you still have that legacy block that loops menu.images and overwrites values, REMOVE it.
-	// (It would conflict with the arrays above.)
-
-	// ---- Slideshow state (Order only) ----
+	// slideshow (Order only)
 	let orderIndex = 0;
 	let orderTimer: number | null = null;
-	const ORDER_INTERVAL_MS = 3500; // adjust to taste
+	const ORDER_INTERVAL_MS = 3500;
+
+	let isClient = false;
+	onMount(() => {
+		isClient = true;
+		checkMobile();
+		window.addEventListener('resize', checkMobile);
+
+		if (activeMenu === 'order') startOrderSlideshow();
+
+		return () => {
+			window.removeEventListener('resize', checkMobile);
+			stopOrderSlideshow();
+		};
+	});
 
 	function startOrderSlideshow() {
-		stopOrderSlideshow();
+		if (!isClient) return; // SSR guard
+		if (orderTimer !== null) return; // already running
 		if (orderImages.length > 1) {
 			orderTimer = window.setInterval(() => {
 				orderIndex = (orderIndex + 1) % orderImages.length;
@@ -56,19 +68,15 @@
 		}
 	}
 
-	// Restart/stop slideshow when tab changes
-	$: if (activeMenu === 'order') startOrderSlideshow();
-	$: if (activeMenu !== 'order') stopOrderSlideshow();
+	// guard timer changes during SSR
+	$: if (isClient && activeMenu === 'order') startOrderSlideshow();
+	$: if (isClient && activeMenu !== 'order') stopOrderSlideshow();
 
-	// Also restart if the images themselves change length (rare but safe)
-	$: if (activeMenu === 'order') {
-		// keep index in range if content changes
-		if (orderIndex >= orderImages.length) orderIndex = 0;
-	}
+	// keep index valid if images change
+	$: if (activeMenu === 'order' && orderIndex >= orderImages.length) orderIndex = 0;
 
-	// ---- Single string for the <img src> everywhere ----
+	// single src for all views
 	let menuImage: string = '';
-
 	$: {
 		if (activeMenu === 'order') {
 			menuImage = orderImages[orderIndex] ?? '';
@@ -81,12 +89,7 @@
 		}
 	}
 
-	// Optional: clean up on component destroy
-	onMount(() => {
-		return () => stopOrderSlideshow();
-	});
-
-	// If you still reference this anywhere, keep it. Otherwise remove.
+	// takeout pdf
 	const takeoutMenu = menu?.takeoutMenu?.asset?.url || '';
 </script>
 
@@ -95,7 +98,15 @@
 </svelte:head>
 
 {#if isMobile}
-	<MobileMenu {data} />
+	<MobileMenu
+		{data}
+		bind:activeMenu
+		{takeoutMenu}
+		{orderImages}
+		{lunchImages}
+		{dinnerImages}
+		{drinkImages}
+	/>
 {:else}
 	<section
 		class="menu-container {activeMenu === 'order' ? 'order-layout' : ''}"
@@ -194,7 +205,7 @@
 	.toggle {
 		color: #333;
 		transition: color 0.2s ease;
-		font-size: 1.375rem;
+		font-size: 1.25rem;
 		font-weight: lighter;
 		font-family: avenir-next-lt-pro-condensed, sans-serif;
 	}
@@ -328,8 +339,6 @@
 			flex-direction: column;
 		}
 
-		.order-left-column {
-		}
 		.order-left-column,
 		.order-right {
 			width: 100%;

@@ -242,8 +242,8 @@
 
 	@media (max-width: 768px) {
 		.hours-info {
-			    overflow: visible;   /* allow the page to scroll */
-    height: auto;        
+			overflow: visible; /* allow the page to scroll */
+			height: auto;
 		}
 		.content-container {
 			display: none;
