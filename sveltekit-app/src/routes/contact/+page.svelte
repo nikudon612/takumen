@@ -233,6 +233,7 @@
 		.hours-info {
 			overflow: visible;
 			/* height: 85dvh; */
+			height: 100%;
 		}
 		.content-container {
 			display: none;
