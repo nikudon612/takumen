@@ -49,7 +49,7 @@
 	<div class="menu-right">
 		{#if current}
 			{#key current}
-				<img src={current} alt="Taku Parlor slideshow image"/>
+				<img src={current} alt="Taku Parlor slideshow image" />
 			{/key}
 		{:else}
 			<div class="img-fallback">No images yet</div>
@@ -87,22 +87,41 @@
 	@media (max-width: 768px) {
 		.split-menu {
 			flex-direction: column-reverse;
-			/* height: 85dvh; */
-			height: auto;
-		}
-		.menu-left,
-		.menu-right {
-			flex: none;
-			width: 100%;
 			height: auto;
 		}
 
-		.menu-left {
-			padding-top: 1rem; /* blue gap at the top */
-			background-color: #789faf; /* keep the blue */
+		.menu-right {
+			position: relative;
+			height: 40dvh !important; /* locked to half the visible viewport */
+			overflow: hidden;
+			flex: none; /* prevent flex from re-sizing it */
 		}
+
+		/* Make whatever is inside (img or fallback) fill the fixed box */
+		.menu-right > * {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+		}
+
 		.menu-right img {
-			object-fit: cover;
+			object-fit: cover; /* fills without letterboxing */
+			object-position: center;
+			display: block;
+		}
+
+		.menu-left {
+			flex: none; /* prevent flex from re-sizing it */
+			width: 100%;
+			height: auto;
+			padding: 1rem;
+			box-sizing: border-box;
+		}
+
+		.img-fallback {
+			display: grid;
+			place-items: center;
 		}
 	}
 </style>
