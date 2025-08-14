@@ -9,6 +9,8 @@
 		if (!email) return;
 		submitting = true;
 		message = '';
+		console.log('[subscribe] email=', email);
+
 		try {
 			const res = await fetch('/api/newsletter', {
 				method: 'POST',
@@ -67,8 +69,17 @@
 			<div class="newsletter-signup">
 				<h3>JOIN OUR NEWSLETTER</h3>
 				<p>SIGN UP WITH YOUR EMAIL FOR UPDATES</p>
-				<input type="email" placeholder="Email Address" class="newsletter-input" />
-				<button class="subscribe-btn">SUBSCRIBE</button>
+				<input
+					type="email"
+					placeholder="Email Address"
+					class="newsletter-input"
+					bind:value={email}
+					required
+				/>
+				<button class="subscribe-btn" on:click|preventDefault={subscribe} disabled={submitting}>
+					{submitting ? 'SUBSCRIBING…' : 'SUBSCRIBE'}
+				</button>
+				{#if message}<p class="newsletter-msg">{message}</p>{/if}
 			</div>
 		</div>
 	</div>
@@ -233,6 +244,7 @@
 		.hours-info {
 			overflow: visible;
 			/* height: 85dvh; */
+			height: 100%;
 		}
 		.content-container {
 			display: none;

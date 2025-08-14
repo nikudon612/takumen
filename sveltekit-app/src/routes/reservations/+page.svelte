@@ -138,7 +138,7 @@
 			color: white;
 			display: flex;
 			flex-direction: column;
-			justify-content: center;
+			justify-content: flex-start;
 			height: 100%;
 			gap: 0rem;
 		}

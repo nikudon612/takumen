@@ -103,7 +103,7 @@
 					</p>
 				</div>
 				<div class="socials">
-					<a href="https://www.instagram.com/takumenlic/" target="_blank" rel="noopener noreferrer">
+					<a href="https://www.instagram.com/takumenlic/" target="_blank" rel="noopener noreferrer" class="footer_a">
 						<img src={insta} alt="Instagram" />
 					</a>
 				</div>
@@ -213,9 +213,15 @@
 	.footer_content {
 		display: flex;
 		flex-direction: row;
-		align-items: flex-end;
+		align-items: center; /* center items vertically */
 		justify-content: flex-start;
 		gap: 1rem;
+	}
+
+	.footer_a {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.footer_link {
@@ -387,7 +393,6 @@
 		.footer_content {
 			padding: 0rem 0rem;
 			display: flex;
-			;
 		}
 		.footer_link {
 			font-size: 0.75rem;
