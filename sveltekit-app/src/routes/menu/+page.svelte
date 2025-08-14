@@ -1,9 +1,8 @@
 <script lang="ts">
 	import MobileMenu from '../../components/mobileMenu.svelte';
 	import OrderOnline from '../../components/orderOnline.svelte';
-	import takeout from '../../lib/assets/Takeout_print_legal-1.pdf';
-
 	import { onMount } from 'svelte';
+
 	let activeMenu: 'lunch' | 'dinner' | 'drink' | 'order' = 'order';
 
 	let isMobile = false;
@@ -26,29 +25,69 @@
 	export let data;
 	const { menu } = data;
 	console.log('Menu data:', menu);
-	const takeoutMenu = menu?.takeoutMenu?.asset?.url || '';
 
-	let menuImage = '';
+	// ---- Build clean arrays of URLs for each section ----
+	const orderImages: string[] = (menu.orderImages ?? []).map((i) => i?.url).filter(Boolean);
+	const lunchImages: string[] = (menu.lunchImages ?? []).map((i) => i?.url).filter(Boolean);
+	const dinnerImages: string[] = (menu.dinnerImages ?? []).map((i) => i?.url).filter(Boolean);
+	const drinkImages: string[] = (menu.drinkImages ?? []).map((i) => i?.url).filter(Boolean);
 
-	// Normalize and map image names to lowercase keys
-	let menuImageMap: Record<'order' | 'lunch' | 'dinner' | 'drinks', string> = {
-		order: '',
-		dinner: '',
-		lunch: '',
-		drinks: ''
-	};
+	// If you still have that legacy block that loops menu.images and overwrites values, REMOVE it.
+	// (It would conflict with the arrays above.)
 
-	if (menu?.images?.length) {
-		for (const img of menu.images) {
-			const key = img.name?.toLowerCase();
-			if (key && ['lunch', 'dinner', 'drink', 'order'].includes(key)) {
-				menuImageMap[key] = img.asset?.url || '';
-			}
+	// ---- Slideshow state (Order only) ----
+	let orderIndex = 0;
+	let orderTimer: number | null = null;
+	const ORDER_INTERVAL_MS = 3500; // adjust to taste
+
+	function startOrderSlideshow() {
+		stopOrderSlideshow();
+		if (orderImages.length > 1) {
+			orderTimer = window.setInterval(() => {
+				orderIndex = (orderIndex + 1) % orderImages.length;
+			}, ORDER_INTERVAL_MS);
 		}
 	}
 
-	// Reactive assignment of current image
-	$: menuImage = menuImageMap[activeMenu];
+	function stopOrderSlideshow() {
+		if (orderTimer !== null) {
+			clearInterval(orderTimer);
+			orderTimer = null;
+		}
+	}
+
+	// Restart/stop slideshow when tab changes
+	$: if (activeMenu === 'order') startOrderSlideshow();
+	$: if (activeMenu !== 'order') stopOrderSlideshow();
+
+	// Also restart if the images themselves change length (rare but safe)
+	$: if (activeMenu === 'order') {
+		// keep index in range if content changes
+		if (orderIndex >= orderImages.length) orderIndex = 0;
+	}
+
+	// ---- Single string for the <img src> everywhere ----
+	let menuImage: string = '';
+
+	$: {
+		if (activeMenu === 'order') {
+			menuImage = orderImages[orderIndex] ?? '';
+		} else if (activeMenu === 'lunch') {
+			menuImage = lunchImages[0] ?? '';
+		} else if (activeMenu === 'dinner') {
+			menuImage = dinnerImages[0] ?? '';
+		} else if (activeMenu === 'drink') {
+			menuImage = drinkImages[0] ?? '';
+		}
+	}
+
+	// Optional: clean up on component destroy
+	onMount(() => {
+		return () => stopOrderSlideshow();
+	});
+
+	// If you still reference this anywhere, keep it. Otherwise remove.
+	const takeoutMenu = menu?.takeoutMenu?.asset?.url || '';
 </script>
 
 <svelte:head>
@@ -199,11 +238,34 @@
 		display: block;
 	}
 
+	/* keep the grid height fixed as you already do */
 	.menu-container.order-layout {
 		padding: 0;
-		min-height: 0; /* kill the 78vh from .menu-container */
+		min-height: 0;
 		height: calc(100dvh - var(--header-h));
-		overflow: hidden; /* page itself won’t scroll */
+		overflow: hidden;
+	}
+
+	/* make sure grid children don't enforce their own min-content height */
+	.order-left-column,
+	.order-right {
+		min-height: 0;
+	}
+
+	/* RIGHT: pin the image, so intrinsic ratio never affects layout */
+	.order-right {
+		position: relative; /* create containing block */
+		height: 100%;
+		overflow: hidden; /* hide any bleed during transitions */
+	}
+
+	.order-right img {
+		position: absolute; /* take it out of normal flow */
+		inset: 0; /* fill the column */
+		width: 100%;
+		height: 100%;
+		object-fit: cover; /* keep your visual crop */
+		display: block; /* avoid inline gap baseline quirks */
 	}
 
 	.order-layout-wrapper {

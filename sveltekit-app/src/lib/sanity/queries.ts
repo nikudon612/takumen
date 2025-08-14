@@ -65,23 +65,32 @@ export interface Home {
 }
 
 export const menuQuery = groq`*[_type == "menuPage"][0]{
-  images[]{
-    name,
-    uploadedAt,
-    asset->{
-      url,
-      metadata {
-        dimensions,
-        lqip
-      }
-    }
-  },
-  takeoutMenu{
-    asset->{
-      url,
-      originalFilename,
-      mimeType,
-      size
-    }
-  }
+  orderImages[]{ alt, uploadedAt, "url": asset->url },
+  dinnerImages[]{ alt, uploadedAt, "url": asset->url },
+  lunchImages[]{ alt, uploadedAt, "url": asset->url },
+  drinkImages[]{ alt, uploadedAt, "url": asset->url },
+  "takeoutMenuUrl": takeoutMenu.asset->url
 }`;
+
+
+// export const menuQuery = groq`*[_type == "menuPage"][0]{
+//   images[]{
+//     name,
+//     uploadedAt,
+//     asset->{
+//       url,
+//       metadata {
+//         dimensions,
+//         lqip
+//       }
+//     }
+//   },
+//   takeoutMenu{
+//     asset->{
+//       url,
+//       originalFilename,
+//       mimeType,
+//       size
+//     }
+//   }
+// }`;
