@@ -72,25 +72,20 @@ export const menuQuery = groq`*[_type == "menuPage"][0]{
   "takeoutMenuUrl": takeoutMenu.asset->url
 }`;
 
-
-// export const menuQuery = groq`*[_type == "menuPage"][0]{
-//   images[]{
-//     name,
-//     uploadedAt,
-//     asset->{
-//       url,
-//       metadata {
-//         dimensions,
-//         lqip
-//       }
-//     }
-//   },
-//   takeoutMenu{
-//     asset->{
-//       url,
-//       originalFilename,
-//       mimeType,
-//       size
-//     }
-//   }
-// }`;
+export const takuParlorQuery = groq`*[_type == "takuParlorPage"][0]{
+  introHeading,
+  introBody,
+  heroImages[]{ alt, uploadedAt, credit, "url": asset->url },
+  menuSections[]{
+    title,
+    description,
+    items[]{
+      name,
+      price,
+      description,
+      badges,
+      image{ alt, "url": asset->url }
+    }
+  },
+  "printMenuUrl": printMenu.asset->url
+}`;

@@ -31,12 +31,13 @@ export default defineConfig({
             S.listItem()
               .title('Footer')
               .child(S.editor().id('footer').schemaType('footer').documentId('footer')),
+            S.listItem()
+              .title('Taku Parlor Page')
+              .child(S.document().schemaType('takuParlorPage').documentId('takuParlorPage')),
+
             // Everything else (collections)
             ...S.documentTypeListItems().filter(
-              (item) =>
-                !['navigation', 'home', 'menuPage', 'footer'].includes(
-                  item.getId(),
-                ),
+              (item) => !['navigation', 'home', 'menuPage', 'footer', 'takuParlorPage'].includes(item.getId()),
             ),
           ]),
     }),
