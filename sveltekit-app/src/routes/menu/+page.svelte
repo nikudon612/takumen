@@ -1,6 +1,8 @@
 <script lang="ts">
 	import MobileMenu from '../../components/mobileMenu.svelte';
 	import OrderOnline from '../../components/orderOnline.svelte';
+	import takeout from '../../lib/assets/Takeout_print_legal-1.pdf';
+
 	import { onMount } from 'svelte';
 	let activeMenu: 'lunch' | 'dinner' | 'drink' | 'order' = 'order';
 
