@@ -4,6 +4,7 @@
 	import DoorDash from '../lib/assets/doordash.png';
 	import UberEats from '../lib/assets/ubereats.png';
 	import GrubHub from '../lib/assets/grubhub.png';
+	import Takeout from '../lib/assets/Takeout_print_legal-1.pdf';
 
 	export let menuImage;
 	export let takeoutMenu;
@@ -12,7 +13,7 @@
 <div class="order-online-content">
 	<div class="order-left">
 		<h2>DELIVERY AND TAKE OUT AVAILABLE</h2>
-		<a href={takeoutMenu} class="takeout-link" target="_blank">TAKE OUT MENU HERE</a>
+		<a href={Takeout} class="takeout-link" target="_blank">TAKE OUT MENU HERE</a>
 		<p>ORDER DIRECT FROM TAKUMEN</p>
 		<a
 			href="https://order.toasttab.com/online/takumen"
@@ -24,14 +25,39 @@
 		<p>DELIVERY OPTIONS AVAILABLE ON ONLINE PLATFORMS</p>
 		<div class="platform-logos">
 			<div class="platform-row top-row">
-				<a class="logo-item"><img src={GrubHub} alt="Grubhub" /></a>
-				<a class="logo-item"><img src={Seamless} alt="Seamless" /></a>
-				<a class="logo-item"><img src={UberEats} alt="Uber Eats" /></a>
+				<a
+					class="logo-item"
+					href="https://www.grubhub.com/restaurant/takumen-550-50th-ave-long-island-city/745232"
+					target="_blank"
+					rel="noopener noreferrer"><img src={GrubHub} alt="Grubhub" /></a
+				>
+				<a
+					class="logo-item"
+					href="https://www.seamless.com/menu/takumen-550-50th-ave-long-island-city/745232"
+					target="_blank"
+					rel="noopener noreferrer"><img src={Seamless} alt="Seamless" /></a
+				>
+				<a
+					class="logo-item"
+					href="https://www.ubereats.com/store/takumen/CoFqHZr6Q-CDVz4BP98ltQ?srsltid=AfmBOoqXTsYyXYZiUywYnayq62Lfql664NaZiS73CIHCL-kNjkUqOXNF"
+					target="_blank"
+					rel="noopener noreferrer"><img src={UberEats} alt="Uber Eats" /></a
+				>
 			</div>
 
 			<div class="platform-row bottom-row">
-				<a class="logo-item"><img src={DoorDash} alt="Doordash" /></a>
-				<a class="logo-item"><img src={Caviar} alt="Caviar" /></a>
+				<a
+					class="logo-item"
+					href="https://www.doordash.com/store/takumen-long-island-city-133781/?srsltid=AfmBOooKyt_bdQRKhGpE0osk-j6A3YbW6A-n8kyhsO65QqUnypAAGTEN"
+					target="_blank"
+					rel="noopener noreferrer"><img src={DoorDash} alt="Doordash" /></a
+				>
+				<a
+					class="logo-item caviar"
+					href="https://www.trycaviar.com/store/takumen-long-island-city-133781/"
+					target="_blank"
+					rel="noopener noreferrer"><img src={Caviar} alt="Caviar" /></a
+				>
 			</div>
 		</div>
 	</div>
@@ -65,13 +91,38 @@
 
 		<div class="platform-logos">
 			<div class="platform-row">
-				<a class="logo-item"><img src={GrubHub} alt="Grubhub" /></a>
-				<a class="logo-item"><img src={Seamless} alt="Seamless" /></a>
-				<a class="logo-item"><img src={UberEats} alt="Uber Eats" /></a>
+				<a
+					class="logo-item"
+					href="https://www.grubhub.com/restaurant/takumen-550-50th-ave-long-island-city/745232"
+					target="_blank"
+					rel="noopener noreferrer"><img src={GrubHub} alt="Grubhub" /></a
+				>
+				<a
+					class="logo-item"
+					href="https://www.seamless.com/menu/takumen-550-50th-ave-long-island-city/745232"
+					target="_blank"
+					rel="noopener noreferrer"><img src={Seamless} alt="Seamless" /></a
+				>
+				<a
+					class="logo-item"
+					href="https://www.ubereats.com/store/takumen/CoFqHZr6Q-CDVz4BP98ltQ?srsltid=AfmBOoqXTsYyXYZiUywYnayq62Lfql664NaZiS73CIHCL-kNjkUqOXNF"
+					target="_blank"
+					rel="noopener noreferrer"><img src={UberEats} alt="Uber Eats" /></a
+				>
 			</div>
 			<div class="platform-row">
-				<a class="logo-item"><img src={Caviar} alt="Caviar" /></a>
-				<a class="logo-item"><img src={DoorDash} alt="Doordash" /></a>
+				<a
+					class="logo-item caviar"
+					href="https://www.trycaviar.com/store/takumen-long-island-city-133781/"
+					target="_blank"
+					rel="noopener noreferrer"><img src={Caviar} alt="Caviar" /></a
+				>
+				<a
+					class="logo-item"
+					href="https://www.doordash.com/store/takumen-long-island-city-133781/?srsltid=AfmBOooKyt_bdQRKhGpE0osk-j6A3YbW6A-n8kyhsO65QqUnypAAGTEN"
+					target="_blank"
+					rel="noopener noreferrer"><img src={DoorDash} alt="Doordash" /></a
+				>
 			</div>
 		</div>
 	</div>
@@ -154,7 +205,7 @@
 		width: 100%;
 		gap: 0rem;
 		justify-content: space-between;
-		flex-wrap: wrap; 
+		flex-wrap: wrap;
 	}
 
 	.bottom-row {
@@ -169,7 +220,6 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		/* flex: 1; */
 	}
 
 	.platform-logos img {
@@ -288,5 +338,12 @@
 		height: 30px;
 		max-width: 100px;
 		object-fit: contain;
+	}
+
+	.logo-item:hover {
+		cursor: pointer;
+	}
+	.caviar img {
+		height: 15px;
 	}
 </style>

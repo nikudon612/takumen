@@ -520,7 +520,7 @@
 
 	@media (300px <= width <= 600px) {
 		.menu-box {
-			width: calc(100% - 1rem);
+			width: calc(100% - 0rem);
 			height: calc(100% - 1rem);
 		}
 		.softserve-with-mascot {

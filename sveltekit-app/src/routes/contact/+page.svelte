@@ -1,5 +1,29 @@
 <script lang="ts">
 	import image from '../../lib/assets/takumensign.jpg';
+
+	let email = '';
+	let message = '';
+	let submitting = false;
+
+	async function subscribe() {
+		if (!email) return;
+		submitting = true;
+		message = '';
+		try {
+			const res = await fetch('/api/newsletter', {
+				method: 'POST',
+				headers: { 'content-type': 'application/json' },
+				body: JSON.stringify({ email, website: '' }) // website is honeypot
+			});
+			const data = await res.json().catch(() => ({}));
+			message = data?.message || 'Thanks — check your inbox shortly.';
+			email = '';
+		} catch {
+			message = 'Thanks — check your inbox shortly.';
+		} finally {
+			submitting = false;
+		}
+	}
 </script>
 
 <section class="hours-info">
@@ -78,8 +102,20 @@
 
 			<h3>JOIN OUR NEWSLETTER</h3>
 			<p>SIGN UP WITH YOUR EMAIL FOR UPDATES</p>
-			<input type="email" placeholder="Email Address" class="newsletter-input" />
-			<button class="subscribe-btn">SUBSCRIBE</button>
+			<input
+				type="email"
+				placeholder="Email Address"
+				class="newsletter-input"
+				bind:value={email}
+				required
+			/>
+			<button class="subscribe-btn" on:click|preventDefault={subscribe} disabled={submitting}>
+				{submitting ? 'SUBSCRIBING…' : 'SUBSCRIBE'}
+			</button>
+			{#if message}<p class="newsletter-msg">{message}</p>{/if}
+
+			<!-- <input type="email" placeholder="Email Address" class="newsletter-input" />
+			<button class="subscribe-btn">SUBSCRIBE</button> -->
 
 			<h3>FIND US AT</h3>
 			<p><a href="https://instagram.com/takumenlic" target="_blank">INSTAGRAM</a></p>
@@ -181,7 +217,7 @@
 		font-weight: semi-bold;
 		color: white;
 		cursor: pointer;
-		width: 50%;
+		width: 55%;
 		text-align: left;
 	}
 	.subscribe-btn:hover {
@@ -196,7 +232,7 @@
 	@media (max-width: 768px) {
 		.hours-info {
 			overflow: visible;
-			height: 85dvh;
+			/* height: 85dvh; */
 		}
 		.content-container {
 			display: none;
@@ -206,7 +242,7 @@
 			display: flex;
 			flex-direction: column;
 			width: 100%;
-			height: 85dvh;
+			/* height: 85dvh; */
 			overflow: hidden;
 		}
 

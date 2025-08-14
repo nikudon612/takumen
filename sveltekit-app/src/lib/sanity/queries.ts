@@ -65,23 +65,27 @@ export interface Home {
 }
 
 export const menuQuery = groq`*[_type == "menuPage"][0]{
-  images[]{
-    name,
-    uploadedAt,
-    asset->{
-      url,
-      metadata {
-        dimensions,
-        lqip
-      }
+  orderImages[]{ alt, uploadedAt, "url": asset->url },
+  dinnerImages[]{ alt, uploadedAt, "url": asset->url },
+  lunchImages[]{ alt, uploadedAt, "url": asset->url },
+  drinkImages[]{ alt, uploadedAt, "url": asset->url },
+  "takeoutMenuUrl": takeoutMenu.asset->url
+}`;
+
+export const takuParlorQuery = groq`*[_type == "takuParlorPage"][0]{
+  introHeading,
+  introBody,
+  heroImages[]{ alt, uploadedAt, credit, "url": asset->url },
+  menuSections[]{
+    title,
+    description,
+    items[]{
+      name,
+      price,
+      description,
+      badges,
+      image{ alt, "url": asset->url }
     }
   },
-  takeoutMenu{
-    asset->{
-      url,
-      originalFilename,
-      mimeType,
-      size
-    }
-  }
+  "printMenuUrl": printMenu.asset->url
 }`;

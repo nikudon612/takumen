@@ -5,15 +5,14 @@
 <section class="store-section">
 	<div class="content">
 		<h1 class="title">Coming Soon!</h1>
-		<img src={image} alt="Store Coming Soon" />
+		<img src={image} alt="Store Coming Soon" class="store-image" />
 	</div>
 </section>
 
 <style>
 	.store-section {
-		padding: 3rem;
 		background-color: #87b28b;
-		height: 100%;
+		height: 85dvh;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -32,5 +31,10 @@
 		text-align: center;
 		font-size: 2.5rem;
 		margin: 0;
+	}
+
+	.store-image {
+		max-width: 300px;
+		height: auto;
 	}
 </style>
