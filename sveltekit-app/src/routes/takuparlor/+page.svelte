@@ -66,7 +66,7 @@
 				<div class="overlay-social-container">
 					<div class="overlay-socials">
 						<a
-							href="https://www.instagram.com/takumenlic"
+							href="https://www.instagram.com/takuparlor"
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label="Instagram"
@@ -78,7 +78,7 @@
 					</div>
 					<div class="overlay-socials">
 						<a
-							href="https://maps.google.com/?q=Takumen+LIC"
+							href="https://maps.app.goo.gl/wES851PUtokrZQJz6"
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label="Google Maps"
