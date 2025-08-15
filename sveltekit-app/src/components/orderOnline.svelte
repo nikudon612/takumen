@@ -403,33 +403,56 @@
 	}
 
 	@media screen and (max-width: 768px) {
-		.desktop-only {
-			display: none;
+		.platform-icon {
+			height: 20px !important;
+		} /* Fixed-height image stage on mobile */
+
+		.logo-item.ubereats .platform-icon {
+			margin-top: 0px !important; /* reset the nudge */
+			height: 15px !important; /* smaller icon for mobile */
+		}
+		.top-row {
+			flex-direction: column; /* stack the top row on mobile */
+			align-items: center; /* center the logos */
+			justify-content: center; /* center the logos on mobile */
 		}
 
-		.mobile-only {
-			display: block;
+		.bottom-row {
+			flex-direction: column; /* stack the bottom row on mobile */
+			align-items: center; /* center the logos */
+			justify-content: center; /* center the logos on mobile */
+			gap: 1rem !important;
 		}
-		/* Fixed-height image stage on mobile */
-		.hero {
-			height: 42.5vh; /* uniform height for all tabs */
-			display: flex; /* center the image nicely */
+
+		.platform-logos {
+			display: flex;
+			flex-direction: column;
 			align-items: center;
-			justify-content: center;
-			background: #fff;
-			/* keep your optional horizontal padding for non-order tabs */
+			gap: 1.5rem; /* equal spacing between all logos */
 		}
 
-		/* Make the image scale to fit the 42.5vh stage without cropping */
-		.hero img {
-			width: 100%;
-			height: 100%;
-			object-fit: contain; /* shows the whole PNG/JPG, no cropping */
+		.platform-row {
+			display: contents; /* ignore the row wrapper */
+		}
+
+		.logo-item {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		/* Equal height for all logos */
+		.platform-logos .logo-item svg,
+		.platform-logos .logo-item img {
+			height: 36px; /* pick your target */
+			width: auto;
 			display: block;
 		}
-	}
-	.desktop-only {
-		display: none;
+
+		/* Nudge Uber Eats to match others visually */
+		.logo-item.ubereats svg {
+			transform: translateY(-2px);
+		}
 	}
 
 	/* Mobile layout */
@@ -462,13 +485,6 @@
 	.mobile-nav a.active {
 		color: #f0b400;
 		font-weight: bold;
-	}
-
-	/* Hero image */
-	.mobile-hero {
-		width: 100%;
-		height: auto;
-		object-fit: cover;
 	}
 
 	/* Text content */
