@@ -73,8 +73,9 @@
 							class="icon-btn"
 						>
 							<img src={Insta} alt="Instagram icon" width="22" height="22" />
+
+							<p class="overlay-socials-title">INSTAGRAM</p>
 						</a>
-						<p class="overlay-socials-title">INSTAGRAM</p>
 					</div>
 					<div class="overlay-socials">
 						<a
@@ -86,8 +87,8 @@
 						>
 							<!-- Map pin (single-color white) -->
 							<img src={GoogleMaps} alt="Google Maps icon" />
+							<p class="overlay-socials-title">GOOGLE MAPS</p>
 						</a>
-						<p class="overlay-socials-title">GOOGLE MAPS</p>
 					</div>
 				</div>
 			</div>
@@ -207,7 +208,7 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: flex-start;
-		width: 24px;
+		/* width: 24px; */
 		height: 24px;
 		color: #fff; /* SVG uses currentColor */
 		text-decoration: none;
