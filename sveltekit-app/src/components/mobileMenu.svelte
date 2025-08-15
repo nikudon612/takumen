@@ -1,18 +1,15 @@
 <script lang="ts">
-	// import OrderOnline from '../../components/orderOnline.svelte';
-	import Seamless from '../lib/assets/seamless.png';
-	import Caviar from '../lib/assets/caviar.png';
-	import DoorDash from '../lib/assets/doordash.png';
-	import UberEats from '../lib/assets/ubereats.png';
-	import GrubHub from '../lib/assets/grubhub.png';
 	import OrderOnline from './orderOnline.svelte';
+	import { onMount, onDestroy } from 'svelte';
 
-	// props from the route
-	export let data;
-	const { menu } = data;
+	// props from parent
+	export let activeMenu: 'order' | 'lunch' | 'dinner' | 'drink' = 'order';
+	export let takeoutMenu: string = '';
 
-	// state
-	let activeMenu: 'order' | 'dinner' | 'lunch' | 'drink' = 'order';
+	export let orderImages: string[] = [];
+	export let lunchImages: string[] = [];
+	export let dinnerImages: string[] = [];
+	export let drinkImages: string[] = [];
 
 	const backgroundColors = {
 		dinner: '#789FAF',
@@ -21,29 +18,51 @@
 		order: '#789FAF'
 	};
 
-	const takeoutMenu: string = menu?.takeoutMenu?.asset?.url || '';
+	// slideshow for Order
+	let orderIndex = 0;
+	let orderTimer: number | null = null;
+	const ORDER_INTERVAL_MS = 3500;
 
-	// map images by name
-	let menuImageMap: Record<'order' | 'dinner' | 'lunch' | 'drink', string> = {
-		order: '',
-		dinner: '',
-		lunch: '',
-		drink: ''
-	};
+	let isClient = false;
+	onMount(() => {
+		isClient = true;
+		if (activeMenu === 'order') startOrderSlideshow();
+	});
+	onDestroy(() => stopOrderSlideshow());
 
-	if (menu?.images?.length) {
-		for (const img of menu.images) {
-			const key = (img.name || '').toLowerCase();
-			if (key === 'order' || key === 'dinner' || key === 'lunch' || key === 'drink') {
-				menuImageMap[key] = img.asset?.url || '';
-			}
-			// tolerate 'drinks' coming from CMS
-			if (key === 'drinks') menuImageMap.drink = img.asset?.url || '';
+	function startOrderSlideshow() {
+		if (!isClient) return; // SSR guard
+		if (orderTimer !== null) return;
+		if (orderImages.length > 1) {
+			orderTimer = window.setInterval(() => {
+				orderIndex = (orderIndex + 1) % orderImages.length;
+			}, ORDER_INTERVAL_MS);
 		}
 	}
 
-	$: menuImage = menuImageMap[activeMenu];
+	function stopOrderSlideshow() {
+		if (orderTimer !== null) {
+			clearInterval(orderTimer);
+			orderTimer = null;
+		}
+	}
+
+	$: if (isClient && activeMenu === 'order') startOrderSlideshow();
+	$: if (isClient && activeMenu !== 'order') stopOrderSlideshow();
+	$: if (activeMenu === 'order' && orderIndex >= orderImages.length) orderIndex = 0;
+
+	// single src for hero
 	let menuImage = '';
+	$: menuImage =
+		activeMenu === 'order'
+			? (orderImages[orderIndex] ?? '')
+			: activeMenu === 'lunch'
+				? (lunchImages[0] ?? '')
+				: activeMenu === 'dinner'
+					? (dinnerImages[0] ?? '')
+					: activeMenu === 'drink'
+						? (drinkImages[0] ?? '')
+						: '';
 </script>
 
 <section class="mobile-menu" style="--bg:{backgroundColors[activeMenu]}">
@@ -63,8 +82,12 @@
 		>
 	</nav>
 
-	<!-- hero image -->
-	<div class="hero {activeMenu !== 'order' ? 'padded' : ''}">
+	<!-- was: <div class="hero {activeMenu !== 'order' ? 'padded' : ''}"> -->
+	<div
+		class="hero {activeMenu === 'order' ? 'is-order' : 'is-menu'} {activeMenu !== 'order'
+			? 'padded'
+			: ''}"
+	>
 		{#if menuImage}
 			<img src={menuImage} alt="{activeMenu} menu image" />
 		{/if}
@@ -112,14 +135,6 @@
 		cursor: pointer;
 	}
 
-	/* hero image (full-bleed) */
-	.hero img {
-		display: block;
-		width: 100%;
-		height: auto;
-		background-color: white;
-	}
-
 	/* add padding for non-order menus */
 	.hero.padded {
 		padding-left: 1rem;
@@ -131,7 +146,7 @@
 	.order-panel {
 		background: #789faf; /* keep same blue */
 		color: #fff;
-		padding: 1.75rem 1.25rem 2.25rem;
+		padding: 1rem 1.25rem 2.25rem;
 		text-align: center;
 	}
 
@@ -142,6 +157,78 @@
 	}
 
 	/* this component is only for mobile; hide above tablet if you mount both */
+	@media (min-width: 769px) {
+		.mobile-menu {
+			display: none;
+		}
+
+		/* Fixed-height image stage on mobile */
+		.hero {
+			height: 42.5dvh; /* uniform height for all tabs */
+			display: flex; /* center the image nicely */
+			align-items: center;
+			justify-content: center;
+			background: #fff;
+			/* keep your optional horizontal padding for non-order tabs */
+		}
+
+		/* Make the image scale to fit the 42.5vh stage without cropping */
+		.hero img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain; /* shows the whole PNG/JPG, no cropping */
+			display: block;
+		}
+	}
+
+	/* Base */
+	.mobile-menu .hero {
+		width: 100%;
+		background: #fff;
+		box-sizing: border-box;
+	}
+
+	/* Order tab: lock to 42.5 view-height units */
+	.mobile-menu .hero.is-order {
+		height: 40vh; /* fallback */
+		height: 40dvh; /* dynamic VH for mobile browsers */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	@supports (height: 1svh) {
+		.mobile-menu .hero.is-order {
+			height: 42.5svh;
+		}
+	}
+
+	.mobile-menu .hero.is-order img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover; /* or 'cover' if you want crop */
+		display: block;
+	}
+
+	/* Lunch/Dinner/Drink: natural height, full width */
+
+	.mobile-menu .hero.is-menu {
+		padding-inline: 1rem;
+	} /* <- the missing padding */
+
+	.mobile-menu .hero.is-menu img {
+		width: 100%;
+		height: auto; /* let the image define the height */
+		display: block;
+	}
+
+	/* keep your horizontal padding for non-order tabs */
+	.mobile-menu .hero.padded {
+		padding: 0 1rem !important;
+	}
+
+	/* keep this component mobile-only */
 	@media (min-width: 769px) {
 		.mobile-menu {
 			display: none;
