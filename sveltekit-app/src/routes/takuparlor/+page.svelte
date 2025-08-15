@@ -153,7 +153,7 @@
 			flex: none; /* prevent flex from re-sizing it */
 			width: 100%;
 			height: auto;
-			padding: 1rem;
+			padding: 0.5rem;
 			box-sizing: border-box;
 		}
 
@@ -259,35 +259,82 @@
 		margin: 0; /* kill default <p> margins */
 	}
 
-	/* 5) Mobile keeps the same behavior */
+	/* MOBILE-ONLY FIXES — append at end */
 	@media (max-width: 768px) {
-		.overlay-icons {
+		/* Your current rule makes *every* child fill the box.
+     Undo that *just* for the overlay. */
+		.menu-right > .overlay-icons {
+			position: absolute; /* stay layered over the image */
+			inset: auto; /* cancel the generic inset:0 */
 			top: 10px;
 			right: 10px;
-			bottom: auto;
+			width: auto; /* cancel width:100% from the generic rule */
+			height: auto; /* cancel height:100% from the generic rule */
+			z-index: 3; /* above the image */
+			gap: 8px;
+			height: 15%;
 		}
-		.icon-btn {
-			width: 34px;
-			height: 34px;
+
+		/* Keep it compact so nothing gets clipped inside the image bounds */
+		.overlay-container {
+			gap: 6px;
 		}
+		.overlay-title {
+			margin: 0 0 2px 0;
+			line-height: 1.1;
+			font-size: 1.1rem; /* slightly smaller on mobile */
+		}
+		.overlay-socials {
+			gap: 6px;
+		}
+		.overlay-socials-title {
+			margin: 0;
+			font-size: 0.9rem;
+		}
+
 		.icon-btn img {
 			width: 20px;
 			height: 20px;
+			object-fit: contain; /* Maps pin never crops */
+			display: block;
+		}
+
+		/* Mascot: scale down and lock to content height */
+		.icecream-logo {
+			height: 44px; /* tweak if you want it larger/smaller */
+			width: auto;
+			flex: 0 0 auto;
+			margin: 0;
 		}
 	}
 
-	/* ADD inside your existing mobile @media block (keep everything else) */
 	@media (max-width: 768px) {
-		/* move overlay to top-right on mobile */
-		.overlay-icons {
-			top: 10px;
-			right: 10px;
-			bottom: auto;
-			gap: 8px;
+		/* Hide mascot + "FIND US AT" on mobile */
+		.icecream-logo {
+			display: none !important;
 		}
-		.icon-btn {
-			width: 34px;
-			height: 34px;
+		.overlay-title {
+			display: none !important;
+		}
+
+		/* Tighten the block now that it's just the two socials */
+		.overlay-container {
+			gap: 4px;
+		}
+		.overlay-social-container {
+			gap: 6px;
+		}
+		.overlay-socials {
+			gap: 6px;
+		}
+
+		/* Keep it snug in the top-right */
+		.menu-right > .overlay-icons {
+			right: 10px;
+			bottom: 10px;
+			top: auto;
+			width: auto;
+			height: auto;
 		}
 	}
 </style>
