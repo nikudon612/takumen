@@ -52,7 +52,7 @@
 
 	.reservations-section {
 		background-color: #f26c5a;
-		height: calc(100dvh - 15dvh);
+		height: 85dvh;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -110,6 +110,8 @@
 	@media (max-width: 768px) {
 		.reservations-section {
 			justify-content: flex-start;
+			overflow: visible;
+			height: 100%;
 		}
 		.reservations-container {
 			display: none;
