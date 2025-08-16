@@ -35,9 +35,15 @@
 			<div>
 				<h2>TAKUMEN NEW AMERICAN IZAKAYA</h2>
 				<p>
-					5-50 50TH AVENUE,<br />
-					LONG ISLAND CITY, NEW YORK, 11101<br />
-					718.361.7973
+					<a
+						href="https://www.google.com/maps/place/Takumen/@40.742736,-73.9546542,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259236eb4f887:0xc82f789416277fed!8m2!3d40.742736!4d-73.9546542!16s%2Fg%2F11cn2wrhh5?entry=tts&g_ep=EgoyMDI1MDgxMC4wIPu8ASoASAFQAw%3D%3D&skid=66e0bba2-8382-4e96-9a4a-c1dffaec4053"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						5-50 50TH AVENUE,<br />
+						LONG ISLAND CITY, NEW YORK, 11101<br />
+					</a>
+					<a href="tel:7183617973" class="phone-link"> 718.361.7973 </a>
 				</p>
 			</div>
 			<div>
@@ -92,9 +98,15 @@
 		<div class="mobile-hours-text">
 			<h2>TAKUMEN NEW AMERICAN IZAKAYA</h2>
 			<p>
-				5-50 50TH AVENUE,<br />
-				LONG ISLAND CITY, NEW YORK, 11101<br />
-				718.361.7973
+				<a
+					href="https://www.google.com/maps/place/Takumen/@40.742736,-73.9546542,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259236eb4f887:0xc82f789416277fed!8m2!3d40.742736!4d-73.9546542!16s%2Fg%2F11cn2wrhh5?entry=tts&g_ep=EgoyMDI1MDgxMC4wIPu8ASoASAFQAw%3D%3D&skid=66e0bba2-8382-4e96-9a4a-c1dffaec4053"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					5-50 50TH AVENUE,<br />
+					LONG ISLAND CITY, NEW YORK, 11101<br />
+				</a>
+				<a href="tel:7183617973" class="phone-link"> 718.361.7973 </a>
 			</p>
 
 			<h3>HOURS</h3>
@@ -238,6 +250,12 @@
 	/* === MOBILE STYLES ONLY BELOW === */
 	.mobile-hours-info {
 		display: none;
+	}
+
+	.info-block.left a {
+		color: black;
+		text-decoration: underline;
+		font-weight: bold;
 	}
 
 	@media (max-width: 768px) {
