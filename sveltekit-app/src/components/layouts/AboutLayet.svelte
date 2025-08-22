@@ -112,6 +112,7 @@
 		overflow: visible;
 	}
 
+	/* ====== HEADER matches DefaultLayout ====== */
 	.header {
 		height: 15dvh;
 		background-color: white;
@@ -122,16 +123,19 @@
 
 	.header_content {
 		display: flex;
+		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
 		width: 100%;
-		padding: 0 3rem;
+		padding: 0 3rem 0 3rem; /* same as DefaultLayout */
 		position: relative;
+		max-width: 100vw; /* keep inside viewport */
 	}
 
 	.header_links {
 		display: flex;
-		gap: 2rem;
+		flex-direction: row;
+		gap: 2rem; /* desktop spacing like DefaultLayout */
 		padding-top: 2rem;
 	}
 
@@ -150,7 +154,7 @@
 		height: auto;
 	}
 
-	/* Make the logo click area exactly the image box */
+	/* Logo link box == image box */
 	.logo-link {
 		display: inline-block;
 		line-height: 0;
@@ -163,7 +167,19 @@
 		height: auto;
 	}
 
-	/* Mobile */
+	/* ====== Same tablet tightening as DefaultLayout ====== */
+	@media (max-width: 924px) {
+		.header_links {
+			gap: 1rem;
+		}
+	}
+	@media (max-width: 800px) {
+		.header_links {
+			gap: 0.75rem;
+		}
+	}
+
+	/* ====== Mobile rules identical to DefaultLayout ====== */
 	.hamburger-icon {
 		display: none;
 		width: 2rem;
@@ -176,18 +192,22 @@
 			justify-content: center;
 		}
 		.header_content {
-			justify-content: flex-start;
-			padding: 1rem;
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start; /* same */
+			padding: 0 1rem; /* same */
+			max-width: 100vw;
 		}
 
 		.about_layout {
-			width: 100vw;
+			width: 100%;
 			height: 100dvh;
 		}
 
 		.logo-link .header_logo {
 			width: clamp(120px, 40vw, 200px);
 			height: auto;
+			margin: 0 auto;
 		}
 
 		.hamburger-icon {
@@ -225,8 +245,6 @@
 			gap: 1.5rem;
 			will-change: opacity, transform;
 		}
-
-		/* wrapper hosts the fade so inner can fly */
 		.mobile-menu-content-wrapper {
 			will-change: opacity, transform;
 		}

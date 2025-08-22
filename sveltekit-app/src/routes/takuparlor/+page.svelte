@@ -1,66 +1,137 @@
 <script lang="ts">
+	// LEFT SIDE CONTENT (unchanged)
 	import TakuParlor from '../../components/takuParlor.svelte';
-	import Image from '../../lib/assets/lilguy.png';
+
+	// Overlay assets (unchanged)
+	import MascotImage from '../../lib/assets/lilguy.png';
 	import Insta from '../../lib/assets/insta.png';
 	import GoogleMaps from '../../lib/assets/maps.svg';
-	import { onMount } from 'svelte';
+
+	import { onMount, onDestroy } from 'svelte';
 
 	export let data;
 	const { takuParlor } = data;
-	// Clean list of URLs (your data shows several nulls)
-	const slideshowImages: string[] = (takuParlor?.heroImages ?? [])
-		.map((i) => i?.url)
+
+	// Normalize your Sanity data to plain URLs
+	const images: string[] = (takuParlor?.heroImages ?? [])
+		.map((i) => i?.asset?.url ?? i?.url ?? '')
 		.filter(Boolean) as string[];
 
-	// Slideshow state
-	let i = 0;
-	const INTERVAL_MS = 3500;
-	let timer: number | null = null;
+	// Timings
+	const DISPLAY_MS = 3000; // full on-screen time (no fade happening yet)
+	const FADE_MS = 320; // crossfade duration (adds on top of DISPLAY_MS)
 
-	function start() {
-		stop();
-		if (slideshowImages.length > 1) {
-			timer = window.setInterval(() => {
-				i = (i + 1) % slideshowImages.length;
-			}, INTERVAL_MS);
-		}
+	// Two-image crossfade state
+	let topSrc = ''; // currently visible (on top)
+	let bottomSrc = ''; // hidden underneath, holds the "next" image
+	let showTop = true; // which layer is visible
+	let running = false;
+
+	const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+
+	function preload(src: string) {
+		return new Promise<void>((resolve) => {
+			if (!src) return resolve();
+			const img = new Image();
+			img.decoding = 'async';
+			img.src = src;
+			if (img.complete) return resolve();
+			img.onload = () => resolve();
+			img.onerror = () => resolve();
+		});
 	}
-	function stop() {
-		if (timer !== null) {
-			clearInterval(timer);
-			timer = null;
+
+	async function startLoop() {
+		const N = images.length;
+		if (N === 0) return;
+
+		// Seed first (top) and second (bottom) frames
+		topSrc = images[0];
+		await preload(topSrc);
+
+		if (N === 1) return; // single image: just show it, no loop
+
+		let idx = 1;
+		bottomSrc = images[idx];
+		await preload(bottomSrc);
+
+		// Ensure we start with a painted frame
+		await new Promise<void>((r) => requestAnimationFrame(() => r()));
+		showTop = true;
+
+		running = true;
+
+		while (running) {
+			// Preload the one after "idx" while current frame is fully visible
+			const nextIdx = (idx + 1) % N;
+			const nextSrc = images[nextIdx];
+			const preloadPromise = preload(nextSrc);
+
+			// Keep the current visible frame on-screen for full DISPLAY_MS
+			await sleep(DISPLAY_MS);
+
+			// Crossfade (image → image). This takes FADE_MS, separate from DISPLAY_MS.
+			showTop = !showTop;
+
+			// Wait for the next to finish preloading if it hasn't already
+			await preloadPromise;
+
+			// The just-hidden layer becomes our staging area: put the nextSrc there
+			if (showTop) {
+				// Top is visible now; bottom is hidden → prep bottom for the *following* flip
+				bottomSrc = nextSrc;
+			} else {
+				// Bottom is visible now; top is hidden → prep top for the *following* flip
+				topSrc = nextSrc;
+			}
+
+			// Advance the pointer (the one that just appeared)
+			idx = nextIdx;
+
+			// Optional: small guard to roughly align cycles; not strictly required
+			await sleep(FADE_MS);
 		}
 	}
 
 	onMount(() => {
-		start();
-		return stop;
+		running = true;
+		startLoop();
+		return () => {
+			running = false;
+		};
 	});
 
-	// Current image URL (empty string if none)
-	$: current = slideshowImages[i] ?? '';
+	onDestroy(() => {
+		running = false;
+	});
 </script>
 
 <section class="split-menu">
-	<!-- LEFT: White menu card -->
+	<!-- LEFT -->
 	<div class="menu-left">
 		<TakuParlor />
 	</div>
 
-	<!-- RIGHT: Image -->
+	<!-- RIGHT: TWO STACKED IMAGES FOR TRUE CROSSFADES -->
 	<div class="menu-right">
-		{#if current}
-			{#key current}
-				<img src={current} alt="Taku Parlor slideshow image" />
-			{/key}
-		{:else}
-			<div class="img-fallback">No images yet</div>
-		{/if}
+		<img
+			class="slide top {showTop ? 'visible' : ''}"
+			src={topSrc}
+			alt="Taku Parlor slideshow image"
+			decoding="async"
+			draggable="false"
+		/>
+		<img
+			class="slide bottom {!showTop ? 'visible' : ''}"
+			src={bottomSrc}
+			alt="Taku Parlor slideshow image"
+			decoding="async"
+			draggable="false"
+		/>
 
-		<!-- Overlay icons -->
-
+		<!-- Overlay (unchanged) -->
 		<div class="overlay-icons" aria-label="Quick links">
-			<img src={Image} alt="Taku Parlor icecream logo" class="icecream-logo" />
+			<img src={MascotImage} alt="Taku Parlor icecream logo" class="icecream-logo" />
 			<div class="overlay-container">
 				<p class="overlay-title">FIND US AT:</p>
 				<div class="overlay-social-container">
@@ -73,7 +144,6 @@
 							class="icon-btn"
 						>
 							<img src={Insta} alt="Instagram icon" width="22" height="22" />
-
 							<p class="overlay-socials-title">INSTAGRAM</p>
 						</a>
 					</div>
@@ -85,7 +155,6 @@
 							aria-label="Google Maps"
 							class="icon-btn"
 						>
-							<!-- Map pin (single-color white) -->
 							<img src={GoogleMaps} alt="Google Maps icon" />
 							<p class="overlay-socials-title">GOOGLE MAPS</p>
 						</a>
@@ -104,7 +173,6 @@
 		overflow: hidden;
 	}
 
-	/* LEFT PANE: exactly half the viewport */
 	.menu-left {
 		flex: 0 0 50%;
 		display: flex;
@@ -116,213 +184,133 @@
 
 	.menu-right {
 		flex: 0 0 50%;
+		position: relative;
 		overflow: hidden;
+		background: #000; /* safety: avoids any white seam during crossfade */
 	}
-	.menu-right img {
+
+	/* Two stacked slides */
+	.slide {
+		position: absolute;
+		inset: 0;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		opacity: 0;
+		transition: opacity 320ms ease; /* FADE_MS */
+		will-change: opacity;
+		pointer-events: none;
 	}
-	@media (max-width: 768px) {
-		.split-menu {
-			flex-direction: column-reverse;
-			height: auto;
-		}
-
-		.menu-right {
-			position: relative;
-			height: 40dvh !important; /* locked to half the visible viewport */
-			overflow: hidden;
-			flex: none; /* prevent flex from re-sizing it */
-		}
-
-		/* Make whatever is inside (img or fallback) fill the fixed box */
-		.menu-right > * {
-			position: absolute;
-			inset: 0;
-			width: 100%;
-			height: 100%;
-		}
-
-		.menu-right img {
-			object-fit: cover; /* fills without letterboxing */
-			object-position: center;
-			display: block;
-		}
-
-		.menu-left {
-			flex: none; /* prevent flex from re-sizing it */
-			width: 100%;
-			height: auto;
-			padding: 0.5rem;
-			box-sizing: border-box;
-		}
-
-		.img-fallback {
-			display: grid;
-			place-items: center;
-		}
+	.slide.visible {
+		opacity: 1;
 	}
 
-	/* ADD: let the overlay position against the image box on desktop too */
-	.menu-right {
-		position: relative;
-	}
-
-	/* ADD: overlay container + buttons */
+	/* Overlay (unchanged) */
 	.overlay-icons {
 		position: absolute;
 		display: flex;
 		flex-direction: row;
 		right: 12px;
-		bottom: 12px; /* desktop: bottom-right */
-		display: flex;
+		bottom: 12px;
 		gap: 10px;
 		z-index: 2;
 		color: #fff;
 		height: 15%;
 	}
-
 	.icecream-logo {
 		width: 6rem !important;
 		height: 6rem !important;
-
 		margin-bottom: 8px;
 	}
-
 	.overlay-social-container {
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
 	}
-
 	.overlay-socials {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		color: #fff; /* text color */
-		font-size: 0.8rem; /* smaller text */
+		color: #fff;
+		font-size: 0.8rem;
 	}
-
 	.icon-btn {
 		display: inline-flex;
 		align-items: center;
 		justify-content: flex-start;
-		/* width: 24px; */
 		height: 24px;
-		color: #fff; /* SVG uses currentColor */
+		color: #fff;
 		text-decoration: none;
 	}
-
 	.overlay-title {
 		font-family: 'futura-pt-condensed';
 		font-size: 1.5rem;
-	}
-
-	.overlay-socials-title {
-		font-family: 'avenir-next-lt-pro-condensed', sans-serif;
-	}
-
-	/* 1) Make the left image fill the overlay's height */
-	/* Make the row align to the tallest child (text/socials) */
-	.overlay-icons {
-		align-items: center; /* centers vertically */
-	}
-
-	.overlay-container {
-		display: flex;
-		flex-direction: column;
-		justify-content: center; /* keeps text/socials centered if mascot taller */
-	}
-
-	/* Make mascot fit within the height of the right content */
-	.icecream-logo {
-		height: auto !important; /* no forced full height */
-		max-height: 100%; /* respect parent height */
-		width: auto !important;
-		display: block;
-	}
-
-	.icon-btn img {
-		width: 22px;
-		height: 22px;
-		display: block;
-		object-fit: contain; /* prevents cropping of the Maps SVG */
-	}
-
-	/* 3) Tighten spacing under the "FIND US AT:" title */
-	.overlay-title {
-		margin: 0 0 4px 0; /* less space below the title */
+		margin: 0 0 4px 0;
 		line-height: 1.1;
 	}
-
 	.overlay-socials-title {
-		margin: 0; /* kill default <p> margins */
+		font-family: 'avenir-next-lt-pro-condensed', sans-serif;
+		margin: 0;
 	}
-
 	a:hover {
 		color: #fed314 !important;
 	}
 
-	/* MOBILE-ONLY FIXES — append at end */
+	/* Responsive tweaks */
 	@media (max-width: 768px) {
-		/* Your current rule makes *every* child fill the box.
-     Undo that *just* for the overlay. */
+		.split-menu {
+			flex-direction: column-reverse;
+			height: auto;
+		}
+		.menu-right {
+			height: 40dvh !important;
+			flex: none;
+		}
+		.menu-left {
+			width: 100%;
+			height: auto;
+			padding: 0.5rem;
+			box-sizing: border-box;
+		}
 		.menu-right > .overlay-icons {
-			position: absolute; /* stay layered over the image */
-			inset: auto; /* cancel the generic inset:0 */
 			top: 10px;
 			right: 10px;
-			width: auto; /* cancel width:100% from the generic rule */
-			height: auto; /* cancel height:100% from the generic rule */
-			z-index: 3; /* above the image */
+			width: auto;
+			height: auto;
+			z-index: 3;
 			gap: 8px;
-			height: 15%;
 		}
-
-		/* Keep it compact so nothing gets clipped inside the image bounds */
 		.overlay-container {
 			gap: 6px;
 		}
 		.overlay-title {
+			font-size: 1.1rem;
 			margin: 0 0 2px 0;
-			line-height: 1.1;
-			font-size: 1.1rem; /* slightly smaller on mobile */
 		}
 		.overlay-socials {
 			gap: 6px;
 		}
 		.overlay-socials-title {
-			margin: 0;
 			font-size: 0.9rem;
 		}
-
 		.icon-btn img {
 			width: 20px;
 			height: 20px;
-			object-fit: contain; /* Maps pin never crops */
-			display: block;
 		}
-
-		/* Mascot: scale down and lock to content height */
 		.icecream-logo {
-			height: 44px; /* tweak if you want it larger/smaller */
+			height: 44px;
 			width: auto;
-			flex: 0 0 auto;
 			margin: 0;
 		}
 	}
 
 	@media (max-width: 768px) {
-		/* Hide mascot + "FIND US AT" on mobile */
 		.icecream-logo {
 			display: none !important;
 		}
 		.overlay-title {
 			display: none !important;
 		}
-
-		/* Tighten the block now that it's just the two socials */
 		.overlay-container {
 			gap: 4px;
 		}
@@ -332,14 +320,10 @@
 		.overlay-socials {
 			gap: 6px;
 		}
-
-		/* Keep it snug in the top-right */
 		.menu-right > .overlay-icons {
 			right: 10px;
 			bottom: 10px;
 			top: auto;
-			width: auto;
-			height: auto;
 		}
 	}
 </style>
