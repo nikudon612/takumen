@@ -80,9 +80,6 @@
 		<a>Drink</a>
 	</div>
 
-	<!-- Full-width image -->
-	<!-- <img src={FamilyImage} alt="Family eating" class="mobile-hero" /> -->
-
 	<!-- Ordering Content -->
 	<div class="mobile-order-content">
 		<h2>DELIVERY AND TAKE OUT AVAILABLE</h2>
@@ -135,7 +132,6 @@
 </div>
 
 <style>
-
 	.number:hover {
 		color: #333 !important;
 	}
@@ -255,19 +251,19 @@
 		color: #ffe356; /* hover color */
 	}
 
-	@media screen and (max-width: 768px) {
-		.ubereats {
+	@media screen and (max-width: 958px) {
+		/* .ubereats {
 			width: 124px !important;
-		}
+		} */
 		.platform-icon {
-			height: 20px !important;
+			height: 10px !important;
 		} /* Fixed-height image stage on mobile */
 
 		.platform-logos {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			margin-top: 1rem !important;
+			/* margin-top: 1rem !important; */
 		}
 
 		.platform-row {
@@ -357,7 +353,7 @@
 	.platform-row {
 		display: flex;
 		justify-content: center;
-		gap: 1rem;
+		gap: 0.25rem !important;
 		margin-bottom: 1rem;
 	}
 
@@ -392,9 +388,9 @@
 	}
 
 	/* tiny optical nudge for UE */
-	.logo-item.ubereats .platform-icon {
+	/* .logo-item.ubereats .platform-icon {
 		transform: translateY(-2px);
-	}
+	} */
 
 	/* Default: white */
 	.platform-logos .platform-icon {
@@ -428,7 +424,7 @@
 			flex-wrap: nowrap; /* one line */
 			justify-content: center;
 			align-items: center;
-			gap: clamp(12px, 1.6vw, 24px); /* spacing scales with panel width */
+			gap: 1rem;
 			width: 100%; /* fit the column width, not auto */
 			max-width: 100%;
 			min-width: 0; /* allow shrinking instead of overflow */
@@ -451,7 +447,6 @@
 		.platform-logos a[href*='ubereats'] img,
 		.platform-logos a[href*='ubereats'] .platform-icon {
 			max-width: clamp(80px, 7.5vw, 110px);
-			transform: translateY(-2px); /* keep your optical baseline nudge */
 		}
 		/* Hover effect: turn delivery logos yellow */
 	}
