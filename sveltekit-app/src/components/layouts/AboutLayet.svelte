@@ -2,6 +2,8 @@
 	import { page } from '$app/stores';
 	import hamburger from '../../lib/assets/hamburger.svg';
 	import closebutton from '../../lib/assets/closebutton.svg';
+	import { fade, fly } from 'svelte/transition';
+	import { onMount } from 'svelte';
 
 	export let data;
 	const { navigation, footer } = data;
@@ -14,6 +16,17 @@
 
 	function closeMobileMenu() {
 		mobileMenuOpen = false;
+	}
+
+	// (optional) lock page scroll while menu is open
+	onMount(() => {
+		const original = document.body.style.overflow;
+		return () => (document.body.style.overflow = original);
+	});
+	$: {
+		if (typeof document !== 'undefined') {
+			document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+		}
 	}
 </script>
 
@@ -41,24 +54,39 @@
 	</header>
 
 	{#if mobileMenuOpen}
-		<div class="mobile-menu-overlay">
+		<div
+			class="mobile-menu-overlay"
+			transition:fade={{ duration: 220, easing: (t) => t }}
+			on:click={closeMobileMenu}
+		>
 			<img
 				src={closebutton}
 				alt="Close Menu"
 				class="mobile-menu-close"
-				on:click={closeMobileMenu}
+				on:click|stopPropagation={closeMobileMenu}
+				transition:fade={{ duration: 180, delay: 80 }}
 			/>
-			<div class="mobile-menu-content">
-				{#each navigation.links as link}
-					<a
-						class="mobile-nav-link {link.href === $page.url.pathname ? 'active' : ''}"
-						href={link.href}
-						on:click={closeMobileMenu}
-						target={link.target}
+
+			<!-- wrapper fades, inner flies (avoid double transition on one node) -->
+			<div class="mobile-menu-content" on:click|stopPropagation>
+				<div class="mobile-menu-content-wrapper" transition:fade={{ duration: 220, delay: 60 }}>
+					<div
+						class="mobile-menu-content"
+						on:click|stopPropagation
+						transition:fly={{ y: 8, duration: 220 }}
 					>
-						{link.label}
-					</a>
-				{/each}
+						{#each navigation.links as link}
+							<a
+								class="mobile-nav-link {link.href === $page.url.pathname ? 'active' : ''}"
+								href={link.href}
+								on:click={closeMobileMenu}
+								target={link.target}
+							>
+								{link.label}
+							</a>
+						{/each}
+					</div>
+				</div>
 			</div>
 		</div>
 	{/if}
@@ -72,7 +100,7 @@
 	.about_layout {
 		display: flex;
 		flex-direction: column;
-		min-height: 100dvh; /* instead of fixed 100vh */
+		min-height: 100dvh;
 		width: 100vw;
 		overflow-x: hidden;
 	}
@@ -81,9 +109,10 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		overflow: visible; /* let content expand naturally */
+		overflow: visible;
 	}
 
+	/* ====== HEADER matches DefaultLayout ====== */
 	.header {
 		height: 15dvh;
 		background-color: white;
@@ -94,16 +123,19 @@
 
 	.header_content {
 		display: flex;
+		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
 		width: 100%;
-		padding: 0 3rem;
+		padding: 0 3rem 0 3rem; /* same as DefaultLayout */
 		position: relative;
+		max-width: 100vw; /* keep inside viewport */
 	}
 
 	.header_links {
 		display: flex;
-		gap: 2rem;
+		flex-direction: row;
+		gap: 2rem; /* desktop spacing like DefaultLayout */
 		padding-top: 2rem;
 	}
 
@@ -122,7 +154,32 @@
 		height: auto;
 	}
 
-	/* Mobile Styles */
+	/* Logo link box == image box */
+	.logo-link {
+		display: inline-block;
+		line-height: 0;
+		padding: 0;
+		margin: 0;
+		flex: 0 0 auto;
+	}
+	.logo-link .header_logo {
+		display: block;
+		height: auto;
+	}
+
+	/* ====== Same tablet tightening as DefaultLayout ====== */
+	@media (max-width: 924px) {
+		.header_links {
+			gap: 1rem;
+		}
+	}
+	@media (max-width: 800px) {
+		.header_links {
+			gap: 0.75rem;
+		}
+	}
+
+	/* ====== Mobile rules identical to DefaultLayout ====== */
 	.hamburger-icon {
 		display: none;
 		width: 2rem;
@@ -130,55 +187,29 @@
 		cursor: pointer;
 	}
 
-	/* make the logo’s click area = image box only */
-	.logo-link {
-		display: inline-block; /* override any global a { display:block } */
-		line-height: 0; /* kill extra inline click area */
-		padding: 0;
-		margin: 0;
-		flex: 0 0 auto; /* don’t stretch in the flex header */
-	}
-
-	.logo-link .header_logo {
-		display: block; /* removes inline-image gaps */
-		height: auto;
-	}
-
-	/* safety: don’t let header links become full-width blocks */
-	.header_links .header_link {
-		display: inline-block;
-		padding: 0;
-		margin: 0;
-		line-height: 1;
-	}
-
 	@media (max-width: 768px) {
 		.header {
 			justify-content: center;
 		}
+		.header_content {
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start; /* same */
+			padding: 0 1rem; /* same */
+			max-width: 100vw;
+		}
 
-		/* keep the logo flush‐left inside that centered header */
-		.header_content {
-			justify-content: flex-start;
-		}
 		.about_layout {
-			width: 100vw;
-			height: 100dvh; /* fill the viewport */
-		}
-		.header_content {
-			padding: 1rem;
+			width: 100%;
+			height: 100dvh;
 		}
 
 		.logo-link .header_logo {
 			width: clamp(120px, 40vw, 200px);
 			height: auto;
-		}
-/* 
-		.header_logo {
-			width: 40%;
-			height: auto;
 			margin: 0 auto;
-		} */
+		}
+
 		.hamburger-icon {
 			display: block;
 			position: absolute;
@@ -194,8 +225,7 @@
 
 		.mobile-menu-overlay {
 			position: fixed;
-			top: 0;
-			left: 0;
+			inset: 0;
 			width: 100vw;
 			height: 100vh;
 			background-color: #87b28b;
@@ -204,6 +234,7 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
+			will-change: opacity, transform;
 		}
 
 		.mobile-menu-content {
@@ -212,6 +243,10 @@
 			align-items: center;
 			justify-content: center;
 			gap: 1.5rem;
+			will-change: opacity, transform;
+		}
+		.mobile-menu-content-wrapper {
+			will-change: opacity, transform;
 		}
 
 		.mobile-nav-link {
@@ -221,11 +256,9 @@
 			font-family: futura, sans-serif;
 			text-transform: capitalize;
 		}
-
 		.mobile-nav-link:hover {
 			opacity: 0.8;
 		}
-
 		.mobile-nav-link.active {
 			text-decoration: underline;
 			text-underline-offset: 4px;
@@ -241,6 +274,7 @@
 			font-size: 2rem;
 			cursor: pointer;
 			z-index: 101;
+			will-change: opacity, transform;
 		}
 	}
 </style>
