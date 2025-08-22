@@ -260,6 +260,10 @@
 		margin: 0; /* kill default <p> margins */
 	}
 
+	a:hover {
+		color: #fed314 !important;
+	}
+
 	/* MOBILE-ONLY FIXES — append at end */
 	@media (max-width: 768px) {
 		/* Your current rule makes *every* child fill the box.

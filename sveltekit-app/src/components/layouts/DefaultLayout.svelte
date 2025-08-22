@@ -5,6 +5,8 @@
 	import hamburger from '../../lib/assets/hamburger.svg';
 	import closebutton from '../../lib/assets/closebutton.svg';
 	import insta from '../../lib/assets/insta.svg';
+	import { fade, fly } from 'svelte/transition';
+	import { onMount } from 'svelte';
 
 	export let data;
 
@@ -65,25 +67,38 @@
 		<slot />
 	</main>
 	{#if mobileMenuOpen}
-		<div class="mobile-menu-overlay">
+		<div
+			class="mobile-menu-overlay"
+			transition:fade={{ duration: 220, easing: (t) => t }}
+			on:click={closeMobileMenu}
+		>
 			<img
 				src={closebutton}
 				alt="Close Menu"
 				class="mobile-menu-close"
-				on:click={closeMobileMenu}
+				on:click|stopPropagation={closeMobileMenu}
+				transition:fade={{ duration: 180, delay: 80 }}
 			/>
 
-			<div class="mobile-menu-content">
-				{#each navigation.links as link}
-					<a
-						class="mobile-nav-link {link.href === $page.url.pathname ? 'active' : ''}"
-						href={link.href}
-						on:click={closeMobileMenu}
-						target={link.target}
+			<div class="mobile-menu-content" on:click|stopPropagation>
+				<div class="mobile-menu-content-wrapper" transition:fade={{ duration: 220, delay: 60 }}>
+					<div
+						class="mobile-menu-content"
+						on:click|stopPropagation
+						transition:fly={{ y: 8, duration: 220 }}
 					>
-						{link.label}
-					</a>
-				{/each}
+						{#each navigation.links as link}
+							<a
+								class="mobile-nav-link {link.href === $page.url.pathname ? 'active' : ''}"
+								href={link.href}
+								on:click={closeMobileMenu}
+								target={link.target}
+							>
+								{link.label}
+							</a>
+						{/each}
+					</div>
+				</div>
 			</div>
 		</div>
 	{/if}
@@ -103,7 +118,12 @@
 					</p>
 				</div>
 				<div class="socials">
-					<a href="https://www.instagram.com/takumenlic/" target="_blank" rel="noopener noreferrer" class="footer_a">
+					<a
+						href="https://www.instagram.com/takumenlic/"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="footer_a"
+					>
 						<img src={insta} alt="Instagram" />
 					</a>
 				</div>

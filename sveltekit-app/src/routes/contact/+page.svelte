@@ -1,5 +1,5 @@
 <script lang="ts">
-	import image from '../../lib/assets/takumensign.jpg';
+	import image from '../../lib/assets/Takumen_Interiors-6.jpg';
 
 	let email = '';
 	let message = '';
@@ -49,7 +49,7 @@
 			<div>
 				<h3>HOURS</h3>
 				<p>
-					OPEN EVERYDAY<br />
+					<strong> OPEN EVERYDAY</strong><br />
 					MONDAY TO SUNDAY<br />
 					11:30AM - 3:45PM
 				</p>
@@ -141,7 +141,7 @@
 			<button class="subscribe-btn">SUBSCRIBE</button> -->
 
 			<h3>FIND US AT</h3>
-			<p><a href="https://instagram.com/takumenlic" target="_blank">INSTAGRAM</a></p>
+			<a href="https://instagram.com/takumenlic" target="_blank">INSTAGRAM</a>
 		</div>
 	</div>
 </section>
@@ -215,9 +215,16 @@
 	}
 
 	a {
-		text-decoration: none;
+		text-decoration: underline;
 		color: inherit;
 		font-weight: bold;
+	}
+
+	a:hover {
+		color: #87b28b !important;
+	}
+	p a:hover {
+		color: #87b28b !important;
 	}
 
 	.newsletter-signup {

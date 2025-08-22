@@ -21,7 +21,7 @@
 			target="_blank"
 			rel="noopener noreferrer">ORDER HERE</a
 		>
-		<p>ORDER BY PHONE 718.361.7973</p>
+		<p>ORDER BY PHONE <a href="tel:7183617973" class="number">718.361.7973</a></p>
 		<p>DELIVERY OPTIONS AVAILABLE ON ONLINE PLATFORMS</p>
 		<div class="platform-logos">
 			<div class="platform-row">
@@ -135,6 +135,14 @@
 </div>
 
 <style>
+
+	.number:hover {
+		color: #333 !important;
+	}
+	a {
+		text-decoration: underline;
+		color: inherit;
+	}
 	.mobile-order-wrapper,
 	.mobile-order-content,
 	.mobile-nav {
@@ -164,6 +172,7 @@
 		height: 100%;
 		justify-content: center;
 		text-align: center;
+		gap: 1rem;
 	}
 
 	.order-left h2 {
@@ -387,6 +396,17 @@
 		transform: translateY(-2px);
 	}
 
+	/* Default: white */
+	.platform-logos .platform-icon {
+		color: #ffffff;
+		transition: color 0.2s ease;
+	}
+
+	/* Hover: Takumen yellow */
+	.platform-logos .logo-item:hover .platform-icon {
+		color: #ffe356;
+	}
+
 	/* Desktop: keep logos on ONE line, but ALWAYS fit inside the left panel */
 	@media screen and (min-width: 769px) {
 		.platform-logos {
@@ -433,5 +453,6 @@
 			max-width: clamp(80px, 7.5vw, 110px);
 			transform: translateY(-2px); /* keep your optical baseline nudge */
 		}
+		/* Hover effect: turn delivery logos yellow */
 	}
 </style>

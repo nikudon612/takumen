@@ -1,91 +1,108 @@
 <script lang="ts">
-	import { isPreviewing, VisualEditing } from '@sanity/visual-editing/svelte';
+	import { beforeNavigate, afterNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
-	import LiveMode from '../components/LiveMode.svelte';
 	import AboutLayout from '../components/layouts/AboutLayet.svelte';
 	import DefaultLayout from '../components/layouts/DefaultLayout.svelte';
 	import TakuParlorLayout from '../components/layouts/TakuParlorLayout.svelte';
-	import '../app.css';
 
 	export let data;
 
-	const { navigation, footer } = data;
+	// timings (tweak)
+	const FADE_IN_MS = 240; // curtain -> opaque
+	const HOLD_MS = 180; // optional pause while covered
+	const FADE_OUT_MS = 240; // curtain -> clear
 
-	// console.log('Layout data:', data);
-	// console.log('Navigation:', navigation);
-	// console.log('Footer:', footer);
+	let curtainPhase: 'idle' | 'in' | 'hold' | 'out' = 'idle';
+	let showCurtain = false;
+	let contentHidden = false; // <-- NEW: hides all routed content during fade-in
+	let t: number | null = null;
+	const sleep = (ms: number) =>
+		new Promise((r) => {
+			t = window.setTimeout(r, ms);
+		});
+
+	beforeNavigate((nav) => {
+		if (nav.type === 'leave') return; // external
+		if (curtainPhase !== 'idle') return;
+		showCurtain = true;
+		contentHidden = true; // <-- hide content immediately so nothing can flash
+		curtainPhase = 'in';
+	});
+
+	afterNavigate(async () => {
+		if (curtainPhase === 'idle') {
+			// programmatic goto without beforeNavigate (rare)
+			showCurtain = true;
+			contentHidden = true;
+			curtainPhase = 'in';
+		}
+
+		// Let the curtain reach full opacity
+		await sleep(FADE_IN_MS);
+		curtainPhase = 'hold';
+
+		// Optional tiny hold while covered (keeps timing consistent)
+		await sleep(HOLD_MS);
+
+		// Reveal the (new) route under the curtain, THEN fade curtain out
+		contentHidden = false; // <-- unhide right before fade-out starts
+		curtainPhase = 'out';
+		await sleep(FADE_OUT_MS);
+
+		// Reset
+		curtainPhase = 'idle';
+		showCurtain = false;
+	});
 </script>
 
-{#if $isPreviewing}
-	<a href={`/preview/disable?redirect=${$page.url.pathname}`} class="preview-toggle">
-		<span>Preview Enabled</span>
-		<span>Disable Preview</span>
-	</a>
-{/if}
+<!-- Curtain -->
+<div class="curtain" class:show={showCurtain} data-phase={curtainPhase} aria-hidden="true" />
 
-<svelte:head>
-	<title>Takumen LIC</title>
-</svelte:head>
-
-{#if $page.url.pathname === '/'}
-	<DefaultLayout {data}>
-		<slot />
-	</DefaultLayout>
-{:else if $page.url.pathname === '/takuparlor'}
-	<TakuParlorLayout {data}>
-		<slot />
-	</TakuParlorLayout>
-{:else}
-	<AboutLayout {data}>
-		<slot />
-	</AboutLayout>
-{/if}
-
-{#if $isPreviewing}
-	<VisualEditing />
-	<LiveMode />
-{/if}
+<!-- Routed content wrapper; hidden while fading in to prevent flashes -->
+<div class:invisible={contentHidden}>
+	{#if $page.url.pathname === '/'}
+		<DefaultLayout {data}><slot /></DefaultLayout>
+	{:else if $page.url.pathname === '/takuparlor'}
+		<TakuParlorLayout {data}><slot /></TakuParlorLayout>
+	{:else}
+		<AboutLayout {data}><slot /></AboutLayout>
+	{/if}
+</div>
 
 <style>
-	.preview-toggle {
-		backdrop-filter: blur(12px);
-		border-radius: 0.25rem;
-		bottom: 1rem;
-		box-shadow:
-			0 10px 15px -3px rgba(0, 0, 0, 0.1),
-			0 4px 6px -2px rgba(0, 0, 0, 0.05);
-		color: #1f2937;
-		display: block;
-		font-size: 0.75rem;
-		font-weight: 500;
-		line-height: 1rem;
-		padding-bottom: 0.5rem;
-		padding-left: 0.75rem;
-		padding-right: 0.75rem;
-		padding-top: 0.5rem;
+	.curtain {
 		position: fixed;
-		right: 1rem;
-		text-align: center;
-		text-decoration: none;
-		z-index: 50;
+		inset: 0;
+		z-index: 9999;
+		pointer-events: none;
+		background: #fff;
+		opacity: 0;
+		transition-property: opacity;
+		will-change: opacity;
+	}
+	.curtain.show[data-phase='in'] {
+		opacity: 1;
+		transition-duration: 240ms;
+		transition-timing-function: ease;
+	}
+	.curtain.show[data-phase='hold'] {
+		opacity: 1;
+		transition-duration: 0ms;
+	}
+	.curtain.show[data-phase='out'] {
+		opacity: 0;
+		transition-duration: 240ms;
+		transition-timing-function: ease;
 	}
 
-	.preview-toggle:hover {
-		background-color: #ef4444;
-		color: #ffffff;
+	/* Hide routed content during fade-in so nothing can peek through */
+	.invisible {
+		visibility: hidden;
 	}
 
-	.preview-toggle span:first-child {
-		display: block;
-	}
-	.preview-toggle:hover span:first-child {
-		display: none;
-	}
-
-	.preview-toggle span:last-child {
-		display: none;
-	}
-	.preview-toggle:hover span:last-child {
-		display: block;
+	@media (prefers-reduced-motion: reduce) {
+		.curtain {
+			transition: none !important;
+		}
 	}
 </style>
