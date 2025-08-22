@@ -1,5 +1,5 @@
 <script lang="ts">
-	import image from '../../lib/assets/takumensign.jpg';
+	import image from '../../lib/assets/Takumen_Interiors-6.jpg';
 
 	let email = '';
 	let message = '';
