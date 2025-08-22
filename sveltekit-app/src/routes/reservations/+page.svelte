@@ -107,6 +107,11 @@
 		display: block;
 	}
 
+	a:hover {
+		color: #FED314;
+		text-decoration: underline;
+	}
+
 	@media (max-width: 768px) {
 		.reservations-section {
 			justify-content: flex-start;

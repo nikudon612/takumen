@@ -21,7 +21,7 @@
 			target="_blank"
 			rel="noopener noreferrer">ORDER HERE</a
 		>
-		<p>ORDER BY PHONE <a href="tel:7183617973">718.361.7973</a></p>
+		<p>ORDER BY PHONE <a href="tel:7183617973" class="number">718.361.7973</a></p>
 		<p>DELIVERY OPTIONS AVAILABLE ON ONLINE PLATFORMS</p>
 		<div class="platform-logos">
 			<div class="platform-row">
@@ -135,6 +135,10 @@
 </div>
 
 <style>
+
+	.number:hover {
+		color: #333 !important;
+	}
 	a {
 		text-decoration: underline;
 		color: inherit;

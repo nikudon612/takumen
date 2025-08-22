@@ -49,7 +49,7 @@
 			<div>
 				<h3>HOURS</h3>
 				<p>
-					OPEN EVERYDAY<br />
+					<strong> OPEN EVERYDAY</strong><br />
 					MONDAY TO SUNDAY<br />
 					11:30AM - 3:45PM
 				</p>
@@ -218,6 +218,13 @@
 		text-decoration: underline;
 		color: inherit;
 		font-weight: bold;
+	}
+
+	a:hover {
+		color: #87b28b !important;
+	}
+	p a:hover {
+		color: #87b28b !important;
 	}
 
 	.newsletter-signup {
