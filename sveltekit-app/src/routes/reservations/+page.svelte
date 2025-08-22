@@ -11,7 +11,7 @@
 		<div class="mobile-info">
 			<h2>RESERVATIONS</h2>
 			<p>
-				<a href="https://resy.com/cities/long-island-city-queens-ny/venues/takumen?date=2025-08-15&seats=2">RESERVE WITH RESY</a><br />
+				<a href="https://resy.com/cities/long-island-city-queens-ny/venues/takumen?date=2025-08-15&seats=2" target="_blank" rel="noopener noreferrer">RESERVE WITH RESY</a><br />
 				OR GIVE US A CALL <a href="tel:7183617973">718.361.7973</a>
 			</p>
 			<h2>LARGE GROUP RESERVATIONS,<br />CATERING & GENERAL INQUIRIES</h2>
@@ -25,7 +25,7 @@
 		<div class="reservation-info">
 			<h2>RESERVATIONS</h2>
 			<p>
-				<a href="https://resy.com/cities/long-island-city-queens-ny/venues/takumen?date=2025-08-15&seats=2">RESERVE WITH RESY</a><br />
+				<a href="https://resy.com/cities/long-island-city-queens-ny/venues/takumen?date=2025-08-15&seats=2" target="_blank" rel="noopener noreferrer">RESERVE WITH RESY</a><br />
 				OR GIVE US A CALL <a href="tel:7183617973">718.361.7973</a>
 			</p>
 		</div>

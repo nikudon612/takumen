@@ -18,13 +18,13 @@
 			</p>
 
 			<p>
-				Takumen is Kiyo Shinoki's interpretation of Izakaya culture. “Historically, Izakaya was
-				where people gathered and bonded over drinks. It was often a crossroad of cultures. The food
-				menu was designed around the beverage program." These interpretations led to Takumen's food
-				and drink menu: a wide variety of casual food items, natural wine, sake and shochu from
-				Japan, and craft beers from local breweries. Kiyo respected the original idea by keeping the
-				ramen items on the menu. He adds, "We Japanese have a habit of finishing our Izakaya dinner
-				with ramen." It is also a lunch joint where locals in the neighborhood show up for rice
+				Takumen is <a href="https://www.kiyoshinoki.com/" target="_blank" rel="noopener noreferrer">Kiyo Shinoki's</a> interpretation of Izakaya
+				culture. “Historically, Izakaya was where people gathered and bonded over drinks. It was often
+				a crossroad of cultures. The food menu was designed around the beverage program." These interpretations
+				led to Takumen's food and drink menu: a wide variety of casual food items, natural wine, sake
+				and shochu from Japan, and craft beers from local breweries. Kiyo respected the original idea
+				by keeping the ramen items on the menu. He adds, "We Japanese have a habit of finishing our Izakaya
+				dinner with ramen." It is also a lunch joint where locals in the neighborhood show up for rice
 				bowls and ramen.
 			</p>
 
@@ -101,6 +101,11 @@
 		margin-bottom: 1.5rem;
 		letter-spacing: 0.04em;
 		font-family: avenir-next-lt-pro-condensed, sans-serif;
+	}
+
+	a {
+		color: inherit;
+		text-decoration: underline;
 	}
 
 	@media (max-width: 768px) {

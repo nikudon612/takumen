@@ -21,7 +21,7 @@
 			target="_blank"
 			rel="noopener noreferrer">ORDER HERE</a
 		>
-		<p>ORDER BY PHONE 718.361.7973</p>
+		<p>ORDER BY PHONE <a href="tel:7183617973">718.361.7973</a></p>
 		<p>DELIVERY OPTIONS AVAILABLE ON ONLINE PLATFORMS</p>
 		<div class="platform-logos">
 			<div class="platform-row">
@@ -135,6 +135,10 @@
 </div>
 
 <style>
+	a {
+		text-decoration: underline;
+		color: inherit;
+	}
 	.mobile-order-wrapper,
 	.mobile-order-content,
 	.mobile-nav {
@@ -164,6 +168,7 @@
 		height: 100%;
 		justify-content: center;
 		text-align: center;
+		gap: 1rem;
 	}
 
 	.order-left h2 {

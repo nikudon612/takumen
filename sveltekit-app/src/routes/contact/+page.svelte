@@ -141,7 +141,7 @@
 			<button class="subscribe-btn">SUBSCRIBE</button> -->
 
 			<h3>FIND US AT</h3>
-			<p><a href="https://instagram.com/takumenlic" target="_blank">INSTAGRAM</a></p>
+			<a href="https://instagram.com/takumenlic" target="_blank">INSTAGRAM</a>
 		</div>
 	</div>
 </section>
@@ -215,7 +215,7 @@
 	}
 
 	a {
-		text-decoration: none;
+		text-decoration: underline;
 		color: inherit;
 		font-weight: bold;
 	}
