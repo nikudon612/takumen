@@ -3,6 +3,8 @@
 	import TakuParlorLogo from '$lib/assets/tplogo.png';
 	import hamburger from '$lib/assets/hamburger.svg';
 	import closebutton from '$lib/assets/closebutton.svg';
+	import { fade, fly } from 'svelte/transition';
+	import { onMount } from 'svelte';
 
 	export let data;
 	const { navigation, footer } = data;
@@ -15,6 +17,18 @@
 
 	function closeMobileMenu() {
 		mobileMenuOpen = false;
+	}
+
+	// (optional) lock page scroll when menu is open
+	onMount(() => {
+		const original = document.body.style.overflow;
+		return () => (document.body.style.overflow = original);
+	});
+
+	$: {
+		if (typeof document !== 'undefined') {
+			document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+		}
 	}
 </script>
 
@@ -47,27 +61,42 @@
 	</header>
 
 	{#if mobileMenuOpen}
-		<div class="mobile-menu-overlay">
+		<div
+			class="mobile-menu-overlay"
+			transition:fade={{ duration: 220, easing: (t) => t }}
+			on:click={closeMobileMenu}
+		>
 			<img
 				src={closebutton}
 				alt="Close Menu"
 				class="mobile-menu-close"
-				on:click={closeMobileMenu}
+				on:click|stopPropagation={closeMobileMenu}
+				transition:fade={{ duration: 180, delay: 80 }}
 			/>
-			<div class="mobile-menu-content">
-				{#each navigation.links as link (link.href)}
-					{#if link.href !== '/takuparlor'}
-						<a
-							class="mobile-nav-link {link.href === $page.url.pathname ? 'active' : ''}"
-							href={link.href}
-							on:click={closeMobileMenu}
-							target={link.target}
-						>
-							{link.label}
-						</a>
-					{/if}
-				{/each}
-				<a class="mobile-nav-link" href="/" on:click={closeMobileMenu}>Takumen</a>
+
+			<!-- wrapper fades, inner flies (avoid double transition on same node) -->
+			<div class="mobile-menu-content" on:click|stopPropagation>
+				<div class="mobile-menu-content-wrapper" transition:fade={{ duration: 220, delay: 60 }}>
+					<div
+						class="mobile-menu-content"
+						on:click|stopPropagation
+						transition:fly={{ y: 8, duration: 220 }}
+					>
+						{#each navigation.links as link (link.href)}
+							{#if link.href !== '/takuparlor'}
+								<a
+									class="mobile-nav-link {link.href === $page.url.pathname ? 'active' : ''}"
+									href={link.href}
+									on:click={closeMobileMenu}
+									target={link.target}
+								>
+									{link.label}
+								</a>
+							{/if}
+						{/each}
+						<a class="mobile-nav-link" href="/" on:click={closeMobileMenu}>Takumen</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	{/if}
@@ -86,27 +115,22 @@
 		overflow-x: hidden;
 	}
 
-	/* Force the logo link to size to its contents only */
-	/* force the anchor to match the image dimensions exactly */
+	/* logo sizing is image-box only */
 	.logo-link {
-		display: inline-block; /* so it sizes to content */
-		line-height: 0; /* removes extra inline text height */
+		display: inline-block;
+		line-height: 0;
 		padding: 0;
 		margin: 0;
 	}
-
-	/* make sure the image is block-level so no gaps appear */
 	.logo-link img {
 		display: block;
 		height: auto;
-		width: auto; /* or your set max-width/height */
+		width: auto;
 	}
-
-	/* Image defines the box; removes inline gaps */
 	.header_content > a.logo-link .header_logo {
 		display: block;
 		height: auto;
-		width: clamp(120px, 40vw, 10%); /* keep your 40% intent but with sane bounds */
+		width: clamp(120px, 40vw, 10%);
 	}
 
 	.header {
@@ -155,7 +179,6 @@
 		overflow: visible;
 	}
 
-	/* Mobile Styles */
 	.hamburger-icon {
 		display: none;
 		width: 2rem;
@@ -163,6 +186,7 @@
 		cursor: pointer;
 	}
 
+	/* ----- Mobile ----- */
 	@media (max-width: 835px) {
 		.hamburger-icon {
 			display: block;
@@ -189,6 +213,9 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
+
+			/* helps the fade look crisp */
+			will-change: opacity, transform;
 		}
 
 		.mobile-menu-content {
@@ -197,6 +224,12 @@
 			align-items: center;
 			justify-content: center;
 			gap: 1.5rem;
+			will-change: opacity, transform;
+		}
+
+		/* wrapper used solely to host the fade (so inner can fly) */
+		.mobile-menu-content-wrapper {
+			will-change: opacity, transform;
 		}
 
 		.mobile-nav-link {
@@ -206,11 +239,9 @@
 			font-family: futura, sans-serif;
 			text-transform: capitalize;
 		}
-
 		.mobile-nav-link:hover {
 			opacity: 0.8;
 		}
-
 		.mobile-nav-link.active {
 			text-decoration: underline;
 			text-underline-offset: 4px;
@@ -226,12 +257,13 @@
 			font-size: 2rem;
 			cursor: pointer;
 			z-index: 101;
+			will-change: opacity, transform;
 		}
+
 		.header_logo {
 			width: 10%;
 			height: auto;
 		} /* mobile */
-
 		.header_content {
 			padding-left: 1rem;
 		}
