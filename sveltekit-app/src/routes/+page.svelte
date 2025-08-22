@@ -1,41 +1,49 @@
 <script lang="ts">
+	import { onMount, onDestroy } from 'svelte';
+
 	export let data;
 	const { home } = data;
 
+	// Normalize to plain URL strings and filter out nulls
+	const images: string[] = (home?.slideshowImages ?? [])
+		.map(
+			(it: any) =>
+				(it?.asset?.url && String(it.asset.url)) || (typeof it?.url === 'string' ? it.url : null)
+		)
+		.filter(Boolean) as string[];
+
 	let leftIndex = 0;
-	let rightIndex = 1;
+	let rightIndex = images.length > 1 ? 1 : 0;
 	let toggle = true;
+	let interval: number | undefined;
 
-	const total = home?.slideshowImages?.length ?? 0;
-
-	const interval = setInterval(() => {
-		if (total > 1) {
-			if (toggle) {
-				leftIndex = (leftIndex + 2) % total;
-			} else {
-				rightIndex = (rightIndex + 2) % total;
-			}
-			toggle = !toggle;
+	onMount(() => {
+		if (images.length > 1) {
+			interval = window.setInterval(() => {
+				if (images.length > 1) {
+					if (toggle) {
+						leftIndex = (leftIndex + 2) % images.length;
+					} else {
+						rightIndex = (rightIndex + 2) % images.length;
+					}
+					toggle = !toggle;
+				}
+			}, 3000);
 		}
-	}, 3000);
+	});
 
-	import { onDestroy } from 'svelte';
-	onDestroy(() => clearInterval(interval));
+	onDestroy(() => {
+		if (interval) clearInterval(interval);
+	});
 </script>
 
-{#if home}
+{#if images.length}
 	<div class="slideshow">
 		<div class="slideshow_half">
-			<img
-				src={home.slideshowImages[leftIndex]?.asset.url}
-				alt={home.slideshowImages[leftIndex]?.alt || 'Takumen LIC'}
-			/>
+			<img src={images[leftIndex]} alt="Takumen LIC" />
 		</div>
 		<div class="slideshow_half">
-			<img
-				src={home.slideshowImages[rightIndex]?.asset.url}
-				alt={home.slideshowImages[rightIndex]?.alt || 'Takumen LIC'}
-			/>
+			<img src={images[rightIndex]} alt="Takumen LIC" />
 		</div>
 	</div>
 {:else}

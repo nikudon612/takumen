@@ -1,5 +1,5 @@
 <script lang="ts">
-	import aboutImage from '../../lib/assets/takumen-lic.png';
+	import aboutImage from '../../lib/assets/takumen-lic.jpg';
 </script>
 
 <section class="about_section">

@@ -387,6 +387,17 @@
 		transform: translateY(-2px);
 	}
 
+	/* Default: white */
+	.platform-logos .platform-icon {
+		color: #ffffff;
+		transition: color 0.2s ease;
+	}
+
+	/* Hover: Takumen yellow */
+	.platform-logos .logo-item:hover .platform-icon {
+		color: #ffe356;
+	}
+
 	/* Desktop: keep logos on ONE line, but ALWAYS fit inside the left panel */
 	@media screen and (min-width: 769px) {
 		.platform-logos {
@@ -433,5 +444,6 @@
 			max-width: clamp(80px, 7.5vw, 110px);
 			transform: translateY(-2px); /* keep your optical baseline nudge */
 		}
+		/* Hover effect: turn delivery logos yellow */
 	}
 </style>
