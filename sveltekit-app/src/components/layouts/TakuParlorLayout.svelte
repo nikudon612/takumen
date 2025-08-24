@@ -130,7 +130,7 @@
 	.header_content > a.logo-link .header_logo {
 		display: block;
 		height: auto;
-		width: clamp(120px, 40vw, 10%);
+		width: clamp(100px, 40vw, 100px) !important; /* keep your 40% intent but with sane bounds */
 	}
 
 	.header {
@@ -168,7 +168,7 @@
 	}
 
 	.header_logo {
-		width: 15%;
+		width: clamp(120px, 40vw, 175px); /* keep your 40% intent but with sane bounds */
 		height: auto;
 	} /* desktop */
 
@@ -199,6 +199,12 @@
 
 		.header_links {
 			display: none;
+		}
+
+		.header_content > a.logo-link .header_logo {
+			display: block;
+			height: auto;
+			width: clamp(70px, 40vw, 70px) !important; /* keep your 40% intent but with sane bounds */
 		}
 
 		.mobile-menu-overlay {
