@@ -158,6 +158,7 @@
 		justify-content: center;
 		flex-direction: column;
 		overflow: hidden;
+		padding-top: 15vh;
 	}
 
 	.content-container {
@@ -269,6 +270,7 @@
 		.hours-info {
 			overflow: visible; /* allow the page to scroll */
 			height: auto;
+			padding-top: 10vh;
 		}
 		.content-container {
 			display: none;

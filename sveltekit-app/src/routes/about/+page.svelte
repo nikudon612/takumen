@@ -54,6 +54,7 @@
 		height: 85vh;
 		overflow: hidden; /* lock the whole section to 85vh */
 		background-color: #87b28b;
+		padding-top: 15vh;
 	}
 
 	.left-image {
@@ -116,8 +117,40 @@
 	@media (max-width: 768px) {
 		.about_section {
 			flex-direction: column;
+			height: auto; /* allow section to grow */
+			overflow: visible; /* allow page to own scrolling */
+			padding-top: 10vh; /* 10vh header space on mobile */
+		}
+
+		.left-image {
+			position: static; /* disable sticky */
+			top: auto;
+			flex: 0 0 auto;
+			height: 42.5vh; /* approx half of the remaining viewport; adjust as desired */
+			/* If you want “visible” units, you can use 42.5svh instead */
+			/* height: 42.5svh; */
+		}
+
+		.right-text {
+			flex: 1 0 auto;
+			height: auto;
+			padding: 2rem;
+			overflow: visible;
+		}
+
+		.text-scroll {
+			overflow: visible; /* kill inner scroller */
+			overscroll-behavior: auto;
+			max-height: none; /* ensure it doesn’t clamp height */
+		}
+	}
+
+	@media (max-width: 768px) {
+		.about_section {
+			flex-direction: column;
 			height: auto; /* allow it to grow naturally */
 			overflow: visible; /* allow content to overflow */
+			padding-top: 10vh;
 		}
 
 		.left-image {

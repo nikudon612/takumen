@@ -118,7 +118,6 @@
 		width: 100vw;
 		height: 100dvh;
 		overflow: hidden;
-		margin-top: 15vh; /* Adjust for header height */
 	}
 
 	/* Ensure the logo link is only the size of the image */

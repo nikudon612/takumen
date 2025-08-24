@@ -66,8 +66,7 @@
 		<DefaultLayout {data}><slot /></DefaultLayout>
 	{:else if $page.url.pathname === '/takuparlor'}
 		<TakuParlorLayout {data}><slot /></TakuParlorLayout>
-	{:else if $page.url.pathname === '/about'}
-		<!-- <AboutLayout {data}><slot /></AboutLayout> -->
+	{:else if $page.url.pathname === '/about' || $page.url.pathname === '/contact'}
 		<Scrollable {data}><slot /></Scrollable>
 	{:else if $page.url.pathname === '/reservations'}
 		<FixedHeightLayout {data}><slot /></FixedHeightLayout>
