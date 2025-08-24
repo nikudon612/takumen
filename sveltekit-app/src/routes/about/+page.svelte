@@ -117,6 +117,7 @@
 		.about_section {
 			flex-direction: column;
 			height: auto; /* allow it to grow naturally */
+			padding-top: 10vh;
 		}
 
 		.left-image {
