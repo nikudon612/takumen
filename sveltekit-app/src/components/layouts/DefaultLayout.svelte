@@ -332,6 +332,12 @@
 			margin: 0 auto;
 		}
 
+		.logo-link .header_logo {
+			display: block; /* removes inline gaps */
+			width: clamp(120px, 40vw, 100px); /* keep your 40% intent but with sane bounds */
+			height: auto;
+		}
+
 		.header_links {
 			display: none; /* Or set to column and show below logo if needed */
 		}
