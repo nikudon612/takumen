@@ -117,7 +117,7 @@
 		.about_section {
 			flex-direction: column;
 			height: auto; /* allow it to grow naturally */
-			padding-top: 10vh;
+			overflow: visible; /* allow content to overflow */
 		}
 
 		.left-image {

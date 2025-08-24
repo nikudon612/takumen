@@ -59,6 +59,7 @@
 		justify-content: center;
 		position: relative;
 		overflow: hidden;
+		padding-top: 15vh;
 	}
 
 	.reservations-container {
@@ -116,7 +117,8 @@
 		.reservations-section {
 			justify-content: flex-start;
 			overflow: visible;
-			height: 100%;
+			height: 90dvh;
+			padding-top: 10vh;
 		}
 		.reservations-container {
 			display: none;

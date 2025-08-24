@@ -118,7 +118,7 @@
 		width: 100vw;
 		height: 100dvh;
 		overflow: hidden;
-		padding-top: 15vh; /* Adjust for header height */
+		margin-top: 15vh; /* Adjust for header height */
 	}
 
 	/* Ensure the logo link is only the size of the image */
@@ -202,9 +202,9 @@
 	}
 
 	@media (max-width: 768px) {
-		.container {
-			padding-top: 10vh; /* Adjust for header height */
-		}
+		/* .container {
+			padding-top: 10vh;
+		} */
 		.hamburger-icon {
 			display: block;
 			position: absolute;

@@ -4,6 +4,8 @@
 	import AboutLayout from '../components/layouts/AboutLayet.svelte';
 	import DefaultLayout from '../components/layouts/DefaultLayout.svelte';
 	import TakuParlorLayout from '../components/layouts/TakuParlorLayout.svelte';
+	import FixedHeightLayout from '../components/layouts/fixedHeight.svelte';
+	import Scrollable from '../components/layouts/scrollable.svelte';
 
 	export let data;
 
@@ -64,8 +66,11 @@
 		<DefaultLayout {data}><slot /></DefaultLayout>
 	{:else if $page.url.pathname === '/takuparlor'}
 		<TakuParlorLayout {data}><slot /></TakuParlorLayout>
-	{:else}
-		<AboutLayout {data}><slot /></AboutLayout>
+	{:else if $page.url.pathname === '/about'}
+		<!-- <AboutLayout {data}><slot /></AboutLayout> -->
+		<Scrollable {data}><slot /></Scrollable>
+	{:else if $page.url.pathname === '/reservations'}
+		<FixedHeightLayout {data}><slot /></FixedHeightLayout>
 	{/if}
 </div>
 
