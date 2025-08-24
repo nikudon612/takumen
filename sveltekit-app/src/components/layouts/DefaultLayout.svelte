@@ -307,7 +307,7 @@
 
 		.header {
 			position: relative;
-			height: 15vh;
+			height: 10vh;
 			background-color: white;
 			display: flex;
 			align-items: center;

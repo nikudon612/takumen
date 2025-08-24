@@ -162,8 +162,10 @@
 		margin: 0;
 		flex: 0 0 auto;
 	}
+
 	.logo-link .header_logo {
-		display: block;
+		display: block; /* removes inline gaps */
+		width: clamp(120px, 40vw, 175px); /* keep your 40% intent but with sane bounds */
 		height: auto;
 	}
 
@@ -190,6 +192,7 @@
 	@media (max-width: 768px) {
 		.header {
 			justify-content: center;
+			height: 10dvh;
 		}
 		.header_content {
 			flex-direction: row;
@@ -205,7 +208,7 @@
 		}
 
 		.logo-link .header_logo {
-			width: clamp(120px, 40vw, 200px);
+			width: clamp(105px, 40vw, 100px); /* keep your 40% intent but with sane bounds */
 			height: auto;
 			margin: 0 auto;
 		}
