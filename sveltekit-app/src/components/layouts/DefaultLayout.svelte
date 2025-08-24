@@ -161,7 +161,7 @@
 	/* Make the image define the box; no extra clickable padding */
 	.logo-link .header_logo {
 		display: block; /* removes inline gaps */
-		width: clamp(120px, 40vw, 200px); /* keep your 40% intent but with sane bounds */
+		width: clamp(120px, 40vw, 175px); /* keep your 40% intent but with sane bounds */
 		height: auto;
 	}
 

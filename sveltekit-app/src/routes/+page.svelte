@@ -1,342 +1,157 @@
 <script lang="ts">
-	import TakuParlor from '../components/takuParlor.svelte';
-	import MascotImage from '../../lib/assets/lilguy.png';
-	import Insta from '../../lib/assets/insta.png';
-	import GoogleMaps from '../../lib/assets/maps.svg';
 	import { onMount, onDestroy } from 'svelte';
 
 	export let data;
-	const { takuParlor } = data;
+	const { home } = data;
 
-	// Normalize to URLs
-	const images: string[] = (takuParlor?.heroImages ?? [])
-		.map((i) => i?.asset?.url ?? i?.url ?? '')
+	const images: string[] = (home?.slideshowImages ?? [])
+		.map(
+			(it: any) =>
+				(it?.asset?.url && String(it.asset.url)) || (typeof it?.url === 'string' ? it.url : null)
+		)
 		.filter(Boolean) as string[];
 
-	// ---- Config ----
-	const TICK_MS = 3000; // start-to-start cadence (each frame shows every 3s)
-	const FADE_MS = 320; // crossfade duration
+	let leftIndex = 0;
+	let rightIndex = images.length > 1 ? 1 : 0;
+	let toggle = true;
 
-	// ---- State ----
-	let showTop = true; // which layer is currently visible
-	let topSrc = '';
-	let bottomSrc = '';
-	let visibleIndex = 0; // index currently visible
-	let running = false;
-	let timer: number | null = null;
+	// --- Preload/Decode helpers ---
+	const cache = new Map<string, HTMLImageElement>();
 
-	// ---- Helpers ----
-	const raf = () => new Promise<void>((r) => requestAnimationFrame(() => r()));
-	function preload(url: string) {
-		return new Promise<void>((resolve) => {
-			if (!url) return resolve();
-			const img = new Image();
+	function getOrCreate(url: string) {
+		let img = cache.get(url);
+		if (!img) {
+			img = new Image();
 			img.decoding = 'async';
+			img.loading = 'eager'; // we control when to fetch via setting src
 			img.src = url;
-			if (img.complete && img.naturalWidth > 0) return resolve();
-			img.onload = () => resolve();
-			img.onerror = () => resolve();
-		});
-	}
-	function clearTimer() {
-		if (timer) {
-			clearTimeout(timer);
-			timer = null;
+			cache.set(url, img);
 		}
+		return img;
 	}
 
-	// schedule next flip (self-timed, keeps steady cadence)
-	function scheduleNextFlip() {
-		clearTimer();
-		timer = window.setTimeout(async () => {
-			if (!running || images.length <= 1) return;
+	function preloadAndDecode(url: string, timeoutMs = 800) {
+		if (!url) return Promise.resolve();
+		const img = getOrCreate(url);
 
-			// The image that will become visible on this flip:
-			const nextIndex = (visibleIndex + 1) % images.length;
+		// If already complete & decoded, bail fast
+		if (img.complete && img.naturalWidth > 0) return Promise.resolve();
 
-			// Crossfade (image→image). We do NOT touch the one that's about to be shown.
-			showTop = !showTop;
-			visibleIndex = nextIndex;
+		// decode() is supported on all modern browsers; still guard with timeout
+		const decodePromise =
+			typeof img.decode === 'function'
+				? img.decode().catch(() => {}) // error -> continue
+				: new Promise<void>((res) => {
+						const done = () => res();
+						img.addEventListener('load', done, { once: true });
+						img.addEventListener('error', done, { once: true });
+					});
 
-			// After the fade completes, update the now-hidden layer to the NEXT image
-			// and preload it so it's ready for the following flip.
-			const afterIdx = (visibleIndex + 1) % images.length;
-			const afterSrc = images[afterIdx];
-
-			// wait for fade to finish
-			await new Promise<void>((res) => setTimeout(res, FADE_MS));
-
-			// put upcoming image into the hidden buffer
-			if (showTop) {
-				// top is visible, bottom is hidden
-				bottomSrc = afterSrc;
-				await preload(bottomSrc);
-			} else {
-				// bottom is visible, top is hidden
-				topSrc = afterSrc;
-				await preload(topSrc);
-			}
-
-			// schedule next tick
-			scheduleNextFlip();
-		}, TICK_MS);
+		const timeout = new Promise<void>((res) => setTimeout(res, timeoutMs));
+		return Promise.race([decodePromise, timeout]);
 	}
 
-	onMount(async () => {
-		if (images.length === 0) return;
+	// Replace setInterval with a self-timed loop so we can wait for decode
+	let cancelled = false;
+	async function loop() {
+		if (cancelled || images.length <= 1) return;
 
-		running = true;
+		// Figure out which half will advance next and pre-decode that image
+		const nextLeft = toggle ? (leftIndex + 2) % images.length : leftIndex;
+		const nextRight = !toggle ? (rightIndex + 2) % images.length : rightIndex;
 
-		// Seed first and second frames
-		topSrc = images[0];
-		await preload(topSrc);
+		// Preload both potential next frames (only one actually changes each tick)
+		await Promise.all([preloadAndDecode(images[nextLeft]), preloadAndDecode(images[nextRight])]);
 
-		if (images.length > 1) {
-			bottomSrc = images[1];
-			await preload(bottomSrc);
+		// Swap the one that's due this tick
+		if (toggle) {
+			leftIndex = nextLeft;
+		} else {
+			rightIndex = nextRight;
 		}
+		toggle = !toggle;
 
-		// Paint the first frame before starting cadence
-		await raf();
-		showTop = true; // show first image immediately
-		visibleIndex = 0;
+		// Keep your 3s rhythm between *reveals*
+		setTimeout(() => {
+			if (!cancelled) loop();
+		}, 3000);
+	}
 
-		if (images.length > 1) {
-			// Prepare the following (3rd) into the hidden layer ahead of time (optional)
-			const afterIdx = (1 + 1) % images.length;
-			const afterSrc = images[afterIdx];
-			// Put it into the hidden buffer AFTER the first flip, handled in scheduleNextFlip
-		}
+	onMount(() => {
+		// Optional: preconnect to Sanity’s CDN to speed up first fetch
+		try {
+			const link = document.createElement('link');
+			link.rel = 'preconnect';
+			link.href = 'https://cdn.sanity.io';
+			link.crossOrigin = '';
+			document.head.appendChild(link);
+		} catch {}
 
-		scheduleNextFlip();
+		// Prime the first two (visible) images synchronously
+		if (images[0]) getOrCreate(images[0]);
+		if (images[1]) getOrCreate(images[1]);
+
+		// Start the decode-aware loop
+		loop();
 	});
 
 	onDestroy(() => {
-		running = false;
-		clearTimer();
+		cancelled = true;
 	});
 </script>
 
-<section class="split-menu">
-	<!-- LEFT -->
-	<div class="menu-left">
-		<TakuParlor />
-	</div>
-
-	<!-- RIGHT: two stacked images for crossfade -->
-	<div class="menu-right">
-		<img
-			class="slide top {showTop ? 'visible' : ''}"
-			src={topSrc}
-			alt="Taku Parlor slideshow image"
-			decoding="async"
-			draggable="false"
-		/>
-		<img
-			class="slide bottom {!showTop ? 'visible' : ''}"
-			src={bottomSrc}
-			alt="Taku Parlor slideshow image"
-			decoding="async"
-			draggable="false"
-		/>
-
-		<!-- Overlay -->
-		<div class="overlay-icons" aria-label="Quick links">
-			<img src={MascotImage} alt="Taku Parlor icecream logo" class="icecream-logo" />
-			<div class="overlay-container">
-				<p class="overlay-title">FIND US AT:</p>
-				<div class="overlay-social-container">
-					<div class="overlay-socials">
-						<a
-							href="https://www.instagram.com/takuparlor"
-							target="_blank"
-							rel="noopener noreferrer"
-							aria-label="Instagram"
-							class="icon-btn"
-						>
-							<img src={Insta} alt="Instagram icon" width="22" height="22" />
-							<p class="overlay-socials-title">INSTAGRAM</p>
-						</a>
-					</div>
-					<div class="overlay-socials">
-						<a
-							href="https://maps.app.goo.gl/wES851PUtokrZQJz6"
-							target="_blank"
-							rel="noopener noreferrer"
-							aria-label="Google Maps"
-							class="icon-btn"
-						>
-							<img src={GoogleMaps} alt="Google Maps icon" />
-							<p class="overlay-socials-title">GOOGLE MAPS</p>
-						</a>
-					</div>
-				</div>
-			</div>
+{#if images.length}
+	<div class="slideshow">
+		<div class="slideshow_half">
+			<img src={images[leftIndex]} alt="Takumen LIC" decoding="async" fetchpriority="high" />
+		</div>
+		<div class="slideshow_half">
+			<img src={images[rightIndex]} alt="Takumen LIC" decoding="async" fetchpriority="high" />
 		</div>
 	</div>
-</section>
+{:else}
+	<p>Loading...</p>
+{/if}
 
 <style>
-	.split-menu {
+	.slideshow {
 		display: flex;
 		width: 100vw;
-		height: 85dvh;
+		height: 85vh;
 		overflow: hidden;
-	}
-
-	.menu-left {
-		flex: 0 0 50%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: #789faf;
-		overflow: hidden;
-	}
-
-	.menu-right {
-		flex: 0 0 50%;
 		position: relative;
-		overflow: hidden;
-		/* No background color here to avoid white/black flashes —
-		   two images are always stacked so you never see through. */
+		padding-top: 15vh;
 	}
-
-	/* Slides stacked and crossfading */
-	.slide {
-		position: absolute;
-		inset: 0;
+	.slideshow_half {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: #000;
+		width: 50vw;
+		height: 100vh;
+	}
+	.slideshow_half img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		opacity: 0;
-		transition: opacity 320ms ease; /* matches FADE_MS */
-		will-change: opacity;
-		pointer-events: none;
-	}
-	.slide.visible {
-		opacity: 1;
+		display: block;
 	}
 
-	/* Overlay (unchanged) */
-	.overlay-icons {
-		position: absolute;
-		display: flex;
-		flex-direction: row;
-		right: 12px;
-		bottom: 12px;
-		gap: 10px;
-		z-index: 2;
-		color: #fff;
-		height: 15%;
-	}
-	.icecream-logo {
-		width: 6rem !important;
-		height: 6rem !important;
-		margin-bottom: 8px;
-	}
-	.overlay-social-container {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-	.overlay-socials {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		color: #fff;
-		font-size: 0.8rem;
-	}
-	.icon-btn {
-		display: inline-flex;
-		align-items: center;
-		justify-content: flex-start;
-		height: 24px;
-		color: #fff;
-		text-decoration: none;
-	}
-	.overlay-title {
-		font-family: 'futura-pt-condensed';
-		font-size: 1.5rem;
-		margin: 0 0 4px 0;
-		line-height: 1.1;
-	}
-	.overlay-socials-title {
-		font-family: 'avenir-next-lt-pro-condensed', sans-serif;
-		margin: 0;
-	}
-	a:hover {
-		color: #fed314 !important;
-	}
-
-	/* Responsive */
 	@media (max-width: 768px) {
-		.split-menu {
-			flex-direction: column-reverse;
-			height: auto;
+		.slideshow {
+			flex-direction: column;
+			height: calc(100dvh - 15dvh);
+			width: 100vw;
+			padding-top: 0;
 		}
-		.menu-right {
-			height: 40dvh !important;
-			flex: none;
-		}
-		.menu-left {
+		.slideshow_half {
 			width: 100%;
-			height: auto;
-			padding: 0.5rem;
-			box-sizing: border-box;
+			height: 50%;
+			flex-shrink: 0;
 		}
-
-		.menu-right > .overlay-icons {
-			top: 10px;
-			right: 10px;
-			width: auto;
-			height: auto;
-			z-index: 3;
-			gap: 8px;
-		}
-		.overlay-container {
-			gap: 6px;
-		}
-		.overlay-title {
-			font-size: 1.1rem;
-			margin: 0 0 2px 0;
-		}
-		.overlay-socials {
-			gap: 6px;
-		}
-		.overlay-socials-title {
-			font-size: 0.9rem;
-		}
-		.icon-btn img {
-			width: 20px;
-			height: 20px;
-		}
-		.icecream-logo {
-			height: 44px;
-			width: auto;
-			margin: 0;
-		}
-	}
-
-	@media (max-width: 768px) {
-		.icecream-logo {
-			display: none !important;
-		}
-		.overlay-title {
-			display: none !important;
-		}
-		.overlay-container {
-			gap: 4px;
-		}
-		.overlay-social-container {
-			gap: 6px;
-		}
-		.overlay-socials {
-			gap: 6px;
-		}
-		.menu-right > .overlay-icons {
-			right: 10px;
-			bottom: 10px;
-			top: auto;
+		.slideshow_half img {
+			object-fit: cover;
 		}
 	}
 </style>
