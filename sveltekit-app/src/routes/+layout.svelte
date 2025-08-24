@@ -65,9 +65,9 @@
 		<DefaultLayout {data}><slot /></DefaultLayout>
 	{:else if $page.url.pathname === '/takuparlor'}
 		<TakuParlorLayout {data}><slot /></TakuParlorLayout>
-	{:else if $page.url.pathname === '/about' || $page.url.pathname === '/contact' || $page.url.pathname === '/menu'}
+	{:else if $page.url.pathname === '/about' || $page.url.pathname === '/contact' || $page.url.pathname === '/menu' || $page.url.pathname === '/exhibition'}
 		<Scrollable {data}><slot /></Scrollable>
-	{:else if $page.url.pathname === '/reservations'}
+	{:else if $page.url.pathname === '/reservations' || $page.url.pathname === '/store'}
 		<FixedHeightLayout {data}><slot /></FixedHeightLayout>
 	{/if}
 </div>
