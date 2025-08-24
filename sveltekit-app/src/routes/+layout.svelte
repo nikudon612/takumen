@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { beforeNavigate, afterNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
-	import AboutLayout from '../components/layouts/AboutLayet.svelte';
 	import DefaultLayout from '../components/layouts/DefaultLayout.svelte';
 	import TakuParlorLayout from '../components/layouts/TakuParlorLayout.svelte';
 	import FixedHeightLayout from '../components/layouts/fixedHeight.svelte';
@@ -66,7 +65,7 @@
 		<DefaultLayout {data}><slot /></DefaultLayout>
 	{:else if $page.url.pathname === '/takuparlor'}
 		<TakuParlorLayout {data}><slot /></TakuParlorLayout>
-	{:else if $page.url.pathname === '/about' || $page.url.pathname === '/contact'}
+	{:else if $page.url.pathname === '/about' || $page.url.pathname === '/contact' || $page.url.pathname === '/menu'}
 		<Scrollable {data}><slot /></Scrollable>
 	{:else if $page.url.pathname === '/reservations'}
 		<FixedHeightLayout {data}><slot /></FixedHeightLayout>
