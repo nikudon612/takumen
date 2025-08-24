@@ -117,7 +117,7 @@
 		.reservations-section {
 			justify-content: flex-start;
 			overflow: visible;
-			height: 90dvh;
+			height: 90svh;
 			padding-top: 10vh;
 		}
 		.reservations-container {
@@ -135,8 +135,8 @@
 			width: 100%;
 			display: block;
 			object-fit: cover;
-			max-height: 42.5vh;
-			height: 42.5vh;
+			max-height: 45vh;
+			height: 45vh;
 			flex-shrink: 0;
 		}
 
@@ -148,7 +148,7 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-start;
-			height: 100%;
+			height: 45vh;
 			gap: 0rem;
 		}
 

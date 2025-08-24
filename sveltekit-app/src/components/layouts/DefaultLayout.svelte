@@ -389,23 +389,8 @@
 	}
 
 	@media (max-width: 575px) {
-		.container {
-			/* max-width: var(--max-width-1); */
-			/* padding: 0 var(--space-4); */
-		}
-
 		main {
 			margin-top: unset;
-		}
-
-		.header {
-			/* position: unset;
-			border-bottom: none;
-
-			background: unset; */
-		}
-
-		.header .header__title {
 		}
 
 		.footer {
@@ -469,5 +454,14 @@
 	}
 	.preview-toggle:hover span:last-child {
 		display: block;
+	}
+
+	/* Mobile landscape: shrink logo to avoid overlap */
+	@media (orientation: landscape) and (max-width: 768px) {
+		.logo-link .header_logo {
+			display: block;
+			width: clamp(69px, 40vw, 74px); /* your smaller landscape size */
+			height: auto;
+		}
 	}
 </style>

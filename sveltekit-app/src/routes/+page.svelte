@@ -154,4 +154,21 @@
 			object-fit: cover;
 		}
 	}
+
+	/* Landscape phones with very little vertical space */
+	@media (orientation: landscape) and (max-height: 500px) {
+		.slideshow {
+			flex-direction: column; /* stack instead of side-by-side */
+		}
+
+		.slideshow_half {
+			width: 100%;
+			height: 100%; /* fill the available viewport */
+		}
+
+		/* hide the second half so you only see one full image */
+		.slideshow_half:nth-child(2) {
+			display: none;
+		}
+	}
 </style>
