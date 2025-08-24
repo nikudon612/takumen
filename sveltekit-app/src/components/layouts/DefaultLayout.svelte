@@ -334,7 +334,7 @@
 
 		.logo-link .header_logo {
 			display: block; /* removes inline gaps */
-			width: clamp(120px, 40vw, 100px); /* keep your 40% intent but with sane bounds */
+			width: clamp(105px, 40vw, 100px); /* keep your 40% intent but with sane bounds */
 			height: auto;
 		}
 
