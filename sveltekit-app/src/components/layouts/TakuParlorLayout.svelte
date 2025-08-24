@@ -188,6 +188,13 @@
 
 	/* ----- Mobile ----- */
 	@media (max-width: 835px) {
+		.header {
+			height: 10dvh;
+			background-color: white;
+			display: flex;
+			align-items: center;
+			z-index: 10;
+		}
 		.hamburger-icon {
 			display: block;
 			position: absolute;

@@ -142,7 +142,7 @@
 	@media (max-width: 768px) {
 		.slideshow {
 			flex-direction: column;
-			height: calc(100dvh - 15dvh);
+			height: calc(100dvh - 10dvh);
 			width: 100vw;
 			padding-top: 0;
 		}

@@ -102,36 +102,6 @@
 			</div>
 		</div>
 	{/if}
-
-	<footer class="footer">
-		{#if footer}
-			<div class="footer_content">
-				<div class="footer_info">
-					<!-- <p class="footer_label">{footer.locationLabel}</p> -->
-					<p class="footer_address">
-						<a
-							href="https://maps.app.goo.gl/ZSS7GLnRSzZuPBGi8"
-							class="footer_link"
-							target="_blank"
-							rel="noopener noreferrer">{footer.address}</a
-						>
-					</p>
-				</div>
-				<div class="socials">
-					<a
-						href="https://www.instagram.com/takumenlic/"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="footer_a"
-					>
-						<img src={insta} alt="Instagram" />
-					</a>
-				</div>
-			</div>
-		{:else}
-			<p>loading...</p>
-		{/if}
-	</footer>
 </div>
 
 {#if $isPreviewing}
@@ -163,10 +133,6 @@
 		display: block; /* removes inline gaps */
 		width: clamp(120px, 40vw, 175px); /* keep your 40% intent but with sane bounds */
 		height: auto;
-	}
-
-	main {
-		/* margin-top: 45px; */
 	}
 
 	.header {
@@ -210,69 +176,16 @@
 		/* font-weight: bold; */
 	}
 
-	.header_logo {
+	/* .header_logo {
 		width: 40%;
 		height: auto;
-	}
+	} */
 
 	.hamburger-icon {
 		display: none;
 		width: 2rem;
 		height: 2rem;
 		cursor: pointer;
-	}
-
-	.footer_info {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		justify-content: center;
-		gap: 0.5rem;
-	}
-
-	.footer_content {
-		display: flex;
-		flex-direction: row;
-		align-items: center; /* center items vertically */
-		justify-content: flex-start;
-		gap: 1rem;
-	}
-
-	.footer_a {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.footer_link {
-		color: #333;
-		text-decoration: none;
-	}
-
-	.footer_label {
-		padding: 0;
-		margin: 0;
-	}
-
-	.footer_address {
-		padding: 0;
-		margin: 0;
-	}
-	.socials {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.footer {
-		position: fixed; /* escape the container's stacking/overflow */
-		left: 0;
-		right: 0;
-		bottom: 0;
-		z-index: 99; /* above slideshow */
-		padding: 2rem 3rem;
-		max-width: 100vw;
 	}
 
 	@media (max-width: 924px) {
@@ -288,6 +201,35 @@
 	}
 
 	@media (max-width: 768px) {
+		/* .container {
+			padding-top: 10vh;
+		} */
+
+		/* container is already free to grow; don't set a fixed height */
+		.container {
+			width: 100%;
+            overflow: visible;
+			/* height: 100dvh; <-- remove this line if present */
+		}
+
+		.header {
+			height: 10vh; /* exactly what you want */
+			background-color: white;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 0;
+			max-width: 100vw;
+		}
+
+		.header_content {
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start;
+			padding: 0 1rem;
+			max-width: 100vw;
+			height: 100%; /* fill header height */
+		}
 		.hamburger-icon {
 			display: block;
 			position: absolute;
@@ -306,7 +248,7 @@
 		}
 
 		.header {
-			position: relative;
+			/* position: relative; */
 			height: 10vh;
 			background-color: white;
 			display: flex;
@@ -389,43 +331,8 @@
 	}
 
 	@media (max-width: 575px) {
-		.container {
-			/* max-width: var(--max-width-1); */
-			/* padding: 0 var(--space-4); */
-		}
-
 		main {
 			margin-top: unset;
-		}
-
-		.header {
-			/* position: unset;
-			border-bottom: none;
-
-			background: unset; */
-		}
-
-		.header .header__title {
-		}
-
-		.footer {
-			position: fixed; /* escape the container's stacking/overflow */
-			left: 0;
-			right: 0;
-			bottom: 0;
-			z-index: 99; /* above slideshow */
-			padding: 1rem 1rem !important;
-		}
-		.footer_content {
-			padding: 0rem 0rem;
-			display: flex;
-		}
-		.footer_link {
-			font-size: 0.75rem;
-		}
-
-		.socials a {
-			display: flex;
 		}
 	}
 

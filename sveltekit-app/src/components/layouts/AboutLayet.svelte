@@ -1,12 +1,20 @@
 <script lang="ts">
+	import { isPreviewing, VisualEditing } from '@sanity/visual-editing/svelte';
 	import { page } from '$app/stores';
+	import LiveMode from '../LiveMode.svelte';
 	import hamburger from '../../lib/assets/hamburger.svg';
 	import closebutton from '../../lib/assets/closebutton.svg';
+	import insta from '../../lib/assets/insta.svg';
 	import { fade, fly } from 'svelte/transition';
 	import { onMount } from 'svelte';
 
 	export let data;
+
 	const { navigation, footer } = data;
+
+	// console.log('Layout data:', data);
+	// console.log('Navigation:', navigation);
+	// console.log('Footer:', footer);
 
 	let mobileMenuOpen = false;
 
@@ -17,20 +25,20 @@
 	function closeMobileMenu() {
 		mobileMenuOpen = false;
 	}
-
-	// (optional) lock page scroll while menu is open
-	onMount(() => {
-		const original = document.body.style.overflow;
-		return () => (document.body.style.overflow = original);
-	});
-	$: {
-		if (typeof document !== 'undefined') {
-			document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
-		}
-	}
 </script>
 
-<div class="about_layout">
+{#if $isPreviewing}
+	<a href={`/preview/disable?redirect=${$page.url.pathname}`} class="preview-toggle">
+		<span>Preview Enabled</span>
+		<span>Disable Preview</span>
+	</a>
+{/if}
+
+<svelte:head>
+	<title>Takumen LIC</title>
+</svelte:head>
+
+<div class="container">
 	<header class="header">
 		{#if navigation}
 			<div class="header_content">
@@ -38,6 +46,7 @@
 					<img src={navigation.logo.asset.url} alt="Takumen Logo" class="header_logo" />
 				</a>
 				<img src={hamburger} alt="Menu" class="hamburger-icon" on:click={toggleMobileMenu} />
+
 				<div class="header_links">
 					{#each navigation.links as link}
 						<a
@@ -50,9 +59,13 @@
 					{/each}
 				</div>
 			</div>
+		{:else}
+			<p>loading...</p>
 		{/if}
 	</header>
-
+	<main>
+		<slot />
+	</main>
 	{#if mobileMenuOpen}
 		<div
 			class="mobile-menu-overlay"
@@ -67,7 +80,6 @@
 				transition:fade={{ duration: 180, delay: 80 }}
 			/>
 
-			<!-- wrapper fades, inner flies (avoid double transition on one node) -->
 			<div class="mobile-menu-content" on:click|stopPropagation>
 				<div class="mobile-menu-content-wrapper" transition:fade={{ duration: 220, delay: 60 }}>
 					<div
@@ -90,35 +102,49 @@
 			</div>
 		</div>
 	{/if}
-
-	<div class="about_content_wrapper">
-		<slot />
-	</div>
 </div>
 
+{#if $isPreviewing}
+	<VisualEditing />
+	<LiveMode />
+{/if}
+
 <style>
-	.about_layout {
+	.container {
+		margin: 0 auto;
+		background: transparent;
 		display: flex;
 		flex-direction: column;
-		min-height: 100dvh;
 		width: 100vw;
-		overflow-x: hidden;
+		height: 100dvh;
+		overflow: hidden;
+		padding-top: 15vh; /* Adjust for header height */
 	}
 
-	.about_content_wrapper {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		overflow: visible;
+	/* Ensure the logo link is only the size of the image */
+	.logo-link {
+		display: inline-block; /* override any global a { display:block } */
+		line-height: 0; /* removes stray inline line-height click area */
+		padding: 0;
+		margin: 0;
 	}
 
-	/* ====== HEADER matches DefaultLayout ====== */
+	/* Make the image define the box; no extra clickable padding */
+	.logo-link .header_logo {
+		display: block; /* removes inline gaps */
+		width: clamp(120px, 40vw, 175px); /* keep your 40% intent but with sane bounds */
+		height: auto;
+	}
+
 	.header {
-		height: 15dvh;
-		background-color: white;
+		position: absolute;
+		top: 0;
 		display: flex;
-		align-items: center;
 		z-index: 10;
+		width: 100%;
+		background: transparent;
+		height: 15vh;
+		max-width: 100vw;
 	}
 
 	.header_content {
@@ -127,15 +153,15 @@
 		align-items: center;
 		justify-content: space-between;
 		width: 100%;
-		padding: 0 3rem 0 3rem; /* same as DefaultLayout */
-		position: relative;
-		max-width: 100vw; /* keep inside viewport */
+		padding: 0 3rem 0 3rem;
+		background-color: white;
+		max-width: 100vw;
 	}
 
 	.header_links {
 		display: flex;
 		flex-direction: row;
-		gap: 2rem; /* desktop spacing like DefaultLayout */
+		gap: 2rem;
 		padding-top: 2rem;
 	}
 
@@ -144,42 +170,18 @@
 		color: #333;
 		font-family: futura, sans-serif;
 	}
+
 	.header_link:hover,
 	.header_link.active {
-		color: #87b28b;
+		color: #87b28b; /* bright yellow to match the footer bg */
+		/* font-weight: bold; */
 	}
 
-	.header_logo {
+	/* .header_logo {
 		width: 40%;
 		height: auto;
-	}
+	} */
 
-	/* Logo link box == image box */
-	.logo-link {
-		display: inline-block;
-		line-height: 0;
-		padding: 0;
-		margin: 0;
-		flex: 0 0 auto;
-	}
-	.logo-link .header_logo {
-		display: block;
-		height: auto;
-	}
-
-	/* ====== Same tablet tightening as DefaultLayout ====== */
-	@media (max-width: 924px) {
-		.header_links {
-			gap: 1rem;
-		}
-	}
-	@media (max-width: 800px) {
-		.header_links {
-			gap: 0.75rem;
-		}
-	}
-
-	/* ====== Mobile rules identical to DefaultLayout ====== */
 	.hamburger-icon {
 		display: none;
 		width: 2rem;
@@ -187,29 +189,22 @@
 		cursor: pointer;
 	}
 
+	@media (max-width: 924px) {
+		.header_links {
+			gap: 1rem;
+		}
+	}
+
+	@media (max-width: 800px) {
+		.header_links {
+			gap: 0.75rem;
+		}
+	}
+
 	@media (max-width: 768px) {
-		.header {
-			justify-content: center;
+		.container {
+			padding-top: 10vh; /* Adjust for header height */
 		}
-		.header_content {
-			flex-direction: row;
-			align-items: center;
-			justify-content: flex-start; /* same */
-			padding: 0 1rem; /* same */
-			max-width: 100vw;
-		}
-
-		.about_layout {
-			width: 100%;
-			height: 100dvh;
-		}
-
-		.logo-link .header_logo {
-			width: clamp(120px, 40vw, 200px);
-			height: auto;
-			margin: 0 auto;
-		}
-
 		.hamburger-icon {
 			display: block;
 			position: absolute;
@@ -218,23 +213,63 @@
 			transform: translateY(-50%);
 			z-index: 20;
 		}
-
-		.header_links {
-			display: none;
+		.container {
+			width: 100%;
+			height: 100dvh;
 		}
 
+		main {
+			margin-top: 0;
+		}
+
+		.header {
+			/* position: relative; */
+			height: 10vh;
+			background-color: white;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 0;
+			max-width: 100vw;
+		}
+
+		.header_content {
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start;
+			padding: 0;
+			/* width: 100%; */
+			padding: 0 1rem;
+			max-width: 100vw;
+		}
+
+		.header_logo {
+			width: 40%;
+			height: auto;
+			margin: 0 auto;
+		}
+
+		.logo-link .header_logo {
+			display: block; /* removes inline gaps */
+			width: clamp(105px, 40vw, 100px); /* keep your 40% intent but with sane bounds */
+			height: auto;
+		}
+
+		.header_links {
+			display: none; /* Or set to column and show below logo if needed */
+		}
 		.mobile-menu-overlay {
 			position: fixed;
-			inset: 0;
+			top: 0;
+			left: 0;
 			width: 100vw;
 			height: 100vh;
-			background-color: #87b28b;
+			background-color: #87b28b; /* muted green */
 			z-index: 100;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			will-change: opacity, transform;
 		}
 
 		.mobile-menu-content {
@@ -243,10 +278,6 @@
 			align-items: center;
 			justify-content: center;
 			gap: 1.5rem;
-			will-change: opacity, transform;
-		}
-		.mobile-menu-content-wrapper {
-			will-change: opacity, transform;
 		}
 
 		.mobile-nav-link {
@@ -256,12 +287,9 @@
 			font-family: futura, sans-serif;
 			text-transform: capitalize;
 		}
+
 		.mobile-nav-link:hover {
 			opacity: 0.8;
-		}
-		.mobile-nav-link.active {
-			text-decoration: underline;
-			text-underline-offset: 4px;
 		}
 
 		.mobile-menu-close {
@@ -274,7 +302,54 @@
 			font-size: 2rem;
 			cursor: pointer;
 			z-index: 101;
-			will-change: opacity, transform;
 		}
+	}
+
+	@media (max-width: 575px) {
+		main {
+			margin-top: unset;
+		}
+	}
+
+	.preview-toggle {
+		backdrop-filter: blur(12px);
+		border-radius: 0.25rem;
+		bottom: 1rem;
+		box-shadow:
+			0 10px 15px -3px rgba(0, 0, 0, 0.1),
+			0 4px 6px -2px rgba(0, 0, 0, 0.05);
+		color: #1f2937;
+		display: block;
+		font-size: 0.75rem;
+		font-weight: 500;
+		line-height: 1rem;
+		padding-bottom: 0.5rem;
+		padding-left: 0.75rem;
+		padding-right: 0.75rem;
+		padding-top: 0.5rem;
+		position: fixed;
+		right: 1rem;
+		text-align: center;
+		text-decoration: none;
+		z-index: 50;
+	}
+
+	.preview-toggle:hover {
+		background-color: #ef4444;
+		color: #ffffff;
+	}
+
+	.preview-toggle span:first-child {
+		display: block;
+	}
+	.preview-toggle:hover span:first-child {
+		display: none;
+	}
+
+	.preview-toggle span:last-child {
+		display: none;
+	}
+	.preview-toggle:hover span:last-child {
+		display: block;
 	}
 </style>

@@ -187,7 +187,6 @@
 		min-height: 78vh;
 		height: 100%;
 		padding: 0rem 3rem;
-		padding-top: 2rem;
 		transition: background-color 0.3s ease;
 	}
 
@@ -255,6 +254,7 @@
 		min-height: 0;
 		height: calc(100dvh - var(--header-h));
 		overflow: hidden;
+		padding-top: 15vh;
 	}
 
 	/* make sure grid children don't enforce their own min-content height */

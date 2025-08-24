@@ -58,7 +58,15 @@
 
 		<div class="artwork-mobile-details">
 			<h2>TAKUMEN NEW YORK PRESENTS EXHIBITION VOL.20</h2>
-			<p><strong>By <a href="https://www.instagram.com/sloppymonsta/" target="_blank" rel="noopener noreferrer">Sloppy Monsta</a></strong></p>
+			<p>
+				<strong
+					>By <a
+						href="https://www.instagram.com/sloppymonsta/"
+						target="_blank"
+						rel="noopener noreferrer">Sloppy Monsta</a
+					></strong
+				>
+			</p>
 			<p>Starting from May 4th, 2025</p>
 			<p>
 				Sloppy Monsta is a little creature who lives all around you – in the corners of your room,
@@ -100,10 +108,10 @@
 	}
 	.artwork-section {
 		background-color: #83a77d;
-		padding: 60px;
-		height: 85vh;
+		height: 100dvh;
 		box-sizing: border-box;
 		overflow: hidden; /* ensures nothing spills out */
+		padding-top: 15vh;
 	}
 
 	.artwork-container {
@@ -115,6 +123,7 @@
 		justify-content: space-between;
 		box-sizing: border-box;
 		overflow: hidden;
+		padding: 3rem;
 	}
 
 	.artwork-image {
@@ -205,6 +214,7 @@
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
+			padding-top: 10vh;
 		}
 		.artwork-container {
 			display: none !important;
