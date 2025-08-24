@@ -1,8 +1,8 @@
 <script lang="ts">
 	import TakuParlor from '../components/takuParlor.svelte';
-	import MascotImage from '../lib/assets/lilguy.png';
-	import Insta from '../lib/assets/insta.png';
-	import GoogleMaps from '../lib/assets/maps.svg';
+	import MascotImage from '../../lib/assets/lilguy.png';
+	import Insta from '../../lib/assets/insta.png';
+	import GoogleMaps from '../../lib/assets/maps.svg';
 	import { onMount, onDestroy } from 'svelte';
 
 	export let data;
