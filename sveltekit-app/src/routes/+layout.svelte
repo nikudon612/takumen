@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import DefaultLayout from '../components/layouts/DefaultLayout.svelte';
 	import TakuParlorLayout from '../components/layouts/TakuParlorLayout.svelte';
+	import FixedHeight from '../components/layouts/fixedHeight.svelte';
 	import FixedHeightLayout from '../components/layouts/fixedHeight.svelte';
 	import Scrollable from '../components/layouts/scrollable.svelte';
 
@@ -69,6 +70,8 @@
 		<Scrollable {data}><slot /></Scrollable>
 	{:else if $page.url.pathname === '/reservations' || $page.url.pathname === '/store'}
 		<FixedHeightLayout {data}><slot /></FixedHeightLayout>
+	{:else}
+		<FixedHeight {data}><slot /></FixedHeight>
 	{/if}
 </div>
 

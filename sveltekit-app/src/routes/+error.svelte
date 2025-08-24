@@ -22,6 +22,7 @@
 		height: 85dvh;
 		background-color: #fed314;
 		text-align: center;
+		padding-top: 15vh;
 	}
 
 	img {
@@ -49,5 +50,15 @@
 		font-size: 2rem;
 		color: #343a40;
 		margin-bottom: 1rem;
+	}
+
+	@media (max-width: 768px) {
+		.error-message {
+			font-size: 3rem;
+		}
+		.error-section {
+			padding-top: 10vh;
+			height: 90dvh;
+		}
 	}
 </style>
