@@ -238,7 +238,7 @@
 	@media (orientation: landscape) and (max-height: 500px) {
 		.mobile-menu {
 			height: 100vh;
-			padding-top: 15vh;
+			padding-top: 5vh;
 		}
 	}
 </style>
