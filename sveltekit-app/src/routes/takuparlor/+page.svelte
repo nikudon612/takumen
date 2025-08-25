@@ -1,104 +1,126 @@
 <script lang="ts">
-	// LEFT SIDE CONTENT (unchanged)
 	import TakuParlor from '../../components/takuParlor.svelte';
-
-	// Overlay assets (unchanged)
 	import MascotImage from '../../lib/assets/lilguy.png';
 	import Insta from '../../lib/assets/insta.png';
 	import GoogleMaps from '../../lib/assets/maps.svg';
-
 	import { onMount, onDestroy } from 'svelte';
 
 	export let data;
 	const { takuParlor } = data;
 
-	// Normalize your Sanity data to plain URLs
+	// Normalize to URLs
 	const images: string[] = (takuParlor?.heroImages ?? [])
 		.map((i) => i?.asset?.url ?? i?.url ?? '')
 		.filter(Boolean) as string[];
 
-	// Timings
-	const DISPLAY_MS = 3000; // full on-screen time (no fade happening yet)
-	const FADE_MS = 320; // crossfade duration (adds on top of DISPLAY_MS)
+	const DISPLAY_MS = 3000;
+	const FADE_MS = 320;
 
-	// Two-image crossfade state
-	let topSrc = ''; // currently visible (on top)
-	let bottomSrc = ''; // hidden underneath, holds the "next" image
-	let showTop = true; // which layer is visible
+	// State
+	let currentSrc = '';
+	let nextIdx = 0;
 	let running = false;
 
+	// Background layers for the container
+	let bgUrl = ''; // previous full-res frame
+	let bgBlur = ''; // tiny blurred current (first paint safety)
+
+	// Ref to the single visible image
+	let heroEl: HTMLImageElement | null = null;
+
+	// Helpers
 	const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
-	function preload(src: string) {
+	function blurFor(url: string) {
+		if (!url) return '';
+		try {
+			const u = new URL(url);
+			u.searchParams.set('w', '32');
+			u.searchParams.set('blur', '50');
+			u.searchParams.set('auto', 'format');
+			return u.toString();
+		} catch {
+			return url;
+		}
+	}
+
+	function loadDecoded(src: string) {
 		return new Promise<void>((resolve) => {
 			if (!src) return resolve();
 			const img = new Image();
 			img.decoding = 'async';
 			img.src = src;
-			if (img.complete) return resolve();
-			img.onload = () => resolve();
-			img.onerror = () => resolve();
+
+			const done = () => resolve();
+			if ('decode' in img) {
+				(img as any)
+					.decode()
+					.then(done)
+					.catch(() => {
+						img.onload = done;
+						img.onerror = done;
+					});
+			} else {
+				if (img.complete) return done();
+				img.onload = done;
+				img.onerror = done;
+			}
 		});
 	}
 
-	async function startLoop() {
-		const N = images.length;
-		if (N === 0) return;
+	async function showFirstFrame() {
+		if (!images.length) return;
 
-		// Seed first (top) and second (bottom) frames
-		topSrc = images[0];
-		await preload(topSrc);
+		currentSrc = images[0];
+		bgBlur = blurFor(currentSrc);
+		await loadDecoded(currentSrc);
 
-		if (N === 1) return; // single image: just show it, no loop
-
-		let idx = 1;
-		bottomSrc = images[idx];
-		await preload(bottomSrc);
-
-		// Ensure we start with a painted frame
+		// Paint first frame
 		await new Promise<void>((r) => requestAnimationFrame(() => r()));
-		showTop = true;
+		if (heroEl) {
+			heroEl.src = currentSrc;
+			heroEl.style.transition = `opacity ${FADE_MS}ms ease`;
+			heroEl.style.opacity = '1';
+		}
 
-		running = true;
+		nextIdx = images.length > 1 ? 1 : 0;
+	}
+
+	async function loop() {
+		if (!running || images.length <= 1) return;
 
 		while (running) {
-			// Preload the one after "idx" while current frame is fully visible
-			const nextIdx = (idx + 1) % N;
 			const nextSrc = images[nextIdx];
-			const preloadPromise = preload(nextSrc);
 
-			// Keep the current visible frame on-screen for full DISPLAY_MS
-			await sleep(DISPLAY_MS);
+			// Decode upcoming frame while current is on screen
+			await loadDecoded(nextSrc);
 
-			// Crossfade (image → image). This takes FADE_MS, separate from DISPLAY_MS.
-			showTop = !showTop;
+			// Keep current as container background so there's never a gap
+			bgUrl = currentSrc || '';
 
-			// Wait for the next to finish preloading if it hasn't already
-			await preloadPromise;
-
-			// The just-hidden layer becomes our staging area: put the nextSrc there
-			if (showTop) {
-				// Top is visible now; bottom is hidden → prep bottom for the *following* flip
-				bottomSrc = nextSrc;
-			} else {
-				// Bottom is visible now; top is hidden → prep top for the *following* flip
-				topSrc = nextSrc;
+			if (heroEl) {
+				// Fade out → swap src → fade in
+				heroEl.style.opacity = '0';
+				await new Promise<void>((r) => requestAnimationFrame(() => r()));
+				heroEl.src = nextSrc;
+				await new Promise<void>((r) => requestAnimationFrame(() => r()));
+				heroEl.style.opacity = '1';
 			}
 
-			// Advance the pointer (the one that just appeared)
-			idx = nextIdx;
-
-			// Optional: small guard to roughly align cycles; not strictly required
+			// Finish the fade, then hold displayed image
 			await sleep(FADE_MS);
+			currentSrc = nextSrc;
+			await sleep(DISPLAY_MS);
+
+			// Advance pointer
+			nextIdx = (nextIdx + 1) % images.length;
 		}
 	}
 
-	onMount(() => {
+	onMount(async () => {
 		running = true;
-		startLoop();
-		return () => {
-			running = false;
-		};
+		await showFirstFrame();
+		if (images.length > 1) void loop();
 	});
 
 	onDestroy(() => {
@@ -107,29 +129,25 @@
 </script>
 
 <section class="split-menu">
-	<!-- LEFT -->
 	<div class="menu-left">
 		<TakuParlor />
 	</div>
 
-	<!-- RIGHT: TWO STACKED IMAGES FOR TRUE CROSSFADES -->
-	<div class="menu-right">
+	<div
+		class="menu-right"
+		style={`--bg-url: url("${bgUrl || ''}"); --blur-url: url("${bgBlur || ''}")`}
+	>
 		<img
-			class="slide top {showTop ? 'visible' : ''}"
-			src={topSrc}
+			bind:this={heroEl}
+			class="hero"
 			alt="Taku Parlor slideshow image"
 			decoding="async"
-			draggable="false"
-		/>
-		<img
-			class="slide bottom {!showTop ? 'visible' : ''}"
-			src={bottomSrc}
-			alt="Taku Parlor slideshow image"
-			decoding="async"
+			loading="eager"
+			fetchpriority="high"
 			draggable="false"
 		/>
 
-		<!-- Overlay (unchanged) -->
+		<!-- Overlay -->
 		<div class="overlay-icons" aria-label="Quick links">
 			<img src={MascotImage} alt="Taku Parlor icecream logo" class="icecream-logo" />
 			<div class="overlay-container">
@@ -166,6 +184,18 @@
 </section>
 
 <style>
+	/* SINGLE visible image */
+	.hero {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		opacity: 0; /* made visible in script */
+		transition: opacity 320ms ease;
+		will-change: opacity;
+		pointer-events: none;
+	}
 	.split-menu {
 		display: flex;
 		width: 100vw;
