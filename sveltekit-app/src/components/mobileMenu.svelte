@@ -107,7 +107,7 @@
 		display: block;
 		width: 100%;
 		min-height: 100%;
-		/* allow scrolling naturally */
+		margin-top: 10vh;
 	}
 
 	/* tabs */

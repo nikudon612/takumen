@@ -293,7 +293,7 @@
 
 		.mobile-menu-close {
 			position: absolute;
-			top: 3rem;
+			top: 1.5rem;
 			right: 1.5rem;
 			background: none;
 			border: none;

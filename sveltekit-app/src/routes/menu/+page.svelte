@@ -326,6 +326,7 @@
 	}
 
 	@media (max-width: 768px) {
+		
 		.menu-container {
 			padding: 0rem 1rem;
 			height: 85vh;
