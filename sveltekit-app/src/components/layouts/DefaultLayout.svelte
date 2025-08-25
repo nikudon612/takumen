@@ -457,7 +457,7 @@
 	}
 
 	/* Landscape phones (short height) */
-	@media (orientation: landscape) {
+	@media (orientation: landscape) and (max-width: 835px) {
 		/* header height = 15% of the *safe* viewport height */
 		header.header {
 			height: 15svh;
