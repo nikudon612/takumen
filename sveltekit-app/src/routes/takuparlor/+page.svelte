@@ -8,49 +8,29 @@
 	export let data;
 	const { takuParlor } = data;
 
-	// Normalize to URLs
-	const images: string[] = (takuParlor?.heroImages ?? [])
-		.map((i) => i?.asset?.url ?? i?.url ?? '')
-		.filter(Boolean) as string[];
+	// 1) Normalize Sanity data to plain URLs
+	const urls: string[] = (takuParlor?.heroImages ?? [])
+		.map((i: any) => i?.asset?.url ?? i?.url ?? '')
+		.filter(Boolean);
 
-	const DISPLAY_MS = 3000;
-	const FADE_MS = 320;
+	// 2) Timings
+	const DISPLAY_MS = 3000; // time fully on screen
+	const FADE_MS = 320; // crossfade duration
 
-	// State
-	let currentSrc = '';
-	let nextIdx = 0;
-	let running = false;
+	// 3) State for two-image crossfade
+	let aSrc = '';
+	let bSrc = '';
+	let showA = true; // which layer is visible
+	let idx = 0; // index of the currently visible image
+	let timer: number | null = null;
 
-	// Background layers for the container
-	let bgUrl = ''; // previous full-res frame
-	let bgBlur = ''; // tiny blurred current (first paint safety)
-
-	// Ref to the single visible image
-	let heroEl: HTMLImageElement | null = null;
-
-	// Helpers
-	const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
-
-	function blurFor(url: string) {
-		if (!url) return '';
-		try {
-			const u = new URL(url);
-			u.searchParams.set('w', '32');
-			u.searchParams.set('blur', '50');
-			u.searchParams.set('auto', 'format');
-			return u.toString();
-		} catch {
-			return url;
-		}
-	}
-
-	function loadDecoded(src: string) {
-		return new Promise<void>((resolve) => {
+	// Helper: decode before use (prevents flashes)
+	function decodeSrc(src: string): Promise<void> {
+		return new Promise((resolve) => {
 			if (!src) return resolve();
 			const img = new Image();
 			img.decoding = 'async';
 			img.src = src;
-
 			const done = () => resolve();
 			if ('decode' in img) {
 				(img as any)
@@ -68,63 +48,59 @@
 		});
 	}
 
-	async function showFirstFrame() {
-		if (!images.length) return;
+	async function start() {
+		if (!urls.length) return;
 
-		currentSrc = images[0];
-		bgBlur = blurFor(currentSrc);
-		await loadDecoded(currentSrc);
+		// Seed first
+		aSrc = urls[0];
+		await decodeSrc(aSrc);
+		showA = true;
+		idx = 0;
 
-		// Paint first frame
-		await new Promise<void>((r) => requestAnimationFrame(() => r()));
-		if (heroEl) {
-			heroEl.src = currentSrc;
-			heroEl.style.transition = `opacity ${FADE_MS}ms ease`;
-			heroEl.style.opacity = '1';
-		}
+		if (urls.length === 1) return; // single image? we're done.
 
-		nextIdx = images.length > 1 ? 1 : 0;
+		// Preload the second into the hidden layer
+		const nextIdx = (idx + 1) % urls.length;
+		bSrc = urls[nextIdx];
+		await decodeSrc(bSrc);
+
+		// Kick off the loop using a single, self-scheduling timeout
+		scheduleNext();
 	}
 
-	async function loop() {
-		if (!running || images.length <= 1) return;
+	function scheduleNext() {
+		if (timer) clearTimeout(timer);
+		timer = window.setTimeout(async () => {
+			// Determine the incoming image (the one after current idx)
+			const incomingIdx = (idx + 1) % urls.length;
+			const incomingSrc = urls[incomingIdx];
 
-		while (running) {
-			const nextSrc = images[nextIdx];
+			// Ensure the incoming image is decoded before flipping
+			await decodeSrc(incomingSrc);
 
-			// Decode upcoming frame while current is on screen
-			await loadDecoded(nextSrc);
-
-			// Keep current as container background so there's never a gap
-			bgUrl = currentSrc || '';
-
-			if (heroEl) {
-				// Fade out → swap src → fade in
-				heroEl.style.opacity = '0';
-				await new Promise<void>((r) => requestAnimationFrame(() => r()));
-				heroEl.src = nextSrc;
-				await new Promise<void>((r) => requestAnimationFrame(() => r()));
-				heroEl.style.opacity = '1';
+			// Put decoded incoming on the hidden layer
+			if (showA) {
+				bSrc = incomingSrc;
+			} else {
+				aSrc = incomingSrc;
 			}
 
-			// Finish the fade, then hold displayed image
-			await sleep(FADE_MS);
-			currentSrc = nextSrc;
-			await sleep(DISPLAY_MS);
+			// Flip visibility (true crossfade)
+			showA = !showA;
 
-			// Advance pointer
-			nextIdx = (nextIdx + 1) % images.length;
-		}
+			// After the fade finishes, advance the pointer and schedule again
+			window.setTimeout(() => {
+				idx = incomingIdx;
+				scheduleNext(); // chain next cycle
+			}, FADE_MS);
+		}, DISPLAY_MS);
 	}
 
-	onMount(async () => {
-		running = true;
-		await showFirstFrame();
-		if (images.length > 1) void loop();
+	onMount(() => {
+		start();
 	});
-
 	onDestroy(() => {
-		running = false;
+		if (timer) clearTimeout(timer);
 	});
 </script>
 
@@ -133,17 +109,22 @@
 		<TakuParlor />
 	</div>
 
-	<div
-		class="menu-right"
-		style={`--bg-url: url("${bgUrl || ''}"); --blur-url: url("${bgBlur || ''}")`}
-	>
+	<div class="menu-right">
+		<!-- Two stacked slides; only one visible at a time -->
 		<img
-			bind:this={heroEl}
-			class="hero"
+			class="slide"
+			class:visible={showA}
+			src={aSrc}
 			alt="Taku Parlor slideshow image"
 			decoding="async"
-			loading="eager"
-			fetchpriority="high"
+			draggable="false"
+		/>
+		<img
+			class="slide"
+			class:visible={!showA}
+			src={bSrc}
+			alt="Taku Parlor slideshow image"
+			decoding="async"
 			draggable="false"
 		/>
 
@@ -184,6 +165,7 @@
 </section>
 
 <style>
+	/* SINGLE visible image */
 	/* SINGLE visible image */
 	.hero {
 		position: absolute;
