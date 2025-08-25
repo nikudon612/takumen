@@ -11,7 +11,11 @@
 		<div class="mobile-info">
 			<h2>RESERVATIONS</h2>
 			<p>
-				<a href="https://resy.com/cities/long-island-city-queens-ny/venues/takumen?date=2025-08-15&seats=2" target="_blank" rel="noopener noreferrer">RESERVE WITH RESY</a><br />
+				<a
+					href="https://resy.com/cities/long-island-city-queens-ny/venues/takumen?date=2025-08-15&seats=2"
+					target="_blank"
+					rel="noopener noreferrer">RESERVE WITH RESY</a
+				><br />
 				OR GIVE US A CALL <a href="tel:7183617973">718.361.7973</a>
 			</p>
 			<h2>LARGE GROUP RESERVATIONS,<br />CATERING & GENERAL INQUIRIES</h2>
@@ -25,7 +29,11 @@
 		<div class="reservation-info">
 			<h2>RESERVATIONS</h2>
 			<p>
-				<a href="https://resy.com/cities/long-island-city-queens-ny/venues/takumen?date=2025-08-15&seats=2" target="_blank" rel="noopener noreferrer">RESERVE WITH RESY</a><br />
+				<a
+					href="https://resy.com/cities/long-island-city-queens-ny/venues/takumen?date=2025-08-15&seats=2"
+					target="_blank"
+					rel="noopener noreferrer">RESERVE WITH RESY</a
+				><br />
 				OR GIVE US A CALL <a href="tel:7183617973">718.361.7973</a>
 			</p>
 		</div>
@@ -109,7 +117,7 @@
 	}
 
 	a:hover {
-		color: #FED314;
+		color: #fed314;
 		text-decoration: underline;
 	}
 
@@ -171,6 +179,45 @@
 			color: black;
 			text-decoration: underline;
 			margin: 0.5rem 0rem;
+		}
+	}
+
+	@media (orientation: landscape) and (max-width: 835px) {
+		.mobile-reservations {
+			display: flex;
+			flex-direction: row;
+			align-items: stretch;
+			width: 100%;
+			height: 100%;
+		}
+
+		.mobile-image,
+		.mobile-info {
+			flex: 1 1 50%;
+			height: 100%;
+		}
+
+		.mobile-image {
+			width: 100%;
+			height: 100%; /* container fills available height */
+			overflow: hidden; /* keep img neatly clipped */
+			max-height: none;
+		}
+
+		.mobile-image img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover; /* fill entire half, crop as needed */
+			display: block;
+			max-height: none;
+		}
+
+		.mobile-info {
+			padding: 1rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			background-color: #f26c5a;
 		}
 	}
 </style>

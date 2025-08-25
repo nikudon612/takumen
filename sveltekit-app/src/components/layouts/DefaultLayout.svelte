@@ -470,10 +470,5 @@
 			width: clamp(69px, 12svw, 74px);
 			height: auto;
 		}
-
-		/* keep slideshow from overlapping the header */
-		.slideshow {
-			min-height: calc(100svh - 15svh); /* = 85svh */
-		}
 	}
 </style>
