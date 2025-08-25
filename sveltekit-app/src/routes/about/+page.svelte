@@ -105,6 +105,10 @@
 		font-family: avenir-next-lt-pro-condensed, sans-serif;
 	}
 
+	.text-scroll h1 {
+		padding-top: 2rem;
+	}
+
 	a {
 		color: inherit;
 		text-decoration: underline;
@@ -151,6 +155,10 @@
 			height: auto; /* allow it to grow naturally */
 			overflow: visible; /* allow content to overflow */
 			padding-top: 10vh;
+		}
+
+		.text-scroll h1 {
+			padding-top: 0rem;
 		}
 
 		.left-image {
