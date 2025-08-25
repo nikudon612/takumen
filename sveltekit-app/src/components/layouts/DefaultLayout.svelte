@@ -456,12 +456,24 @@
 		display: block;
 	}
 
-	/* Mobile landscape: shrink logo to avoid overlap */
-	@media (orientation: landscape) and (max-width: 768px) {
-		.logo-link .header_logo {
-			display: block;
-			width: clamp(69px, 40vw, 74px); /* your smaller landscape size */
+	/* Landscape phones (short height) */
+	@media (orientation: landscape) {
+		/* header height = 15% of the *safe* viewport height */
+		header.header {
+			height: 15svh;
+			min-height: 15svh; /* guard against other rules */
+		}
+
+		/* landscape logo sizing (note: underscore selector) */
+		.logo-link .header_logo,
+		img.header_logo {
+			width: clamp(69px, 12svw, 74px);
 			height: auto;
+		}
+
+		/* keep slideshow from overlapping the header */
+		.slideshow {
+			min-height: calc(100svh - 15svh); /* = 85svh */
 		}
 	}
 </style>
