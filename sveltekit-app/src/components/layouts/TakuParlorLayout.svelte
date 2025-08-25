@@ -291,9 +291,10 @@
 
 		/* landscape logo sizing (note: underscore selector) */
 		.logo-link .header_logo,
-		img.header_logo {
-			width: clamp(69px, 12svw, 74px);
+		.header_content > a.logo-link .header_logo {
+			display: block;
 			height: auto;
+			width: clamp(60px, 12svw, 60px) !important; /* keep your 40% intent but with sane bounds */
 		}
 	}
 </style>

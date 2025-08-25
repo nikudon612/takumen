@@ -326,4 +326,10 @@
 			top: auto;
 		}
 	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		.menu-right {
+			height: 85dvh !important;
+		}
+	}
 </style>
