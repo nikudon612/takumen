@@ -208,7 +208,7 @@
 		/* container is already free to grow; don't set a fixed height */
 		.container {
 			width: 100%;
-            overflow: visible;
+			overflow: visible;
 			/* height: 100dvh; <-- remove this line if present */
 		}
 
@@ -376,5 +376,20 @@
 	}
 	.preview-toggle:hover span:last-child {
 		display: block;
+	}
+
+	@media (orientation: landscape) and (max-width: 835px) {
+		/* header height = 15% of the *safe* viewport height */
+		header.header {
+			height: 15svh;
+			min-height: 15svh; /* guard against other rules */
+		}
+
+		/* landscape logo sizing (note: underscore selector) */
+		.logo-link .header_logo,
+		img.header_logo {
+			width: clamp(69px, 12svw, 74px);
+			height: auto;
+		}
 	}
 </style>

@@ -347,4 +347,13 @@
 			color: #fed314;
 		}
 	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		.hours-info {
+			padding-top: 13vh;
+		}
+		.mobile-hours-image img {
+			max-height: 55vh;
+		}
+	}
 </style>
