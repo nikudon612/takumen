@@ -170,4 +170,13 @@
 			padding: 2rem;
 		}
 	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		.about_section {
+			padding-top: 13vh;
+		}
+		.left-image {
+			height: 100vh;
+		}
+	}
 </style>

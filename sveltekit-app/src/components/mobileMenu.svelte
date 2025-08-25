@@ -107,7 +107,7 @@
 		display: block;
 		width: 100%;
 		min-height: 100%;
-		/* allow scrolling naturally */
+		margin-top: 10vh;
 	}
 
 	/* tabs */
@@ -232,6 +232,13 @@
 	@media (min-width: 769px) {
 		.mobile-menu {
 			display: none;
+		}
+	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		.mobile-menu {
+			height: 100vh;
+			padding-top: 15vh;
 		}
 	}
 </style>

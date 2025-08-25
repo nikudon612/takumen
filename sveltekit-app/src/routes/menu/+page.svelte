@@ -326,6 +326,7 @@
 	}
 
 	@media (max-width: 768px) {
+		
 		.menu-container {
 			padding: 0rem 1rem;
 			height: 85vh;
@@ -353,6 +354,12 @@
 		}
 		.toggle {
 			font-size: 1.125rem;
+		}
+	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		.mobile-menu {
+			height: 100vh;
 		}
 	}
 </style>

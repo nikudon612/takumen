@@ -38,4 +38,10 @@
 		max-width: 300px;
 		height: auto;
 	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		.store-image {
+			max-width: 200px;
+		}
+	}
 </style>

@@ -262,7 +262,7 @@
 
 		.mobile-menu-close {
 			position: absolute;
-			top: 3rem;
+			top: 1.5rem;
 			right: 1.5rem;
 			background: none;
 			border: none;
@@ -279,6 +279,58 @@
 		} /* mobile */
 		.header_content {
 			padding-left: 1rem;
+		}
+	}
+
+	@media (orientation: landscape) and (max-width: 835px) {
+		/* header height = 15% of the *safe* viewport height */
+		header.header {
+			height: 15svh;
+			min-height: 15svh; /* guard against other rules */
+		}
+
+		/* landscape logo sizing (note: underscore selector) */
+		.logo-link .header_logo,
+		.header_content > a.logo-link .header_logo {
+			display: block;
+			height: auto;
+			width: clamp(60px, 12svw, 60px) !important; /* keep your 40% intent but with sane bounds */
+		}
+
+		/* Fill the visible viewport and allow scrolling if links overflow */
+		.mobile-menu-overlay {
+			height: 100svh;
+			width: 100vw;
+			padding-top: max(0px, env(safe-area-inset-top));
+			padding-right: max(0px, env(safe-area-inset-right));
+			padding-left: max(0px, env(safe-area-inset-left));
+			align-items: stretch; /* let content span full width */
+		}
+
+		.mobile-menu-content {
+			width: 100%;
+			max-width: 100%;
+			gap: 1rem;
+			overflow-y: auto; /* if many links, scroll instead of overflowing */
+		}
+
+		/* Link sizing based on short viewport height so it fits in landscape */
+		.mobile-nav-link {
+			display: block;
+			font-size: clamp(14px, 3.2svh, 18px);
+			line-height: 1.15;
+			padding-block: 0.4rem;
+			text-align: left; /* feels better on wide screens */
+		}
+
+		/* Perfect top-right close button with safe-area */
+		.mobile-menu-close {
+			position: absolute;
+			top: calc(0.75rem + env(safe-area-inset-top));
+			right: calc(0.75rem + env(safe-area-inset-right));
+			width: 28px; /* adjust to your asset */
+			height: 28px; /* keeps a square hit target */
+			z-index: 101;
 		}
 	}
 </style>
