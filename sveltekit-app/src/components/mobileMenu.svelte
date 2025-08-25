@@ -234,4 +234,11 @@
 			display: none;
 		}
 	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		.mobile-menu {
+			height: 100vh;
+			padding-top: 15vh;
+		}
+	}
 </style>

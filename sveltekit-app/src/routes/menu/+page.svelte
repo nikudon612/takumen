@@ -355,4 +355,10 @@
 			font-size: 1.125rem;
 		}
 	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		.mobile-menu {
+			height: 100vh;
+		}
+	}
 </style>
