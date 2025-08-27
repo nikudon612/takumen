@@ -353,7 +353,7 @@
 	.platform-row {
 		display: flex;
 		justify-content: center;
-		gap: 0.25rem !important;
+		gap: 0.75rem !important;
 		margin-bottom: 1rem;
 	}
 

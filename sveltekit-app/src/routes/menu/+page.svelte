@@ -298,7 +298,7 @@
 		overflow: hidden; /* prevent left col scroll unless needed */
 	}
 
-	/* Keep toggles fixed at top of left column */
+	/* Keep toggles fixed at top of column */
 	.toggle-group {
 		position: sticky;
 		top: 0;
