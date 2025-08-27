@@ -187,6 +187,7 @@
 		min-height: 78vh;
 		height: 100%;
 		padding: 0rem 3rem;
+		padding-top: 15vh;
 		transition: background-color 0.3s ease;
 	}
 
@@ -288,7 +289,7 @@
 
 	.order-left-column {
 		background: #789faf;
-		padding: 2rem 3rem;
+		padding: 1.5rem 3rem;
 		box-sizing: border-box;
 
 		display: grid;
@@ -305,6 +306,7 @@
 		width: 100%;
 		margin-bottom: 1rem;
 		padding: 0.5rem 0;
+		padding-top: 1.5rem;
 	}
 
 	/* Center the content inside its cell */
@@ -326,7 +328,6 @@
 	}
 
 	@media (max-width: 768px) {
-		
 		.menu-container {
 			padding: 0rem 1rem;
 			height: 85vh;
@@ -361,5 +362,10 @@
 		.mobile-menu {
 			height: 100vh;
 		}
+	}
+
+	/* override when order online is active */
+	.menu-container.order-layout .order-left-column .toggle-group {
+		padding-top: 0rem;
 	}
 </style>

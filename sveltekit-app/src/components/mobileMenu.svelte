@@ -27,11 +27,18 @@
 	onMount(() => {
 		isClient = true;
 		if (activeMenu === 'order') startOrderSlideshow();
+
+		updateIsMobile();
+		window.addEventListener('resize', updateIsMobile);
 	});
-	onDestroy(() => stopOrderSlideshow());
+	onDestroy(() => {
+		stopOrderSlideshow();
+		window.removeEventListener('resize', updateIsMobile);
+		if (typeof document !== 'undefined') document.body.style.overflow = '';
+	});
 
 	function startOrderSlideshow() {
-		if (!isClient) return; // SSR guard
+		if (!isClient) return;
 		if (orderTimer !== null) return;
 		if (orderImages.length > 1) {
 			orderTimer = window.setInterval(() => {
@@ -39,19 +46,16 @@
 			}, ORDER_INTERVAL_MS);
 		}
 	}
-
 	function stopOrderSlideshow() {
 		if (orderTimer !== null) {
 			clearInterval(orderTimer);
 			orderTimer = null;
 		}
 	}
-
 	$: if (isClient && activeMenu === 'order') startOrderSlideshow();
 	$: if (isClient && activeMenu !== 'order') stopOrderSlideshow();
 	$: if (activeMenu === 'order' && orderIndex >= orderImages.length) orderIndex = 0;
 
-	// single src for hero
 	let menuImage = '';
 	$: menuImage =
 		activeMenu === 'order'
@@ -63,9 +67,29 @@
 					: activeMenu === 'drink'
 						? (drinkImages[0] ?? '')
 						: '';
+
+	// --- NEW: mobile detection + body scroll lock for non-Order tabs ---
+	let isMobile = false;
+	function updateIsMobile() {
+		isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+	}
+	$: isStaticMenu = activeMenu !== 'order';
+
+	$: {
+		if (isClient && typeof document !== 'undefined') {
+			if (isMobile && activeMenu !== 'order') {
+				document.body.style.overflow = 'hidden';
+			} else {
+				document.body.style.overflow = '';
+			}
+		}
+	}
 </script>
 
-<section class="mobile-menu" style="--bg:{backgroundColors[activeMenu]}">
+<section
+	class="mobile-menu {isStaticMenu ? 'no-scroll' : ''}"
+	style="--bg:{backgroundColors[activeMenu]}"
+>
 	<!-- tabs -->
 	<nav class="tabs">
 		<button class:active={activeMenu === 'order'} on:click={() => (activeMenu = 'order')}
@@ -82,7 +106,6 @@
 		>
 	</nav>
 
-	<!-- was: <div class="hero {activeMenu !== 'order' ? 'padded' : ''}"> -->
 	<div
 		class="hero {activeMenu === 'order' ? 'is-order' : 'is-menu'} {activeMenu !== 'order'
 			? 'padded'
@@ -93,7 +116,6 @@
 		{/if}
 	</div>
 
-	<!-- blue order panel (only for Order tab) -->
 	{#if activeMenu === 'order'}
 		<div class="order-panel">
 			<OrderOnline {menuImage} {takeoutMenu} />
@@ -102,9 +124,11 @@
 </section>
 
 <style>
+	/* container */
 	.mobile-menu {
 		background: var(--bg);
-		display: block;
+		display: flex;
+		flex-direction: column;
 		width: 100%;
 		min-height: 100%;
 		margin-top: 10vh;
@@ -130,111 +154,103 @@
 	.tabs button.active {
 		color: #ffe356;
 	}
-
 	.tabs button:hover {
 		cursor: pointer;
 	}
 
-	/* add padding for non-order menus */
-	.hero.padded {
-		padding-left: 1rem;
-		padding-right: 1rem;
-		/* background-color: white; */
-	}
-
 	/* blue panel */
 	.order-panel {
-		background: #789faf; /* keep same blue */
+		background: #789faf;
 		color: #fff;
 		padding: 1rem 1.25rem 2.25rem;
 		text-align: center;
 	}
 
-	/* optional: tighten OrderOnline’s spacing on mobile without touching desktop component */
+	/* tighten OrderOnline’s spacing on mobile */
 	:global(.order-online-content) {
 		max-width: 26rem;
 		margin: 0 auto;
 	}
 
-	/* this component is only for mobile; hide above tablet if you mount both */
-	@media (min-width: 769px) {
-		.mobile-menu {
-			display: none;
-		}
-
-		/* Fixed-height image stage on mobile */
-		.hero {
-			height: 42.5dvh; /* uniform height for all tabs */
-			display: flex; /* center the image nicely */
-			align-items: center;
-			justify-content: center;
-			background: #fff;
-			/* keep your optional horizontal padding for non-order tabs */
-		}
-
-		/* Make the image scale to fit the 42.5vh stage without cropping */
-		.hero img {
-			width: 100%;
-			height: 100%;
-			object-fit: contain; /* shows the whole PNG/JPG, no cropping */
-			display: block;
-		}
-	}
-
-	/* Base */
+	/* Base hero */
 	.mobile-menu .hero {
 		width: 100%;
 		background: #fff;
 		box-sizing: border-box;
 	}
 
-	/* Order tab: lock to 42.5 view-height units */
+	/* Order tab hero */
 	.mobile-menu .hero.is-order {
-		height: 40vh; /* fallback */
-		height: 40dvh; /* dynamic VH for mobile browsers */
+		height: 40vh;
+		height: 40dvh;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		overflow: hidden;
 	}
-
 	@supports (height: 1svh) {
 		.mobile-menu .hero.is-order {
 			height: 42.5svh;
 		}
 	}
-
 	.mobile-menu .hero.is-order img {
 		width: 100%;
 		height: 100%;
-		object-fit: cover; /* or 'cover' if you want crop */
+		object-fit: cover;
 		display: block;
 	}
 
-	/* Lunch/Dinner/Drink: natural height, full width */
-
+	/* Lunch/Dinner/Drink hero */
 	.mobile-menu .hero.is-menu {
-		padding-inline: 1rem;
-	} /* <- the missing padding */
-
+		padding-inline: 1rem; /* ✅ 1rem padding left/right on mobile */
+	}
 	.mobile-menu .hero.is-menu img {
 		width: 100%;
-		height: auto; /* let the image define the height */
+		height: auto;
 		display: block;
 	}
 
-	/* keep your horizontal padding for non-order tabs */
+	/* keep horizontal padding utility */
 	.mobile-menu .hero.padded {
 		padding: 0 1rem !important;
 	}
 
-	/* keep this component mobile-only */
+	/* DESKTOP: hide this component */
 	@media (min-width: 769px) {
 		.mobile-menu {
 			display: none;
 		}
 	}
 
+	/* ---- MOBILE-ONLY NO-SCROLL BEHAVIOR ---- */
+	@media (max-width: 768px) {
+		.mobile-menu.no-scroll {
+			min-height: calc(100dvh - 10vh);
+			overflow: hidden;
+		}
+		.mobile-menu.no-scroll .hero.is-menu {
+			flex: 1 1 auto;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.mobile-menu.no-scroll .hero.is-menu img {
+			max-height: 100%;
+			width: 100%;
+			height: auto;
+			object-fit: contain;
+		}
+		.mobile-menu.no-scroll .tabs {
+			flex: 0 0 auto;
+		}
+	}
+
+	/* Order tab: adjust .toggle-group spacing */
+	.mobile-menu .order-panel :global(.toggle-group) {
+		padding-top: 0.5rem; /* ✅ only affects Order tab */
+	}
+
+	/* landscape helper */
 	@media (orientation: landscape) and (max-height: 500px) {
 		.mobile-menu {
 			height: 100vh;
