@@ -145,14 +145,26 @@
 		display: block;
 	}
 
+	/* Make the details column scrollable */
 	.artwork-details {
+		width: 50vw;
+		overflow: auto; /* enables scrolling in this pane only */
+		min-height: 0; /* prevents flexbox from forcing extra height */
+		scrollbar-gutter: stable; /* avoids layout shift when scrollbar appears */
+		/* optional: tiny right padding so text doesn't hit the scrollbar */
+		padding-right: 0.5rem;
+		font-family: 'futura', sans-serif;
+		color: #333;
+	}
+
+	/* .artwork-details {
 		width: 50vw;
 		flex: 1 1 500px;
 		color: black;
 		font-family: futura, sans-serif;
 		display: flex;
 		flex-direction: column;
-	}
+	} */
 
 	.artwork-details h3 {
 		font-weight: bold;
@@ -180,7 +192,7 @@
 	}
 
 	.artwork-details a {
-		color: black;
+		color: #333;
 		text-decoration: underline;
 		font-weight: 500;
 	}
@@ -225,7 +237,7 @@
 			flex-direction: column;
 			align-items: center;
 			background-color: #83a77d;
-			color: black;
+			color: #333;
 			font-family: avenir-next-lt-pro-condensed, sans-serif;
 		}
 
@@ -260,7 +272,7 @@
 		}
 
 		.artwork-mobile-details a {
-			color: black;
+			color: #333;
 			text-decoration: underline;
 			font-weight: 500;
 		}
