@@ -176,6 +176,10 @@
 		margin-bottom: 1rem;
 	}
 
+	.order-left p {
+		font-size: 1.5rem;
+	}
+
 	.takeout-link {
 		display: block;
 		font-size: 1.25rem;
@@ -449,5 +453,11 @@
 			max-width: clamp(80px, 7.5vw, 110px);
 		}
 		/* Hover effect: turn delivery logos yellow */
+	}
+
+	@media screen and (max-width: 957px) {
+		.order-left p {
+			font-size: 1rem;
+		}
 	}
 </style>
