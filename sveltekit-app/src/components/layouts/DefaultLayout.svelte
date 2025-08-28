@@ -122,9 +122,31 @@
 						href="https://www.instagram.com/takumenlic/"
 						target="_blank"
 						rel="noopener noreferrer"
-						class="footer_a"
+						class="footer_a insta-link"
 					>
-						<img src={insta} alt="Instagram" />
+						<svg class="insta-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+							<path
+								d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9 
+               114.9-51.3 114.9-114.9S287.7 141 224.1 141zm0 189.6c-41.2 
+               0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 
+               74.7 33.5 74.7 74.7-33.5 74.7-74.7 74.7zm146.4-194.3c0 
+               14.9-12 26.9-26.9 26.9-14.9 0-26.9-12-26.9-26.9 
+               0-14.9 12-26.9 26.9-26.9 14.9 0 26.9 12 26.9 26.9zm76.1 
+               27.2c-1.7-35.7-9.9-67.3-36.2-93.5s-57.8-34.5-93.5-36.2c-36.9-2.1-147.6-2.1-184.5 
+               0-35.7 1.7-67.3 9.9-93.5 36.2s-34.5 57.8-36.2 
+               93.5c-2.1 36.9-2.1 147.6 0 184.5 1.7 35.7 9.9 67.3 
+               36.2 93.5s57.8 34.5 93.5 36.2c36.9 2.1 147.6 
+               2.1 184.5 0 35.7-1.7 67.3-9.9 93.5-36.2s34.5-57.8 
+               36.2-93.5c2.1-36.9 2.1-147.6 0-184.5zM398.8 
+               388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 
+               11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 
+               9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 
+               29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 
+               7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 
+               9 132.1s2.7 102.7-9 132.1z"
+							/>
+						</svg>
+						<!-- <img src={insta} alt="Instagram" /> -->
 					</a>
 				</div>
 			</div>
@@ -245,8 +267,28 @@
 	}
 
 	.footer_link {
-		color: #333;
+		color: #dadada;
 		text-decoration: none;
+		font-size: 0.85rem;
+	}
+
+	.footer_link:hover {
+		color: #fed134;
+	}
+
+	.insta-icon {
+		width: 18px;
+		height: 18px;
+		margin: 0;
+		padding: 0;
+	}
+
+	.insta-icon path {
+		fill: #dadada;
+		transition: fill 0.25s ease;
+	}
+	.insta-link:hover .insta-icon path {
+		fill: #fed134;
 	}
 
 	.footer_label {
@@ -271,7 +313,7 @@
 		right: 0;
 		bottom: 0;
 		z-index: 99; /* above slideshow */
-		padding: 2rem 3rem;
+		padding: 1rem 1.5rem;
 		max-width: 100vw;
 	}
 
