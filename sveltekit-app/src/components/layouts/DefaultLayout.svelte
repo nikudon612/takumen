@@ -245,8 +245,20 @@
 	}
 
 	.footer_link {
-		color: #333;
+		color: #dadada;
 		text-decoration: none;
+		font-size: 0.85rem;
+	}
+
+	.footer_link:hover {
+		color: #fed134;
+	}
+
+	.footer img {
+		color: #dadada;
+	}
+
+	.footer img:hover {
 	}
 
 	.footer_label {
@@ -271,7 +283,7 @@
 		right: 0;
 		bottom: 0;
 		z-index: 99; /* above slideshow */
-		padding: 2rem 3rem;
+		padding: 1rem 1.5rem;
 		max-width: 100vw;
 	}
 
