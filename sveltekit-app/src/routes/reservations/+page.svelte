@@ -54,6 +54,7 @@
 </section>
 
 <style>
+	/* --- Default (Desktop) --- */
 	.mobile-reservations {
 		display: none;
 	}
@@ -121,22 +122,24 @@
 		text-decoration: underline;
 	}
 
+	/* ✅ True Mobile Layout (≤768px) */
 	@media (max-width: 768px) {
+		.reservations-container {
+			display: none !important;
+		}
+
+		.mobile-reservations {
+			display: flex !important;
+			flex-direction: column;
+			width: 100%;
+			height: 100%;
+		}
+
 		.reservations-section {
 			justify-content: flex-start;
 			overflow: visible;
 			height: 90svh;
 			padding-top: 10vh;
-		}
-		.reservations-container {
-			display: none;
-		}
-
-		.mobile-reservations {
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-			height: 100%;
 		}
 
 		.mobile-image img {
@@ -182,9 +185,25 @@
 		}
 	}
 
-	@media (orientation: landscape) and (max-width: 835px) {
+	@media (min-width: 802px) and (max-width: 835px) {
 		.mobile-reservations {
-			display: flex;
+			display: none !important;
+		}
+	}
+
+	/* 🧱 Guard Band (769–835px): Desktop Only */
+	@media (min-width: 769px) and (max-width: 835px) {
+		.mobile-reservations {
+			display: none !important;
+		}
+		.reservations-container {
+			display: flex !important;
+		}
+	}
+
+	/* 📐 Landscape Mobile Styling (≤768px) */
+	@media (orientation: landscape) and (max-width: 768px) {
+		.mobile-reservations {
 			flex-direction: row;
 			align-items: stretch;
 			width: 100%;
@@ -199,15 +218,15 @@
 
 		.mobile-image {
 			width: 100%;
-			height: 100%; /* container fills available height */
-			overflow: hidden; /* keep img neatly clipped */
+			height: 100%;
+			overflow: hidden;
 			max-height: none;
 		}
 
 		.mobile-image img {
 			width: 100%;
 			height: 100%;
-			object-fit: cover; /* fill entire half, crop as needed */
+			object-fit: cover;
 			display: block;
 			max-height: none;
 		}
@@ -218,6 +237,7 @@
 			flex-direction: column;
 			justify-content: center;
 			background-color: #f26c5a;
+			height: 100%;
 		}
 	}
 </style>
