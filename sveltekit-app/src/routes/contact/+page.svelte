@@ -266,7 +266,7 @@
 		font-weight: bold;
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 1275px) {
 		.hours-info {
 			overflow: visible; /* allow the page to scroll */
 			height: auto;
@@ -356,4 +356,5 @@
 			max-height: 55vh;
 		}
 	}
+	
 </style>
