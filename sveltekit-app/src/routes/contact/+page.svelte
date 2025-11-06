@@ -268,19 +268,26 @@
 
 	@media (max-width: 1275px) {
 		.hours-info {
-			overflow: visible; /* allow the page to scroll */
-			height: auto;
-			padding-top: 10vh;
+			overflow-y: auto; /* enable vertical scroll */
+			/* DO NOT change height — keep your 85vh from desktop */
+			padding-top: 15vh;
+
+			/* hide scrollbar (all major browsers) */
+			scrollbar-width: none; /* Firefox */
+			-ms-overflow-style: none; /* IE/old Edge */
 		}
+		.hours-info::-webkit-scrollbar {
+			display: none;
+		} /* Chrome/Safari/Opera */
+
+		/* keep your existing rules below exactly as they are */
 		.content-container {
 			display: none;
 		}
-
 		.mobile-hours-info {
 			display: flex;
 			flex-direction: column;
 			width: 100%;
-			/* height: 85dvh; */
 			overflow: hidden;
 		}
 
@@ -346,6 +353,13 @@
 		.mobile-hours-text .subscribe-btn:hover {
 			color: #fed314;
 		}
+
+		/* match widths exactly (half the screen) */
+		.newsletter-input,
+		.subscribe-btn {
+			width: 50vw !important; /* force both to half of viewport width */
+			box-sizing: border-box; /* ensures consistent sizing */
+		}
 	}
 
 	@media (orientation: landscape) and (max-height: 500px) {
@@ -356,5 +370,4 @@
 			max-height: 55vh;
 		}
 	}
-	
 </style>
