@@ -410,49 +410,57 @@
 	/* Desktop: keep logos on ONE line, but ALWAYS fit inside the left panel */
 	@media screen and (min-width: 769px) {
 		.platform-logos {
-			/* center the whole strip and keep it inside the column */
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			flex-direction: row;
 			width: 100%;
 			max-width: 100%;
-			padding-inline: 1.25rem; /* small gutters so nothing kisses the edge */
+			padding-inline: 1.25rem;
 			box-sizing: border-box;
-			overflow: hidden; /* hard stop: nothing can spill under the image */
+			overflow: visible; /* allow slight breathing room instead of hiding */
 		}
 
 		.platform-row {
-			/* one row, but sized by the column—not the viewport */
 			display: flex;
-			flex-wrap: nowrap; /* one line */
+			flex-wrap: nowrap; /* force one single line */
 			justify-content: center;
 			align-items: center;
-			gap: 1rem;
-			width: 100%; /* fit the column width, not auto */
+			gap: 0.75rem; /* tighten gaps slightly */
+			width: 100%;
 			max-width: 100%;
-			min-width: 0; /* allow shrinking instead of overflow */
+			min-width: 0; /* allow shrinking */
 		}
 
-		/* All logos scale down if space is tight so the row never overflows */
+		.logo-item {
+			flex: 1 1 auto;
+			line-height: 0;
+		}
+
+		/* Auto-shrink so the full row fits smaller laptop widths */
 		.platform-logos .logo-item img,
 		.platform-logos .logo-item svg,
 		.platform-logos .platform-icon {
-			height: clamp(20px, 2.2vw, 28px); /* responsive height tied to column size */
+			height: clamp(16px, 1.5vw, 26px); /* smaller responsive scaling */
 			width: auto;
-			max-width: 100%;
 			object-fit: contain;
 			display: block;
-			max-width: 85px; /* prevent wide logos (Uber Eats) from dominating */
-			min-width: 50px; /* allow shrinking instead of overflow */
+			max-width: 70px; /* was 85px — shrink a touch */
+			min-width: 40px;
 		}
 
-		/* Uber Eats is wide—cap it so the strip fits */
+		/* Uber Eats (wide logo) — cap more tightly */
 		.platform-logos a[href*='ubereats'] img,
 		.platform-logos a[href*='ubereats'] .platform-icon {
-			max-width: clamp(80px, 7.5vw, 110px);
+			max-width: clamp(60px, 6vw, 95px);
 		}
-		/* Hover effect: turn delivery logos yellow */
+
+		/* Optional: if you ever see even slight cropping, reduce the side padding */
+		@media (max-width: 1100px) {
+			.platform-logos {
+				padding-inline: 0.5rem;
+			}
+		}
 	}
 
 	@media screen and (max-width: 957px) {
