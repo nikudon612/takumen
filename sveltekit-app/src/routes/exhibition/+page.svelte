@@ -106,17 +106,18 @@
 		text-decoration: underline !important;
 		color: #fed314 !important;
 	}
+
 	.artwork-section {
 		background-color: #83a77d;
-		height: 100dvh;
+		height: 100svh; /* dynamic viewport for consistency */
 		box-sizing: border-box;
-		overflow: hidden; /* ensures nothing spills out */
+		overflow: hidden;
 		padding-top: 15vh;
 	}
 
 	.artwork-container {
 		display: flex;
-		height: 100%;
+		height: calc(100svh - 15vh); /* ensure scrollable area fits viewport */
 		width: 100%;
 		gap: 2rem;
 		align-items: flex-start;
@@ -124,6 +125,7 @@
 		box-sizing: border-box;
 		overflow: hidden;
 		padding: 3rem;
+		min-height: 0; /* allow children to shrink */
 	}
 
 	.artwork-image {
@@ -134,6 +136,7 @@
 		justify-content: center;
 		overflow: hidden;
 		box-sizing: border-box;
+		min-height: 0; /* important for flex scroll fix */
 	}
 
 	.artwork-image img {
@@ -145,31 +148,31 @@
 		display: block;
 	}
 
-	/* Make the details column scrollable */
+	/* --- Scrollable Details Column (Scrollbar Hidden) --- */
 	.artwork-details {
 		width: 50vw;
-		overflow: auto; /* enables scrolling in this pane only */
-		min-height: 0; /* prevents flexbox from forcing extra height */
-		scrollbar-gutter: stable; /* avoids layout shift when scrollbar appears */
-		/* optional: tiny right padding so text doesn't hit the scrollbar */
-		padding-right: 0.5rem;
+		height: 100%;
+		max-height: 100%;
+		overflow-y: auto; /* scrolls independently */
+		min-height: 0;
+		scrollbar-gutter: stable;
+		padding-right: 0.75rem;
 		font-family: 'futura', sans-serif;
 		color: #333;
+		overscroll-behavior: contain;
+		box-sizing: border-box;
+		scrollbar-width: none; /* Firefox - hide scrollbar */
+		-ms-overflow-style: none; /* IE/Edge - hide scrollbar */
 	}
 
-	/* .artwork-details {
-		width: 50vw;
-		flex: 1 1 500px;
-		color: black;
-		font-family: futura, sans-serif;
-		display: flex;
-		flex-direction: column;
-	} */
+	/* Hide scrollbar for Chrome, Safari, and Opera */
+	.artwork-details::-webkit-scrollbar {
+		display: none;
+	}
 
 	.artwork-details h3 {
 		font-weight: bold;
 		font-size: 2.125rem;
-		/* margin-bottom: 10px; */
 		color: #ffffff;
 	}
 
@@ -182,7 +185,6 @@
 	.artwork-details p {
 		font-size: 1rem;
 		line-height: 1.6;
-		/* margin-bottom: 16px; */
 		margin: 0.5rem 0;
 		font-family: avenir-next-lt-pro-condensed, sans-serif;
 	}
@@ -203,31 +205,51 @@
 	}
 
 	.divider {
-		/* allow asterisks to break onto the next line */
-		overflow-wrap: break-word; /* modern */
-		word-break: break-all; /* old-school fallback */
+		overflow-wrap: break-word;
+		word-break: break-all;
 		font-family: monospace;
 		margin: 1rem 0;
 		text-align: left;
 	}
 
-	/* Mobile only structure - hidden on desktop */
+	/* Mobile layout hidden by default */
 	.artwork-mobile {
 		display: none;
 	}
 
-	/* Hide desktop layout on mobile */
+	/* --- Responsive Tweaks for Smaller Desktops --- */
+	@media (min-width: 769px) and (max-width: 1100px) {
+		.artwork-container {
+			padding: 1.5rem 2rem;
+			gap: 1.25rem;
+		}
+
+		.artwork-details h3 {
+			font-size: 1.75rem;
+		}
+
+		.artwork-details h2 {
+			font-size: 1rem;
+		}
+
+		.artwork-details p {
+			font-size: 0.95rem;
+		}
+	}
+
+	/* --- Mobile Layout --- */
 	@media (max-width: 768px) {
 		.artwork-section {
 			padding: 0rem 1rem 1.75rem 1rem;
-			height: auto !important; /* Allow height to adjust based on content */
-			overflow: visible; /* Allow content to overflow */
+			height: auto !important;
+			overflow: visible;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
 			padding-top: 10vh;
 		}
+
 		.artwork-container {
 			display: none !important;
 		}
