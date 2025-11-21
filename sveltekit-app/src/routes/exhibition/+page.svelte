@@ -3,7 +3,6 @@
 
 	export let data;
 	const exhibition = data.exhibition;
-	console.log('Exhibition data:', exhibition);
 
 	// Image
 	$: imageUrl = exhibition.heroImage?.url;
