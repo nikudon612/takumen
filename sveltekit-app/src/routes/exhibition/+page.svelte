@@ -16,9 +16,9 @@
 		<!-- Right: Text Content -->
 		<div class="artwork-details">
 			<h3>ART WORK</h3>
-			<h2>TAKUMEN NEW YORK PRESENTS EXHIBITION VOL.20</h2>
+			<h2>TAKUMEN NEW YORK PRESENTS EXHIBITION VOL.21</h2>
 			<p><strong>By <a href="#">Sloppy Monsta</a></strong></p>
-			<p>Starting from May 4th, 2025</p>
+			<p>Starting from Nov 10th, 2025</p>
 			<p>
 				Sloppy Monsta is a little creature who lives all around you – in the corners of your room,
 				along the sidewalk of your block, or quietly passing by on the train. If you slow down and
