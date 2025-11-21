@@ -89,3 +89,22 @@ export const takuParlorQuery = groq`*[_type == "takuParlorPage"][0]{
   },
   "printMenuUrl": printMenu.asset->url
 }`;
+
+export const currentExhibitionQuery = groq`
+  *[_type == "exhibition" && isCurrent == true][0]{
+    title,
+    exhibitionNumber,
+    artistName,
+    startDate,
+    endDate,
+    description,
+    instagram,
+    website,
+    contactEmail,
+    heroImage{
+      alt,
+      "url": asset->url
+    },
+    slug
+  }
+`;
