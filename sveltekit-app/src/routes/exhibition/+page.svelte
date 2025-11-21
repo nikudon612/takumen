@@ -1,5 +1,49 @@
-<script>
-	import image from '../../lib/assets/art.jpg';
+<script lang="ts">
+	import { PortableText } from '@portabletext/svelte';
+
+	export let data;
+	const exhibition = data.exhibition;
+
+	// Image
+	$: imageUrl = exhibition.heroImage?.url;
+
+	// Format date helper (you already have this)
+	function formatDate(dateStr: string | null) {
+		if (!dateStr) return '';
+		const date = new Date(dateStr);
+		return date.toLocaleDateString('en-US', {
+			month: 'short',
+			day: 'numeric',
+			year: 'numeric'
+		});
+	}
+
+	// Computed:
+	$: start = formatDate(exhibition.startDate);
+	$: end = exhibition.endDate ? formatDate(exhibition.endDate) : null;
+
+	// Final display string:
+	$: dateRange = end ? `${start} - ${end}` : start;
+
+	// Instagram formatting
+	function getInstagramHref(value?: string | null) {
+		if (!value) return null;
+		if (value.startsWith('http')) return value;
+		return `https://www.instagram.com/${value.replace('@', '')}`;
+	}
+	function getInstagramLabel(value?: string | null) {
+		if (!value) return null;
+		return value.startsWith('@') ? value : `@${value}`;
+	}
+
+	$: instagramHref = getInstagramHref(exhibition.instagram);
+	$: instagramLabel = getInstagramLabel(exhibition.instagram);
+
+	// Website (may be null)
+	$: websiteHref = exhibition.website;
+
+	// Email
+	$: email = exhibition.contactEmail || 'info@takumenlic.com';
 </script>
 
 <svelte:head>
@@ -10,92 +54,123 @@
 	<div class="artwork-container">
 		<!-- Left: Image -->
 		<div class="artwork-image">
-			<img src={image} alt="Sloppy Monsta flyer" />
+			{#if imageUrl}
+				<img src={imageUrl} alt={exhibition.heroImage?.alt || 'Exhibition flyer'} />
+			{/if}
 		</div>
 
 		<!-- Right: Text Content -->
 		<div class="artwork-details">
 			<h3>ART WORK</h3>
-			<h2>TAKUMEN NEW YORK PRESENTS EXHIBITION VOL.20</h2>
-			<p><strong>By <a href="#">Sloppy Monsta</a></strong></p>
-			<p>Starting from May 4th, 2025</p>
+
+			<h2>{exhibition.title}</h2>
+
 			<p>
-				Sloppy Monsta is a little creature who lives all around you – in the corners of your room,
-				along the sidewalk of your block, or quietly passing by on the train. If you slow down and
-				look closely, and believe just a little, you might just catch a glimpse of him.
+				<strong>
+					By
+					{#if instagramHref}
+						<a href={instagramHref} target="_blank" rel="noopener noreferrer">
+							{exhibition.artistName}
+						</a>
+					{:else}
+						{exhibition.artistName}
+					{/if}
+				</strong>
 			</p>
+
+			{#if dateRange}
+				<p>Exhibition dates: {dateRange}</p>
+			{/if}
+
+			<!-- Portable Text description -->
+			{#if exhibition.description}
+				<div>
+					<PortableText value={exhibition.description} />
+				</div>
+			{/if}
+
 			<p>
-				He loves a bit of harmless mischief, but his heart is kind and full of good intentions. In
-				his own silly, clumsy way, Sloppy Monsta always tries his best to be helpful, leaving little
-				bits of joy and unexpected smiles wherever he wanders.
-			</p>
-			<p>
-				instagram : <a
-					href="https://www.instagram.com/sloppymonsta/"
-					target="_blank"
-					rel="noopener noreferrer">@sloppymonsta</a
-				><br />
-				website :
-				<a href="https://sloppymonsta.bigcartel.com" target="_blank" rel="noopener noreferrer"
-					>sloppymonsta.bigcartel.com</a
-				>
+				{#if instagramHref}
+					instagram :
+					<a href={instagramHref} target="_blank" rel="noopener noreferrer">
+						{instagramLabel}
+					</a>
+					<br />
+				{/if}
+
+				{#if websiteHref}
+					website :
+					<a href={websiteHref} target="_blank" rel="noopener noreferrer">
+						{websiteHref.replace(/^https?:\/\//, '')}
+					</a>
+				{/if}
 			</p>
 
 			<p class="divider">**************************************************</p>
 
 			<p>
 				For inquiries regarding artworks, please contact us,<br />
-				<a href="mailto:info@takumenlic.com" class="highlight">INFO@TAKUMENLIC.COM</a>
+				<a href={`mailto:${email}`} class="highlight">{email.toUpperCase()}</a>
 			</p>
 		</div>
 	</div>
+
+	<!-- MOBILE VERSION -->
 	<div class="artwork-mobile">
 		<h3>ART WORK</h3>
 
 		<div class="artwork-mobile-image">
-			<img src={image} alt="Sloppy Monsta flyer" />
+			{#if imageUrl}
+				<img src={imageUrl} alt={exhibition.heroImage?.alt || 'Exhibition flyer'} />
+			{/if}
 		</div>
 
 		<div class="artwork-mobile-details">
-			<h2>TAKUMEN NEW YORK PRESENTS EXHIBITION VOL.20</h2>
-			<p>
-				<strong
-					>By <a
-						href="https://www.instagram.com/sloppymonsta/"
-						target="_blank"
-						rel="noopener noreferrer">Sloppy Monsta</a
-					></strong
-				>
-			</p>
-			<p>Starting from May 4th, 2025</p>
-			<p>
-				Sloppy Monsta is a little creature who lives all around you – in the corners of your room,
-				along the sidewalk of your block, or quietly passing by on the train. If you slow down and
-				look closely, and believe just a little, you might just catch a glimpse of him.
-			</p>
-			<p>
-				He loves a bit of harmless mischief, but his heart is kind and full of good intentions. In
-				his own silly, clumsy way, Sloppy Monsta always tries his best to be helpful, leaving little
-				bits of joy and unexpected smiles wherever he wanders.
-			</p>
+			<h2>{exhibition.title}</h2>
 
 			<p>
-				instagram : <a
-					href="https://www.instagram.com/sloppymonsta/"
-					target="_blank"
-					rel="noopener noreferrer">@sloppymonsta</a
-				><br />
-				website :
-				<a href="https://sloppymonsta.bigcartel.com" target="_blank" rel="noopener noreferrer"
-					>sloppymonsta.bigcartel.com</a
-				>
+				<strong>
+					By
+					{#if instagramHref}
+						<a href={instagramHref} target="_blank" rel="noopener noreferrer">
+							{exhibition.artistName}
+						</a>
+					{:else}
+						{exhibition.artistName}
+					{/if}
+				</strong>
 			</p>
 
-			<!-- <p class="divider">**************************************************</p> -->
+			{#if dateRange}
+				<p>Exhibition dates: {dateRange}</p>
+			{/if}
+
+			{#if exhibition.description}
+				<div>
+					<PortableText value={exhibition.description} />
+				</div>
+			{/if}
+
+			<p>
+				{#if instagramHref}
+					instagram :
+					<a href={instagramHref} target="_blank" rel="noopener noreferrer">
+						{instagramLabel}
+					</a>
+					<br />
+				{/if}
+
+				{#if websiteHref}
+					website :
+					<a href={websiteHref} target="_blank" rel="noopener noreferrer">
+						{websiteHref.replace(/^https?:\/\//, '')}
+					</a>
+				{/if}
+			</p>
 
 			<p>
 				For inquiries regarding artworks, please contact us,<br />
-				<a href="mailto:info@takumenlic.com" class="highlight">INFO@TAKUMENLIC.COM</a>
+				<a href={`mailto:${email}`} class="highlight">{email.toUpperCase()}</a>
 			</p>
 		</div>
 	</div>
