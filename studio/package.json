@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "sanity dev",
     "start": "sanity start",
-    "build": "sanity build",
+    "build": "sanity build --no-auto-updates -y",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy"
   },
