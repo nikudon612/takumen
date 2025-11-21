@@ -57,6 +57,20 @@
 	});
 </script>
 
+<svelte:head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FEEMXDCFN3"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+
+		gtag('config', 'G-FEEMXDCFN3');
+	</script>
+</svelte:head>
+
 <!-- Curtain -->
 <div class="curtain" class:show={showCurtain} data-phase={curtainPhase} aria-hidden="true" />
 
